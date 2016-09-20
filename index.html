@@ -5,28 +5,103 @@
     <title>A-frame webapp</title>
     <meta name="description" content="Hello, World! - A-Frame">
      <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
+     <script src"js/script.js"></script>
+     <script src="js/components/raycaster.js"></script>
+      <script src="js/components/cursor-listener.js"></script>
   </head>
   <body>
+      
+    
     <a-scene>
 
         <a-assets>
         <img id="curvedimg" src="randomimage.jpg">
-        
+        <video id="vid" autoplay="false" controls="true"  src="randomvideo.mp4">
+        <img id="play" src="play.jpg">
+        <img id="pause" src="pause.jpg">
         </a-assets>
         
-        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4">
-            <a-animation attribute="rotation" begin="click" repeat="indefinite" to="0 360 0"></a-animation>
-        </a-plane>
+
+            
+        <a-entity id="player" collider-check>
+        <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
+        </a-entity>
+            
+        <a-entity id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play">
+            <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+            <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+        </a-entity>    
+            
+        <a-entity id="pausebox" onclick="pauseVid()" class="clickable" geometry="primitive: box" position="2 0 0" material="src:#pause; opacity: 0" >
+             <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+             <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>    
+        </a-entity>  
+      
+        <a-video class="collidable" src="#vid" width="26" height="19" position="0 5 -20"></a-video>
+        <!--<a-curvedimage src="#curvedimg" height="3.0" radius="5.7" theta-length="72"
+                 rotation="0 100 0" scale="0.8 0.8 0.8"></a-curvedimage>-->
+  
+           <!-- 
+        <a-entity camera>
+            <a-entity cursor="fuse: true; fuseTimeout: 500"
+                    raycaster="far: 20; interval: 1000; objects: .clickable"
+                    position="0 0 -1"
+                    geometry="primitive: ring"
+                    material="color: black; shader: flat">
+                <a-animation begin="click" easing="ease-in" attribute="scale"
+                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+                <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                   fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+            </a-entity>
+        </a-entity>
+            
+        <a-entity id="box" cursor-listener geometry="primitive: box" material="color: blue"></a-entity>
+        -->
+            
+        <a-entity position="0 2.2 4">
+            <a-entity camera look-controls wasd-controls>
+              <a-entity position="0 0 -3"
+                        geometry="primitive: ring; radiusOuter: 0.09;
+                                  radiusInner: 0.07;"
+                        material="color: gray; shader: flat"
+                        cursor="maxDistance: 30; fuse: true; fuseTimeout: 500" >
+                <a-animation begin="click" easing="ease-in" attribute="scale"
+                     fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+                <a-animation begin="fusing" easing="ease-in" attribute="scale"
+                     fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+              </a-entity>
+            </a-entity>
+        </a-entity>
         
-        <a-curvedimage src="#curvedimage" height="3.0" radius="5.7" theta-length="72"
-                 rotation="0 100 0" scale="0.8 0.8 0.8"></a-curvedimage>
-        
-        
-        <a-camera position="0 1.8 0">
-        <a-cursor color="#2E3A87"></a-cursor>
-        </a-camera>
-        
-      <a-sky color="#ECECEC"></a-sky>
+        <a-sky color="#ECECEC"></a-sky>
+   
+            
+            
+    
+            
     </a-scene>
+        
+        <script>
+        
+        var vid = document.getElementById("vid");
+        var playbox = document.querySelector("#playbox");
+        var pausebox = document.querySelector("#pausebox");
+
+        function playVid() {
+            vid.play();
+            pausebox.emit('fade');
+            document.querySelector('#playbox').emit('fade');
+            document.querySelector('#pausebox').emit('unfade');
+            console.log("play it");
+        }
+
+        function pauseVid() {
+            vid.pause();
+            document.querySelector('#playbox').emit('unfade');
+            document.querySelector('#pausebox').emit('fade');
+            console.log("pause it");
+        } 
+            
+        </script>
   </body>
 </html>
