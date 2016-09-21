@@ -27,9 +27,7 @@
         <video id="vid" autoplay="false" controls="true"  src="randomvideo.mp4" >
         <img id="play" src="play.jpg">
         <img id="pause" src="pause.jpg">
-        <a-asset-item id="discoball" src="disco-ball-pbribl-dae/disco-ball-pbribl.dae"></a-asset-item>
-        <a-asset-item id="lamboObj" src="lamborghini-aventador-irridescent-paint-obj/lamborghini-aventador-irridescent-paint.obj"></a-asset-item>
-        <a-asset-item id="lamboMtl" src="lamborghini-aventador-irridescent-paint-obj/lamborghini-aventador-irridescent-paint.mtl"></a-asset-item>
+      
         </a-assets>
         
         
@@ -50,8 +48,7 @@
           <a-box></a-box>
         </a-entity>
             
-        <a-entity position="5 5 0" collada-model="#discoball"></a-entity>
-        <a-entity position="5 0 5" obj-model="obj: #lamboObj; mtl: #lamboMtl"></a-entity>
+  
             
         <a-sky></a-sky>
             
@@ -115,7 +112,7 @@
         
             
         <a-entity position="0 2.2 4">
-            <a-entity id="camera" camera look-controls wasd-controls   >
+            <a-entity id="camera" camera look-controls wasd-controls hmd-controls   >
               <a-entity position="0 0 -3"
                         geometry="primitive: ring; radiusOuter: 0.09;
                                   radiusInner: 0.07;"
