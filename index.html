@@ -11,9 +11,11 @@
       <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
       <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
       <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
+   
      <script src"js/script.js"></script>
      <script src="js/components/raycaster.js"></script>
       <script src="js/components/cursor-listener.js"></script>
+       <script src="js/components/set-sky.js"></script>
   </head>
   <body>
       
@@ -25,26 +27,42 @@
         <video id="vid" autoplay="false" controls="true"  src="randomvideo.mp4" >
         <img id="play" src="play.jpg">
         <img id="pause" src="pause.jpg">
+        <a-asset-item id="discoball" src="disco-ball-pbribl-dae/disco-ball-pbribl.dae"></a-asset-item>
+        <a-asset-item id="lamboObj" src="lamborghini-aventador-irridescent-paint-obj/lamborghini-aventador-irridescent-paint.obj"></a-asset-item>
+        <a-asset-item id="lamboMtl" src="lamborghini-aventador-irridescent-paint-obj/lamborghini-aventador-irridescent-paint.mtl"></a-asset-item>
         </a-assets>
         
-        <a-sun-sky></a-sun-sky>
+        
         <a-grid height="500" width="500" position="0 -15 0"> </a-grid>
             
         <a-entity id="player" collider-check>
         <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
         </a-entity>
             
-        <a-entity id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play"  event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
+        <a-entity set-sky="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg" id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play"  event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
             <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
             <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
         </a-entity>
             
-        <a-entity layout="type: line; margin: 2" position="0 15 -5" look-at="[camera]" >
+        <a-entity layout="type: line; margin: 2" position="0 15 -5" look-at="[camera]" selectable >
           <a-box material="src: #play"></a-box>
           <a-box></a-box>
           <a-box></a-box>
         </a-entity>
             
+        <a-entity position="5 5 0" collada-model="#discoball"></a-entity>
+        <a-entity position="5 0 5" obj-model="obj: #lamboObj; mtl: #lamboMtl"></a-entity>
+            
+        <a-sky></a-sky>
+            
+          
+        <!--    
+        <a-entity selectable>
+        <a-entity position="-5 1 -2" geometry="primitive: sphere" material="color: #5f0"></a-entity>
+        <a-entity id="blue" position="-2 0 -2" geometry="primitive: box" material="color: #0af"></a-entity>
+        <a-entity position="2 1 -2" rotation="0 45 0 " geometry="primitive: box" material="color: #f0a"></a-entity>
+        -->
+
         <a-entity id="pausebox" onclick="pauseVid()" class="clickable" geometry="primitive: box" position="2 0 0" material="src:#pause; opacity: 0"  event-set__1="_event: click; scale: 1 1 1; _target: #vidbox">
              <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
              <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>    
@@ -97,16 +115,16 @@
         
             
         <a-entity position="0 2.2 4">
-            <a-entity id="camera" camera look-controls wasd-controls  universal-controls hmd-controls >
+            <a-entity id="camera" camera look-controls wasd-controls   >
               <a-entity position="0 0 -3"
                         geometry="primitive: ring; radiusOuter: 0.09;
                                   radiusInner: 0.07;"
-                        material="color: gray; shader: flat"
-                        cursor="maxDistance: 30; fuse: true; fuseTimeout: 500" >
+                        material="color: #4CC3D9; shader: flat"
+                        cursor="maxDistance: 30; fuse: true; fuseTimeout: 10" >
                 <a-animation begin="click" easing="ease-in" attribute="scale"
                      fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
                 <a-animation begin="fusing" easing="ease-in" attribute="scale"
-                     fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+                     fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="150"></a-animation>
               </a-entity>
             </a-entity>
         </a-entiy>
@@ -117,7 +135,7 @@
         <!-- <a-sky color="#ECECEC"></a-sky> -->
    
         
-        <a-light type="ambient" color="#bbb"></a-light>
+        <a-light type="ambient" color="#FFFFFF" intensity="2"></a-light>
         <a-light color="#ccc" position="0 30 0" distance="100" intensity="0.4" type="point"></a-light>
         <a-light color="#ccc" position="3 10 -10" distance="50" intensity="0.4" type="point"></a-light>
             
