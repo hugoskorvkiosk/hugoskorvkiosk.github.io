@@ -8,7 +8,7 @@
       <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
       <script src="https://rawgit.com/oscarmarinmiro/aframe-video-controls/master/dist/aframe-video-controls.min.js"></script>
       <script src="https://cdn.rawgit.com/tizzle/aframe-sprite-component/master/dist/aframe-sprite-component.min.js"></script>
-  
+      <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
       <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
       <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
      <script src"js/script.js"></script>
@@ -28,7 +28,7 @@
         </a-assets>
         
         <a-sun-sky></a-sun-sky>
-          <!--  <a-grid height="500" width="500"> </a-grid> -->
+        <a-grid height="500" width="500" position="0 -15 0"> </a-grid>
             
         <a-entity id="player" collider-check>
         <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
@@ -39,7 +39,7 @@
             <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
         </a-entity>
             
-        <a-entity layout="type: line; margin: 2" position="0 5 -5" look-at="[camera]" >
+        <a-entity layout="type: line; margin: 2" position="0 15 -5" look-at="[camera]" >
           <a-box material="src: #play"></a-box>
           <a-box></a-box>
           <a-box></a-box>
@@ -50,8 +50,19 @@
              <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>    
         </a-entity>  
       
-        <a-video id="vidbox" class="collidable" src="#vid" width="46" height="29" position="0 10 -20" look-at="[camera]" ></a-video>
-        <a-entity position"0.0 10.0 -20" video-controls="src:#vid; size:2" look-at="[camera]"></a-entity>
+        <a-video id="vidbox" class="collidable" src="#vid" width="36" height="20" position="0 10 -30" look-at="[camera]" ></a-video>
+        <a-entity position="0.0 -3.0 -20" video-controls="src:#vid; size:7" look-at="[camera]">
+        
+        </a-entity>
+            
+        <!--
+        <a-entity ui-modal visible="false">
+          <a-plane width="3" height="1" color="red" position="0 -1.2 0"></a-plane>
+          <a-plane width="3" height="1" color="green" position="0 0 0"></a-plane>
+          <a-plane width="3" height="1" color="blue" position="0 1.2 0"></a-plane>
+        </a-entity>
+            -->
+            
         <!--<a-curvedimage src="#curvedimg" height="3.0" radius="5.7" theta-length="72"
                  rotation="0 100 0" scale="0.8 0.8 0.8"></a-curvedimage>-->
   
@@ -73,20 +84,20 @@
         -->
             
                     
-         <a-cylinder color="#F55" radius="0.1"
+         <a-cylinder color="#F55" radius="0.1" position="15 0 0"
                 animation="property: color; dir: alternate; dur: 1000;
                            easing: easeInSine; loop: true; to: #5F5"
                 animation__scale="property: scale; dir: alternate; dur: 200;
-                           easing: easeInSine; loop: true; to: 1.2 1 1.2"
+                           easing: easeInSine; loop: true; to: 10 0 0"
                 animation__yoyo="property: position; dir: alternate; dur: 1000;
-                                 easing: easeInSine; loop: true; to: 0 2 0">
+                                 easing: easeInSine; loop: true; to: 10.2 1 0">
         </a-cylinder>
             
             
         
             
         <a-entity position="0 2.2 4">
-            <a-entity id="camera" camera look-controls wasd-controls >
+            <a-entity id="camera" camera look-controls wasd-controls  universal-controls >
               <a-entity position="0 0 -3"
                         geometry="primitive: ring; radiusOuter: 0.09;
                                   radiusInner: 0.07;"
@@ -106,7 +117,9 @@
         <!-- <a-sky color="#ECECEC"></a-sky> -->
    
         
-            
+        <a-light type="ambient" color="#bbb"></a-light>
+        <a-light color="#ccc" position="0 30 0" distance="100" intensity="0.4" type="point"></a-light>
+        <a-light color="#ccc" position="3 10 -10" distance="50" intensity="0.4" type="point"></a-light>
             
     
             
