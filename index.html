@@ -20,13 +20,14 @@
   <body>
       
     
-    <a-scene>
+    <a-scene vr-mode-ui="enabled: true" stats inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
         
         <a-assets>
         <img id="curvedimg" src="randomimage.jpg">
         <video id="vid" autoplay="false" controls="true"  src="randomvideo.mp4" >
         <img id="play" src="play.jpg">
         <img id="pause" src="pause.jpg">
+        <img id="skyid" src="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg">
       
         </a-assets>
         
@@ -37,7 +38,7 @@
         <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
         </a-entity>
             
-        <a-entity set-sky="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg" id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play"  event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
+        <a-entity set-sky="#skyid" id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play"  event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
             <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
             <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
         </a-entity>
@@ -67,6 +68,9 @@
       
         <a-video id="vidbox" class="collidable" src="#vid" width="36" height="20" position="0 10 -30" look-at="[camera]" ></a-video>
         <a-entity position="0.0 -3.0 -20" video-controls="src:#vid; size:7" look-at="[camera]">
+            
+        
+        <canvas id="video_player_canvas" width="1024" height="256" style="display: none;"></canvas><a-image src="http://res.cloudinary.com/dxbh0pppv/image/upload/c_scale,h_512,q_10/v1471016296/play_wvmogo.png" material="" geometry="" height="1.75" width="1.75"></a-image>
         
         </a-entity>
             
@@ -132,7 +136,7 @@
         <!-- <a-sky color="#ECECEC"></a-sky> -->
    
         
-        <a-light type="ambient" color="#FFFFFF" intensity="2"></a-light>
+        <a-light type="ambient" color="#FFFFFF" ></a-light>
         <a-light color="#ccc" position="0 30 0" distance="100" intensity="0.4" type="point"></a-light>
         <a-light color="#ccc" position="3 10 -10" distance="50" intensity="0.4" type="point"></a-light>
             
