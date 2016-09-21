@@ -4,7 +4,13 @@
     <meta charset="utf-8">
     <title>A-frame webapp</title>
     <meta name="description" content="Hello, World! - A-Frame">
-     <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
+     <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
+      <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
+      <script src="https://rawgit.com/oscarmarinmiro/aframe-video-controls/master/dist/aframe-video-controls.min.js"></script>
+      <script src="https://cdn.rawgit.com/tizzle/aframe-sprite-component/master/dist/aframe-sprite-component.min.js"></script>
+  
+      <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
+      <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
      <script src"js/script.js"></script>
      <script src="js/components/raycaster.js"></script>
       <script src="js/components/cursor-listener.js"></script>
@@ -13,31 +19,39 @@
       
     
     <a-scene>
-
+        
         <a-assets>
         <img id="curvedimg" src="randomimage.jpg">
-        <video id="vid" autoplay="false" controls="true"  src="randomvideo.mp4">
+        <video id="vid" autoplay="false" controls="true"  src="randomvideo.mp4" >
         <img id="play" src="play.jpg">
         <img id="pause" src="pause.jpg">
         </a-assets>
         
-
+        <a-sun-sky></a-sun-sky>
+          <!--  <a-grid height="500" width="500"> </a-grid> -->
             
         <a-entity id="player" collider-check>
         <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
         </a-entity>
             
-        <a-entity id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play">
+        <a-entity id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play"  event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
             <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
             <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
-        </a-entity>    
+        </a-entity>
             
-        <a-entity id="pausebox" onclick="pauseVid()" class="clickable" geometry="primitive: box" position="2 0 0" material="src:#pause; opacity: 0" >
+        <a-entity layout="type: line; margin: 2" position="0 5 -5" look-at="[camera]" >
+          <a-box material="src: #play"></a-box>
+          <a-box></a-box>
+          <a-box></a-box>
+        </a-entity>
+            
+        <a-entity id="pausebox" onclick="pauseVid()" class="clickable" geometry="primitive: box" position="2 0 0" material="src:#pause; opacity: 0"  event-set__1="_event: click; scale: 1 1 1; _target: #vidbox">
              <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
              <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>    
         </a-entity>  
       
-        <a-video class="collidable" src="#vid" width="26" height="19" position="0 5 -20"></a-video>
+        <a-video id="vidbox" class="collidable" src="#vid" width="46" height="29" position="0 10 -20" look-at="[camera]" ></a-video>
+        <a-entity position"0.0 10.0 -20" video-controls="src:#vid; size:2" look-at="[camera]"></a-entity>
         <!--<a-curvedimage src="#curvedimg" height="3.0" radius="5.7" theta-length="72"
                  rotation="0 100 0" scale="0.8 0.8 0.8"></a-curvedimage>-->
   
@@ -58,8 +72,21 @@
         <a-entity id="box" cursor-listener geometry="primitive: box" material="color: blue"></a-entity>
         -->
             
+                    
+         <a-cylinder color="#F55" radius="0.1"
+                animation="property: color; dir: alternate; dur: 1000;
+                           easing: easeInSine; loop: true; to: #5F5"
+                animation__scale="property: scale; dir: alternate; dur: 200;
+                           easing: easeInSine; loop: true; to: 1.2 1 1.2"
+                animation__yoyo="property: position; dir: alternate; dur: 1000;
+                                 easing: easeInSine; loop: true; to: 0 2 0">
+        </a-cylinder>
+            
+            
+        
+            
         <a-entity position="0 2.2 4">
-            <a-entity camera look-controls wasd-controls>
+            <a-entity id="camera" camera look-controls wasd-controls >
               <a-entity position="0 0 -3"
                         geometry="primitive: ring; radiusOuter: 0.09;
                                   radiusInner: 0.07;"
@@ -71,10 +98,14 @@
                      fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
               </a-entity>
             </a-entity>
-        </a-entity>
+        </a-entiy>
+
+            
+       <!-- <a-sprite position="0 4 0" resize="2 2 2" src="randomimage.jpg"></a-sprite> -->
         
-        <a-sky color="#ECECEC"></a-sky>
+        <!-- <a-sky color="#ECECEC"></a-sky> -->
    
+        
             
             
     
@@ -83,7 +114,7 @@
         
         <script>
         
-        var vid = document.getElementById("vid");
+        var vid = document.querySelector("#vid");
         var playbox = document.querySelector("#playbox");
         var pausebox = document.querySelector("#pausebox");
 
