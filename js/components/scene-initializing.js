@@ -1,5 +1,13 @@
 AFRAME.registerComponent('scene-initializing', {
-  init: function () {
-    var sceneEl = this.el;
+  
+    schema: {default: ''},
+
+    init: function () {
+        
+      console.log("scene init");
+      var sceneEl = this.el;
+      
   }
+    
+    
 });
