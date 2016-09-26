@@ -1,82 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>A-frame webapp</title>
     <meta name="description" content="Hello, World! - A-Frame">
-        <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
-        <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
-        <script src="https://rawgit.com/oscarmarinmiro/aframe-video-controls/master/dist/aframe-video-controls.min.js"></script>
-        <script src="https://cdn.rawgit.com/tizzle/aframe-sprite-component/master/dist/aframe-sprite-component.min.js"></script>
-        <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
-        <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
-        <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
-   
-        <script src"js/script.js"></script>
-        <script src="js/components/raycaster.js"></script>
-        <script src="js/components/cursor-listener.js"></script>
-        <script src="js/components/set-sky.js"></script>
-        <script src="js/components/line.js"></script>
-        <script src="js/components/scene-initializing.js"></script>
-        <script src="js/components/changevid.js"></script>
-  </head>
-  <body>
-      
-    
+    <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
+    <script src="https://rawgit.com/oscarmarinmiro/aframe-video-controls/master/dist/aframe-video-controls.min.js"></script>
+    <script src="https://cdn.rawgit.com/tizzle/aframe-sprite-component/master/dist/aframe-sprite-component.min.js"></script>
+    <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
+    <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
+    <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
+    <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.min.js"></script>
+
+    <script src "js/script.js"></script>
+    <script src="js/components/raycaster.js"></script>
+    <script src="js/components/channels-fade.js"></script>
+    <script src="js/components/channels-unfade.js"></script>
+    <script src="js/components/set-sky.js"></script>
+    <script src="js/components/line.js"></script>
+    <script src="js/components/scene-initializing.js"></script>
+    <script src="js/components/changevid.js"></script>
+    <script src="js/components/channelComponent.js"></script>
+    <script src="fonts/OpenSansRegular.typeface.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+
+
     <a-scene scene-initializing vr-mode-ui="enabled: true" stats inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
-        
+
         <a-assets>
-        <img id="curvedimg" src="randomimage.jpg">
-        <video autoplay loop="true" id="vid" src="randomvideo.mp4"  >
-        <video autoplay loop="true" id="vid2" src="vid2.mp4"  >
-        <img id="play" src="play.jpg">
-        <img id="pause" src="pause.jpg">
-        <img id="skyid" src="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg">
-        
-        <img id="tv1" src="images/Resurs1.png">
-        <img id="tv2" src="images/Resurs2.png">
-        <img id="tv3" src="images/Resurs3.png">
-        <img id="tv4" src="images/Resurs4.png">
-        <img id="tv5" src="images/Resurs5.png">
-        
-        
-        <a-mixin id="red" line="color: #E20049"></a-mixin>
+
+
+            <img id="curvedimg" src="randomimage.jpg">
+            <video autoplay loop="true" id="vid" src="randomvideo.mp4">
+                <video autoplay loop="true" id="vid2" src="vid2.mp4">
+                    <img id="play" src="play.jpg">
+                    <img id="pause" src="pause.jpg">
+                    <img id="skyid" src="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg">
+
+                    <img id="tv1" src="images/Resurs1.png">
+                    <img id="tv2" src="images/Resurs2.png">
+                    <img id="tv3" src="images/Resurs3.png">
+                    <img id="tv4" src="images/Resurs4.png">
+                    <img id="tv5" src="images/Resurs5.png">
+
+                    <a-mixin id="fontplane" geometry="primitive:plane;width: 2.51; height:0.51" material="color:black;opacity:0.64;shader:flat;"></a-mixin>
+
+                    <a-mixin id="font" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
+
+                    <a-mixin id="channelComponent" channelComponent="color: #E20049"></a-mixin>
+
+
+
         </a-assets>
-        
-        <!--
-        <a-entity id="happy-face" position="0 2 -10">
-        <a-entity mixin="red" line="path: -1 1 0, -1 0.5 0, -1 0 0"></a-entity>
-        <a-entity mixin="red" line="path: 1 1 0, 1 0.5 0, 1 0 0"></a-entity>
-        <a-entity mixin="red" line="path: -2 -1 0, 0 -2 0, 2 -1"></a-entity>
-        </a-entity>
-        -->
-            
+
+
         <a-grid height="500" width="500" position="0 -15 0"> </a-grid>
-            
+
         <a-entity id="player" collider-check>
-        <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
+            <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
         </a-entity>
-            
-        <a-entity set-sky="#skyid" id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play"  event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
+
+        <a-entity set-sky="#skyid" id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play" event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
             <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
             <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
         </a-entity>
-            
-             <a-curvedimage src='#tv1' width="2.51" height="0.51"></a-curvedimage>
-            
-            
-         <a-entity layout="type: box; margin: .6" position="-6.5 5 -5"  selectable >
-             
-             <a-plane src='#tv3' width="2.51" height="0.51" changevid="#vid2"></a-plane>
-             <a-plane src='#tv2'  width="2.51" height="0.51"></a-plane>
-             <a-plane src='#tv1'  width="2.51" height="0.51" changevid="#vid"></a-plane>
-          
+
+        <a-curvedimage src='#tv1' width="2.51" height="0.51"></a-curvedimage>
+
+
+
+
+
+        <a-entity channels-unfade layout="type: box; margin: .6" position="-6.5 3 -5">
+
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+                <a-entity mixin="font" text="text: Channel6"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+                <a-entity mixin="font" text="text: Channel5"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+                <a-entity mixin="font" text="text: Channel4"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+                <a-entity mixin="font" text="text: Channel3"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channels" mixin="fontplane" changevid="#vid2" channels-fade>
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+                <a-entity mixin="font" text="text: Channel2"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channels" mixin="fontplane" changevid="#vid" channels-fade>
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+                <a-entity mixin="font" text="text: Channel1"></a-entity>
+            </a-entity>
+
+
         </a-entity>
-  
-            
+
+
+
+        <a-entity position="-6.5 3 -5" mixin="channelComponent"></a-entity>
+
         <a-sky></a-sky>
-            
-          
+
+
         <!--    
         <a-entity selectable>
         <a-entity position="-5 1 -2" geometry="primitive: sphere" material="color: #5f0"></a-entity>
@@ -84,19 +128,20 @@
         <a-entity position="2 1 -2" rotation="0 45 0 " geometry="primitive: box" material="color: #f0a"></a-entity>
         -->
 
-        <a-entity id="pausebox" onclick="pauseVid()" class="clickable" geometry="primitive: box" position="2 0 0" material="src:#pause; opacity: 0"  event-set__1="_event: click; scale: 1 1 1; _target: #vidbox">
-             <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
-             <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>    
-        </a-entity>  
-      
-        <a-video id="vidbox"  controls="true" class="collidable" src="#vid" width="36" height="20" position="0 10 -30" look-at="[camera]" ></a-video>
-        <a-entity position="0.0 -3.0 -20" video-controls="src:#vid; size:7" look-at="[camera]">
-            
-        
-        <canvas id="video_player_canvas" width="1024" height="256" style="display: none;"></canvas><a-image src="http://res.cloudinary.com/dxbh0pppv/image/upload/c_scale,h_512,q_10/v1471016296/play_wvmogo.png" material="" geometry="" height="1.75" width="1.75"></a-image>
-        
+        <a-entity id="pausebox" onclick="pauseVid()" class="clickable" geometry="primitive: box" position="2 0 0" material="src:#pause; opacity: 0" event-set__1="_event: click; scale: 1 1 1; _target: #vidbox">
+            <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+            <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
         </a-entity>
-            
+
+        <a-video id="vidbox" channels-fade controls="true" class="collidable" src="#vid" width="36" height="20" position="0 10 -30"></a-video>
+        <a-entity position="0.0 -3.0 -20" video-controls="src:#vid; size:7" look-at="[camera]">
+
+
+            <canvas id="video_player_canvas" width="1024" height="256" style="display: none;"></canvas>
+            <a-image src="http://res.cloudinary.com/dxbh0pppv/image/upload/c_scale,h_512,q_10/v1471016296/play_wvmogo.png" material="" geometry="" height="1.75" width="1.75"></a-image>
+
+        </a-entity>
+
         <!--
         <a-entity ui-modal visible="false">
           <a-plane width="3" height="1" color="red" position="0 -1.2 0"></a-plane>
@@ -104,11 +149,11 @@
           <a-plane width="3" height="1" color="blue" position="0 1.2 0"></a-plane>
         </a-entity>
             -->
-            
+
         <!--<a-curvedimage src="#curvedimg" height="3.0" radius="5.7" theta-length="72"
                  rotation="0 100 0" scale="0.8 0.8 0.8"></a-curvedimage>-->
-  
-           <!-- 
+
+        <!-- 
         <a-entity camera>
             <a-entity cursor="fuse: true; fuseTimeout: 500"
                     raycaster="far: 20; interval: 1000; objects: .clickable"
@@ -122,74 +167,65 @@
             </a-entity>
         </a-entity>
             
-        <a-entity id="box" cursor-listener geometry="primitive: box" material="color: blue"></a-entity>
+        <a-entity id="box" channels-fade geometry="primitive: box" material="color: blue"></a-entity>
         -->
-            
-                    
-         <a-cylinder color="#F55" radius="0.1" position="15 0 0"
-                animation="property: color; dir: alternate; dur: 1000;
-                           easing: easeInSine; loop: true; to: #5F5"
-                animation__scale="property: scale; dir: alternate; dur: 200;
-                           easing: easeInSine; loop: true; to: 10 0 0"
-                animation__yoyo="property: position; dir: alternate; dur: 1000;
-                                 easing: easeInSine; loop: true; to: 10.2 1 0">
-        </a-cylinder>
-            
-            
-        
-            
+
+
+
+
+
         <a-entity position="0 2.2 4">
-            <a-entity id="camera" camera look-controls wasd-controls touch-controls   >
-              <a-entity position="0 0 -3"
-                        geometry="primitive: ring; radiusOuter: 0.09;
-                                  radiusInner: 0.07;"
-                        material="color: #4CC3D9; shader: flat"
-                        cursor="maxDistance: 30; fuse: true; fuseTimeout: 10" >
-                <a-animation begin="click" easing="ease-in" attribute="scale"
-                     fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-                <a-animation begin="fusing" easing="ease-in" attribute="scale"
-                     fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="150"></a-animation>
-              </a-entity>
+            <a-entity id="camera" camera look-controls wasd-controls touch-controls>
+
+
+                <a-entity cursor="fuse: true; fuseTimeout: 2000" position="0 0 -3" geometry="primitive: ring; radiusOuter: 0.09;
+                                  radiusInner: 0.07;" material="color: black; shader: flat">
+                    <a-animation begin="click" dur="2200" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+                    <a-animation begin="cursor-fusing" dur="2200" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+                </a-entity>
+
+
+
+
             </a-entity>
-        </a-entiy>
+            </a-entiy>
 
-            
-       <!-- <a-sprite position="0 4 0" resize="2 2 2" src="randomimage.jpg"></a-sprite> -->
-        
-        <!-- <a-sky color="#ECECEC"></a-sky> -->
-   
-        
-        <a-light type="ambient" color="#FFFFFF" >
-    
-        </a-light>
 
-    
-            
+
+
+            <a-light type="ambient" color="#FFFFFF">
+
+            </a-light>
+
+
+
     </a-scene>
-        
-        <script>
-        
-            var vid = document.querySelector("#vid");
-            var vid2 = document.querySelector("#vid2");
-            var playbox = document.querySelector("#playbox");
-            var pausebox = document.querySelector("#pausebox");
+
+    <script>
+        var vid = document.querySelector("#vid");
+        var vid2 = document.querySelector("#vid2");
+        var playbox = document.querySelector("#playbox");
+        var pausebox = document.querySelector("#pausebox");
 
 
-            function playVid() {
-                vid.play();
-                pausebox.emit('fade');
-                document.querySelector('#playbox').emit('fade');
-                document.querySelector('#pausebox').emit('unfade');
-                console.log("play it");
-            }
 
-            function pauseVid() {
-                vid.pause();
-                document.querySelector('#playbox').emit('unfade');
-                document.querySelector('#pausebox').emit('fade');
-                console.log("pause it");
-            } 
 
-        </script>
-  </body>
+
+        function playVid() {
+            vid.play();
+            pausebox.emit('fade');
+            document.querySelector('#playbox').emit('fade');
+            document.querySelector('#pausebox').emit('unfade');
+            console.log("play it");
+        }
+
+        function pauseVid() {
+            vid.pause();
+            document.querySelector('#playbox').emit('unfade');
+            document.querySelector('#pausebox').emit('fade');
+            console.log("pause it");
+        }
+    </script>
+</body>
+
 </html>
