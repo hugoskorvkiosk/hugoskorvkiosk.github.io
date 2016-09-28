@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>A-frame webapp</title>
+    <title>A-frame web TV platform</title>
     <meta name="description" content="Hello, World! - A-Frame">
     <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
@@ -47,7 +47,7 @@
             <img id="tv4" src="images/Resurs4.png">
             <img id="tv5" src="images/Resurs5.png">
 
-            <a-mixin id="fontplane" geometry="primitive:plane;width: 2.51; height:0.51" material="color:black;opacity:0.64;shader:flat;"></a-mixin>
+            <a-mixin id="fontplane" geometry="primitive:plane;width: 2.51; height:0.51" material="color:#2D2D2D;opacity:1;shader:flat;"></a-mixin>
 
             <a-mixin id="channelfont" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
             <a-mixin id="menufont" position="-1 0 0" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
@@ -78,7 +78,7 @@
 
 
 
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="channels" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="channels" mixin="channelfont" text="text: Channel6">
@@ -87,7 +87,7 @@
                 </a-entity>
             </a-entity>
 
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="channels" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="channels" mixin="channelfont" text="text: Channel5">
@@ -95,7 +95,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="channels" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="channels" mixin="channelfont" text="text: Channel4">
@@ -103,7 +103,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="channels" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="channels" mixin="channelfont" text="text: Channel3">
@@ -111,7 +111,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="channels" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="channels" mixin="channelfont" text="text: Channel2">
@@ -119,7 +119,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="channels" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="channels" mixin="channelfont" text="text: Channel1">
@@ -134,7 +134,7 @@
 
         <a-entity class="menu" look-at=[camera] layout="type: box; margin: .6" position="6.5 3 -5">
 
-            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6" animation="property: rotation">
+            <a-entity channel-selection class="menu" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="menu" mixin="menufont" text="text: Item6">
@@ -142,7 +142,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="menu" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="menu" mixin="menufont" text="text: Item5">
@@ -150,7 +150,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="menu" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="menu" mixin="menufont" text="text: Item4">
@@ -158,7 +158,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6">
+            <a-entity channel-selection class="menu" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="menu" mixin="menufont" text="text: Item3">
@@ -166,7 +166,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="menu" mixin="fontplane" >
+            <a-entity channel-selection class="menu" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="menu" mixin="menufont" text="text: Item2">
@@ -174,7 +174,7 @@
                     <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
                 </a-entity>
             </a-entity>
-            <a-entity channel-selection class="menu" mixin="fontplane" changevid="#vid" >
+            <a-entity channel-selection class="menu" mixin="fontplane">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
                 <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
                 <a-entity class="menu" mixin="menufont" text="text: Item1">
@@ -210,8 +210,9 @@
         <a-video id="vidbox" channels-fade controls="true" class="collidable" src="#vid" width="36" height="20" position="0 10 -30"></a-video>
         -->
 
-        <a-video id="vidbox" channels-fade controls="true" width="36" height="20" position="0 10 -30"></a-video>
-
+        <a-plane color="black" width="38" height="23"  position="0 10 -31" ></a-plane>
+            <a-image id="vidbox" src="images/Resurs10.png" width="36" height="20" position="0 10 -30"></a-image>
+        
 
 
         <!--
@@ -226,7 +227,7 @@
 
         <a-entity position="0 2.2 4" id="camera" camera look-controls wasd-controls touch-controls>
             <!-- <a-entity collide-check></a-entity>  -->
-            <a-entity cursor="fuse: true; fuseTimeout: 2000" position="0 0 -3" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.0;" material="color: black; shader: flat" >
+            <a-entity cursor="fuse: true; fuseTimeout: 2000" position="0 0 -3" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.0;" material="color: black; shader: flat">
                 <a-animation begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
                 <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
             </a-entity>
