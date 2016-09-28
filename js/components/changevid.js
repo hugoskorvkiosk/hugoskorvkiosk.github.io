@@ -10,8 +10,8 @@ AFRAME.registerComponent('changevid', {
     
     this.el.addEventListener('click', () => {
         
-        video.setAttribute('src', this.data);
-        video.autoplay = "true";
+        //video.setAttribute('src', this.data);
+        //video.autoplay = "true";
        
     
         console.log("changevid");

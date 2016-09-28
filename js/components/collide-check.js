@@ -8,15 +8,18 @@ AFRAME.registerComponent('collide-check', {
 
         this.el.addEventListener('raycaster-intersection', this.onIntersection.bind(this));
 
-
+     
 
     },
 
     onIntersection: function (evt) {
+        
+        
 
         channels = document.querySelectorAll(".channels");
         menuitems = document.querySelectorAll(".menu");
 
+     
         var timesIntersected;
         var channels;
         var menuitems;
@@ -25,19 +28,14 @@ AFRAME.registerComponent('collide-check', {
         var data = this.data;
         var intersectedEl = evt.detail.els[0]; // Grab the closest.
 
-
         // Set intersected entity if not already intersecting.
         if (this.intersectedEl === intersectedEl) {
-            timesIntersected++;
 
 
+           
 
-            if (timesIntersected >= 150) {
-
-
-
+                
                 if (this.intersectedEl.id == 'vidbox') {
-
 
 
 
@@ -47,12 +45,13 @@ AFRAME.registerComponent('collide-check', {
 
                     }
 
-
+                
 
 
                 } else {
+                    
 
-                    if (channels[1].getAttribute('material', 'opacity') === 0) {
+                    if (channels[1].getAttribute('material').opacity === 0) {
 
                         for (i = 0; i < channels.length; i++) {
                             channels[i].emit('unfade');
@@ -64,12 +63,12 @@ AFRAME.registerComponent('collide-check', {
                 }
 
             }
-
-        }
-
-
-        timesIntersected = 0;
+        
+       
         this.intersectedEl = intersectedEl;
 
+
+
+        
     }
 });
