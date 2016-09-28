@@ -13,24 +13,43 @@ AFRAME.registerComponent('channels-fade', {
 
         //var diffData = diff(data, oldData || {});
         // console.log("diffData " + diffData); 
-
-
         var channels;
 
-
+        
+        /*
+        
         this.el.addEventListener('click', function () {
+
+
 
             channels = document.querySelectorAll(".channels");
 
+
+            console.log(channels);
+
             for (i = 0; i < channels.length; i++) {
+
                 channels[i].emit('fade');
+
+
             }
 
 
-            el.emit('fade');
+
+
+
+
+            /*
+            for (i = 0; i < channels.length; i++) {
+                channels[i].emit('fade');
+            }
+            
+
 
         });
 
+        
+        */
 
     }
 });

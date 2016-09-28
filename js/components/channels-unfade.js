@@ -7,6 +7,12 @@ AFRAME.registerComponent('channels-unfade', {
 
     update: function (oldData) {
 
+        /*
+        if (channels[0].getAttribute('material', 'opacity') == 0) {
+            return;
+        }
+        */
+
         var el = this.el;
         var data = this.data;
 
@@ -17,20 +23,21 @@ AFRAME.registerComponent('channels-unfade', {
 
         var channels;
 
-
+        /*
+        
         this.el.addEventListener('click', function () {
 
             channels = document.querySelectorAll(".channels");
+
+
 
             for (i = 0; i < channels.length; i++) {
                 channels[i].emit('unfade');
             }
 
-
-            el.emit('fade');
-
         });
 
 
+        */
     }
 });

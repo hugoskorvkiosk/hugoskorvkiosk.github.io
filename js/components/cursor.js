@@ -62,6 +62,7 @@ module.exports.Component = registerComponent('cursor', {
     if (this.intersectedEl === intersectedEl) { return; }
     this.intersectedEl = intersectedEl;
 
+
     // Hovering.
     cursorEl.addState(STATES.HOVERING);
     intersectedEl.addState(STATES.HOVERED);

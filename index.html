@@ -11,11 +11,8 @@
     <script src="https://cdn.rawgit.com/tizzle/aframe-sprite-component/master/dist/aframe-sprite-component.min.js"></script>
     <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
-    <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
-    <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.min.js"></script>
 
-    <script src "js/script.js"></script>
-    <script src="js/components/raycaster.js"></script>
+
     <script src="js/components/channels-fade.js"></script>
     <script src="js/components/channels-unfade.js"></script>
     <script src="js/components/set-sky.js"></script>
@@ -23,7 +20,7 @@
     <script src="js/components/scene-initializing.js"></script>
     <script src="js/components/changevid.js"></script>
     <script src="js/components/channelComponent.js"></script>
-    <script src="fonts/OpenSansRegular.typeface.js"></script>
+    <script src="js/components/collide-check.js"></script>
 
     <link rel="stylesheet" href="css/style.css" />
 
@@ -38,8 +35,8 @@
 
 
             <img id="curvedimg" src="randomimage.jpg">
-            <video autoplay loop="true" id="vid" src="randomvideo.mp4">
-                <video autoplay loop="true" id="vid2" src="vid2.mp4">
+            <video autoplay="false" loop="false" id="vid" src="randomvideo.mp4">
+                <video autoplay="false" loop="false" id="vid2" src="vid2.mp4">
                     <img id="play" src="play.jpg">
                     <img id="pause" src="pause.jpg">
                     <img id="skyid" src="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg">
@@ -52,7 +49,9 @@
 
                     <a-mixin id="fontplane" geometry="primitive:plane;width: 2.51; height:0.51" material="color:black;opacity:0.64;shader:flat;"></a-mixin>
 
-                    <a-mixin id="font" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
+                    <a-mixin id="channelfont" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
+                    <a-mixin id="menufont" position="-1 0 0" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
+                    
 
                     <a-mixin id="channelComponent" channelComponent="color: #E20049"></a-mixin>
 
@@ -63,9 +62,6 @@
 
         <a-grid height="500" width="500" position="0 -15 0"> </a-grid>
 
-        <a-entity id="player" collider-check>
-            <a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="90 0 0"></a-entity>
-        </a-entity>
 
         <a-entity set-sky="#skyid" id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play" event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
             <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
@@ -78,39 +74,73 @@
 
 
 
-        <a-entity channels-unfade layout="type: box; margin: .6" position="-6.5 3 -5">
+        <a-entity class="channels" channels-unfade layout="type: box; margin: .6" position="-6.5 3 -5">
 
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" animation="property: rotation">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
-                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
-                <a-entity mixin="font" text="text: Channel6"></a-entity>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="channelfont" text="text: Channel6"></a-entity>
             </a-entity>
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
-                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
-                <a-entity mixin="font" text="text: Channel5"></a-entity>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="channelfont" text="text: Channel5"></a-entity>
             </a-entity>
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
-                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
-                <a-entity mixin="font" text="text: Channel4"></a-entity>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="channelfont" text="text: Channel4"></a-entity>
             </a-entity>
-            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2" >
+            <a-entity channel-selection class="channels" mixin="fontplane" material="opacity:0.6" changevid="#vid2">
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
-                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
-                <a-entity mixin="font" text="text: Channel3"></a-entity>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="channelfont" text="text: Channel3"></a-entity>
             </a-entity>
             <a-entity channel-selection class="channels" mixin="fontplane" changevid="#vid2" channels-fade>
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
-                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
-                <a-entity mixin="font" text="text: Channel2"></a-entity>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="channelfont" text="text: Channel2"></a-entity>
             </a-entity>
             <a-entity channel-selection class="channels" mixin="fontplane" changevid="#vid" channels-fade>
                 <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
-                <a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
-                <a-entity mixin="font" text="text: Channel1"></a-entity>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="channelfont" text="text: Channel1"></a-entity>
             </a-entity>
 
+        </a-entity>
+
+        <a-entity class="menu" channels-unfade layout="type: box; margin: .6" position="6.5 3 -5">
+
+            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6" changevid="#vid2" animation="property: rotation">
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="menufont" text="text: Item6"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6" changevid="#vid2">
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="menufont" text="text: Item5"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6" changevid="#vid2">
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="menufont" text="text: Item4"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menu" mixin="fontplane" material="opacity:0.6" changevid="#vid2">
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="menufont" text="text: Item3"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menu" mixin="fontplane" changevid="#vid2" channels-fade>
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="menufont" text="text: Item2"></a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menu" mixin="fontplane" changevid="#vid" channels-fade>
+                <a-animation attribute="material.opacity" begin="fade" to="0"></a-animation>
+                <a-animation attribute="material.opacity" begin="unfade" to="0.6"></a-animation>
+                <a-entity mixin="menufont" text="text: Item1"></a-entity>
+            </a-entity>
 
         </a-entity>
 
@@ -142,60 +172,21 @@
 
         </a-entity>
 
-        <!--
-        <a-entity ui-modal visible="false">
-          <a-plane width="3" height="1" color="red" position="0 -1.2 0"></a-plane>
-          <a-plane width="3" height="1" color="green" position="0 0 0"></a-plane>
-          <a-plane width="3" height="1" color="blue" position="0 1.2 0"></a-plane>
-        </a-entity>
-            -->
 
-        <!--<a-curvedimage src="#curvedimg" height="3.0" radius="5.7" theta-length="72"
-                 rotation="0 100 0" scale="0.8 0.8 0.8"></a-curvedimage>-->
-
-        <!-- 
-        <a-entity camera>
-            <a-entity cursor="fuse: true; fuseTimeout: 500"
-                    raycaster="far: 20; interval: 1000; objects: .clickable"
-                    position="0 0 -1"
-                    geometry="primitive: ring"
-                    material="color: black; shader: flat">
-                <a-animation begin="click" easing="ease-in" attribute="scale"
-                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
-                <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
-                   fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+        <a-entity position="0 2.2 4" id="camera" camera look-controls wasd-controls touch-controls>
+            <a-entity collide-check raycaster="far: 20; interval: 1000; objects: .channels" cursor="fuse: true; fuseTimeout: 2000" position="0 0 -3" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.0;" material="color: black; shader: flat">
+                <a-animation begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+                <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
             </a-entity>
         </a-entity>
-            
-        <a-entity id="box" channels-fade geometry="primitive: box" material="color: blue"></a-entity>
-        -->
 
 
 
 
 
-        <a-entity position="0 2.2 4">
-            <a-entity id="camera" camera look-controls wasd-controls touch-controls>
+        <a-light type="ambient" color="#FFFFFF">
 
-
-                <a-entity cursor="fuse: true; fuseTimeout: 2000" position="0 0 -3" geometry="primitive: ring; radiusOuter: 0.09;
-                                  radiusInner: 0.07;" material="color: black; shader: flat">
-                    <a-animation begin="click" dur="2200" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
-                    <a-animation begin="cursor-fusing" dur="2200" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
-                </a-entity>
-
-
-
-
-            </a-entity>
-            </a-entiy>
-
-
-
-
-            <a-light type="ambient" color="#FFFFFF">
-
-            </a-light>
+        </a-light>
 
 
 
