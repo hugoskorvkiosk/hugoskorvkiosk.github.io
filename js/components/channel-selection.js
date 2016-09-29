@@ -15,19 +15,24 @@ AFRAME.registerComponent('channel-selection', {
         // console.log("diffData " + diffData); 
 
 
-        var channels;
+        var channelsplane;
+        var menuplane;
+        channelsplane = document.querySelectorAll(".channelsplane");
+        menuplane = document.querySelectorAll(".menuplane");
+
 
 
         this.el.addEventListener('click', function () {
 
-            channels = document.querySelectorAll(".channels");
+            console.log("clicked on channel");
 
-            for (i = 0; i < channels.length; i++) {
-                channels[i].setAttribute('material', 'color', 'red');
+            for (i = 0; i < channelsplane.length; i++) {
+                channelsplane[i].setAttribute('material', 'color', '#2D2D2D');
+                menuplane[i].setAttribute('material', 'color', '#2D2D2D');
             }
 
 
-            this.setAttribute('material', 'color', 'orange');
+            this.setAttribute('material', 'color', '#F15A24');
 
         });
 
