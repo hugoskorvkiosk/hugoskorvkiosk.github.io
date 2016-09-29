@@ -13,17 +13,19 @@ AFRAME.registerComponent('collide-check', {
     onIntersection: function (evt) {
 
 
+    
+        var channels;
+        var menuitems;
+        var channelsplane;
+        var menuplane;
+        
+        
         channelsplane = document.querySelectorAll(".channelsplane");
         menuplane = document.querySelectorAll(".menuplane");
         channels = document.querySelectorAll(".channels");
         menuitems = document.querySelectorAll(".menu");
 
-
-        var timesIntersected;
-        var channels;
-        var menuitems;
-        var channelsplane;
-        var menuplane;
+        
         var self = this;
         var cursorEl = this.el;
         var data = this.data;
@@ -32,6 +34,7 @@ AFRAME.registerComponent('collide-check', {
         // Set intersected entity if not already intersecting.
         if (this.intersectedEl === intersectedEl) {
 
+            
 
 
 
@@ -40,26 +43,49 @@ AFRAME.registerComponent('collide-check', {
 
 
 
-                for (i = 0; i < channels.length; i++) {
+                for (i = 0; i < channelsplane.length; i++) {
+                    
+             
+                    channels[i].setAttribute('material', 'opacity', '0');
+                    channelsplane[i].setAttribute('material', 'opacity', '0');
+                    menuitems[i].setAttribute('material', 'opacity', '0');
+                    menuplane[i].setAttribute('material', 'opacity', '0');
+
+                    /*
                     channels[i].emit('fade');
                     channelsplane[i].emit('fade');
                     menuitems[i].emit('fade');
                     menuplane[i].emit('fade');
+                    */
                 }
 
 
 
 
-            } else {
+            } else{
+                
+          
+
+                if (channels[1].getAttribute('material').opacity == 0) {
+                    
+
+                    for (i = 0; i < channelsplane.length; i++) {
+
+                        
+                        channels[i].setAttribute('material', 'opacity', '1');
+                        channelsplane[i].setAttribute('material', 'opacity', '1');
+                        menuitems[i].setAttribute('material', 'opacity', '1');
+                        menuplane[i].setAttribute('material', 'opacity', '1');
 
 
-                if (channels[1].getAttribute('material').opacity === 0) {
+                        /*
 
-                    for (i = 0; i < channels.length; i++) {
                         channels[i].emit('unfade');
                         channelsplane[i].emit('unfade');
                         menuitems[i].emit('unfade');
                         menuplane[i].emit('unfade');
+                        
+                        */
 
                     }
 
