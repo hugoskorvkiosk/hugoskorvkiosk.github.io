@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <title>A-frame web TV platform</title>
     <meta name="description" content="Hello, World! - A-Frame">
-    <script src="js/aframe.js"></script>
+     <script src="js/aframe.js"></script>
 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
 
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
 
 
-    <!--
+   <!--
     <script src="js/components/channels-fade.js"></script>
     <script src="js/components/channels-unfade.js"></script>
     <script src="js/components/channel-selection.js"></script>
@@ -24,7 +24,7 @@
     <script src="js/components/collide-check.js"></script>
     -->
 
-    <!--
+   <!--
     <link rel="stylesheet" href="css/style.css" />
     -->
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -51,35 +51,62 @@
 
 
 
-        <a-entity look-at=[camera] position="-6.5 3 -5">
+        <a-entity look-at=[camera] layout="type: box; margin: .6" position="-6.5 3 -5">
 
 
 
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
 
-            <a-entity class="channels" mixin="channelfont" text="text: Channel6">
-
+            
             </a-entity>
 
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
 
-            <a-entity class="channels" mixin="channelfont" text="text: Channel5">
+            
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
 
+             
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+  
+             
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+
+             
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+
+             
             </a-entity>
 
+        </a-entity>
+        
+        
 
-            <a-entity class="channels" mixin="channelfont" text="text: Channel4">
+        <a-entity look-at=[camera] layout="type: box; margin: .6" position="6.5 3 -5">
+
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+
+            
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
 
             </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
 
-            <a-entity class="channels" mixin="channelfont" text="text: Channel3">
-
+            
             </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
 
-
-            <a-entity class="channels" mixin="channelfont" text="text: Channel2">
-
+            
             </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
 
-            <a-entity class="channels" mixin="channelfont" text="text: Channel1">
+             
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
 
             </a-entity>
 
@@ -87,49 +114,10 @@
         </a-entity>
 
 
-
-        </a-entity>
-
-        <a-entity look-at=[camera] position="6.5 3 -5">
-
-
-
-            <a-entity class="menu" mixin="menufont" text="text: Item6">
-
-            </a-entity>
-
-            <a-entity class="menu" mixin="menufont" text="text: Item5">
-
-            </a-entity>
-
-
-            <a-entity class="menu" mixin="menufont" text="text: Item4">
-
-            </a-entity>
-
-
-            <a-entity class="menu" mixin="menufont" text="text: Item3">
-
-            </a-entity>
-
-
-            <a-entity class="menu" mixin="menufont" text="text: Item2">
-
-            </a-entity>
-
-
-            <a-entity class="menu" mixin="menufont" text="text: Item1">
-
-            </a-entity>
-
-
-        </a-entity>
-
-
-
-
+       
+       
         <a-video id="vidbox" channels-fade controls="true" class="collidable" src="#vid" width="36" height="20" position="0 10 -30"></a-video>
-
+      
 
         <a-plane color="black" width="38" height="23" position="0 10 -31"></a-plane>
         <a-image id="vidbox" width="36" height="20" position="0 10 -30"></a-image>
@@ -139,16 +127,16 @@
         <a-entity position="0 2.2 4" id="camera" camera look-controls wasd-controls touch-controls>
 
 
-
+       
             <a-entity collide-check></a-entity>
 
-
+           
             <a-entity cursor="fuse: true; fuseTimeout: 1000" position="0 0 -3" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.001;" material="color: white; shader: flat">
                 <!--<a-animation dur="1000" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation> -->
                 <!--<a-animation dur="1000" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation> -->
             </a-entity>
 
-
+       
         </a-entity>
 
         <a-light type="ambient" color="#FFFFFF">
