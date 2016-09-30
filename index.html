@@ -7,12 +7,12 @@
     <meta name="description" content="Hello, World! - A-Frame">
     <script src="js/aframe.js"></script>
 
-   
+
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
 
 
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
- 
+
 
     <!--
     <script src="js/components/channels-fade.js"></script>
@@ -39,44 +39,85 @@
 
         <a-assets>
 
-            <a-mixin id="fontplane" geometry="primitive:plane;width: 2.51; height:0.51" material="color:#2D2D2D;opacity:1;shader:flat;"></a-mixin>
+            <a-mixin id="fontplane" geometry="primitive:plane;width: 2; height:0.51"></a-mixin>
+      
+
+            <img id="tv1" src="images/Resurs1.png">
+            <img id="tv2" src="images/Resurs2.png">
+            <img id="tv3" src="images/Resurs3.png">
+            <img id="tv4" src="images/Resurs4.png">
+            <img id="tv5" src="images/Resurs5.png">
 
 
         </a-assets>
-        
-        
+
+
 
         <a-entity look-at=[camera] layout="type: box; margin: .6" position="-6.5 3 -5">
 
 
 
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+            <a-entity channel-selection class="channelsplane" mixin="fontplane" material="src:">
 
-             
-            </a-entity>
-
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-
-        
-            </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-
-            
-            </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
 
             </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
 
-       
+            <a-entity channel-selection class="channelsplane" mixin="fontplane" material="src: #tv5">
+
+
             </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+            <a-entity channel-selection class="channelsplane" mixin="fontplane" material="src: #tv4">
 
-        
+
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane" material="src: #tv3">
+
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane" material="src: #tv2">
+
+
+            </a-entity>
+            <a-entity  channel-selection class="channelsplane" mixin="fontplane" material="src: #tv1">
+
+
             </a-entity>
 
 
         </a-entity>
+
+        <a-entity look-at=[camera] layout="type: box; margin: .6" position="6.5 3 -5">
+
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+
+            </a-entity>
+
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+
+            </a-entity>
+
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+
+            </a-entity>
+
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+
+            </a-entity>
+
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+
+            </a-entity>
+
+
+
+        </a-entity>
+
+
+        <a-plane color="black" width="38" height="23" position="0 10 -31"></a-plane>
+        <a-image id="vidbox" width="36" height="20" position="0 10 -30"></a-image>
+
 
 
         <a-entity position="0 2.2 4" id="camera" camera look-controls wasd-controls touch-controls>
