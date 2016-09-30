@@ -42,8 +42,6 @@
 
             <a-mixin id="fontplane" geometry="primitive:plane;width: 2.51; height:0.51" material="color:#2D2D2D;opacity:1;shader:flat;"></a-mixin>
 
-            <a-mixin id="channelfont" text="size: 0.2" material="color: white; shader: flat"></a-mixin>
-            <a-mixin id="menufont" position="-1 0 0" text="size: 0.2" material="color: white; shader: flat"></a-mixin>
 
 
         </a-assets>
@@ -51,7 +49,7 @@
 
 
 
-        <a-entity look-at=[camera] layout="type: box; margin: .6" position="-6.5 3 -5">
+    
 
 
 
@@ -81,11 +79,10 @@
              
             </a-entity>
 
-        </a-entity>
         
         
 
-        <a-entity look-at=[camera] layout="type: box; margin: .6" position="6.5 3 -5">
+
 
             <a-entity channel-selection class="menuplane" mixin="fontplane">
 
@@ -111,12 +108,8 @@
             </a-entity>
 
 
-        </a-entity>
 
 
-       
-       
-        <a-video id="vidbox" channels-fade controls="true" class="collidable" src="#vid" width="36" height="20" position="0 10 -30"></a-video>
       
 
         <a-plane color="black" width="38" height="23" position="0 10 -31"></a-plane>
