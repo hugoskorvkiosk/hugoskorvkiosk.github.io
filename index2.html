@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>A-frame web TV platform</title>
+    <meta name="description" content="Hello, World! - A-Frame">
+     <script src="js/aframe.js"></script>
+    <!--
+    <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
+    -->
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
+    <!--
+    <script src="https://rawgit.com/oscarmarinmiro/aframe-video-controls/master/dist/aframe-video-controls.min.js"></script>
+    <script src="https://cdn.rawgit.com/tizzle/aframe-sprite-component/master/dist/aframe-sprite-component.min.js"></script>
+    <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script> -->
+    <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
+
+
+   <!--
+    <script src="js/components/channels-fade.js"></script>
+    <script src="js/components/channels-unfade.js"></script>
+    <script src="js/components/channel-selection.js"></script>
+    <script src="js/components/set-sky.js"></script>
+    <script src="js/components/line.js"></script>
+    <script src="js/components/scene-initializing.js"></script>
+    <script src="js/components/changevid.js"></script>
+    <script src="js/components/channelComponent.js"></script>
+    <script src="js/components/collide-check.js"></script>
+    -->
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+
+
+    <a-scene scene-initializing vr-mode-ui="enabled: true" stats inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
+
+        <a-assets>
+
+
+
+          <!--
+           
+            <img id="play" src="play.jpg">
+            <img id="pause" src="pause.jpg">
+
+            <img id="tv1" src="images/Resurs1.png">
+            <img id="tv2" src="images/Resurs2.png">
+            <img id="tv3" src="images/Resurs3.png">
+            <img id="tv4" src="images/Resurs4.png">
+            <img id="tv5" src="images/Resurs5.png">
+
+          -->
+          
+           <!--
+            <img id="videostill1" src="">
+            -->
+
+            <a-mixin id="fontplane" geometry="primitive:plane;width: 2.51; height:0.51" material="color:#2D2D2D;opacity:1;shader:flat;"></a-mixin>
+
+            <a-mixin id="channelfont" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
+            <a-mixin id="menufont" position="-1 0 0" text="font: Helvetiker; size: 0.2" material="color: white; shader: flat"></a-mixin>
+
+
+
+
+
+        </a-assets>
+
+
+       <!--
+        <a-grid color="blue" height="500" width="500" position="0 -15 0"> </a-grid>
+        -->
+       
+       
+        <!--
+
+        <a-entity id="playbox" onclick="playVid()" class="clickable" geometry="primitive: box" position="1 0 0" material="src: #play" event-set__1="_event: click; scale: 1.5 1.5 1.5; _target: #vidbox" look-at="[camera]">
+            <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+            <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation>
+        </a-entity>
+
+        -->
+
+
+
+
+        <a-entity look-at=[camera] layout="type: box; margin: .6" position="-6.5 3 -5">
+
+
+
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="channels" mixin="channelfont" text="text: Channel6">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="channels" mixin="channelfont" text="text: Channel5">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="channels" mixin="channelfont" text="text: Channel4">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="channels" mixin="channelfont" text="text: Channel3">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="channels" mixin="channelfont" text="text: Channel2">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="channelsplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="channels" mixin="channelfont" text="text: Channel1">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+
+
+
+        </a-entity>
+
+        <a-entity look-at=[camera] layout="type: box; margin: .6" position="6.5 3 -5">
+
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="menu" mixin="menufont" text="text: Item6">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="menu" mixin="menufont" text="text: Item5">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="menu" mixin="menufont" text="text: Item4">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="menu" mixin="menufont" text="text: Item3">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="menu" mixin="menufont" text="text: Item2">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+            <a-entity channel-selection class="menuplane" mixin="fontplane">
+                <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                <a-entity class="menu" mixin="menufont" text="text: Item1">
+                    <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+                    <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+                </a-entity>
+            </a-entity>
+
+
+        </a-entity>
+
+
+
+        <a-entity position="-6.5 3 -5" mixin="channelComponent"></a-entity>
+
+
+
+        <!--    
+        <a-entity selectable>
+        <a-entity position="-5 1 -2" geometry="primitive: sphere" material="color: #5f0"></a-entity>
+        <a-entity id="blue" position="-2 0 -2" geometry="primitive: box" material="color: #0af"></a-entity>
+        <a-entity position="2 1 -2" rotation="0 45 0 " geometry="primitive: box" material="color: #f0a"></a-entity>
+        -->
+
+        <!--
+        <a-entity id="pausebox" onclick="pauseVid()" class="clickable" geometry="primitive: box" position="2 0 0" material="src:#pause; opacity: 0" event-set__1="_event: click; scale: 1 1 1; _target: #vidbox">
+            <!--<a-animation attribute="material.opacity" begin="fade" to="0"></a-animation> -->
+            <!--<a-animation attribute="material.opacity" begin="unfade" to="1"></a-animation> -->
+        </a-entity>
+
+       
+       
+        <a-video id="vidbox" channels-fade controls="true" class="collidable" src="#vid" width="36" height="20" position="0 10 -30"></a-video>
+        -->
+
+        <a-plane color="black" width="38" height="23" position="0 10 -31"></a-plane>
+        <a-image id="vidbox" width="36" height="20" position="0 10 -30"></a-image>
+
+
+
+        <!--
+        <a-entity position="0.0 -3.0 -20" video-controls="src:#vid; size:7" look-at="[camera]">
+
+
+            <canvas id="video_player_canvas" width="1024" height="256" style="display: none;"></canvas>
+            <a-image src="http://res.cloudinary.com/dxbh0pppv/image/upload/c_scale,h_512,q_10/v1471016296/play_wvmogo.png" material="" geometry="" height="1.75" width="1.75"></a-image>
+
+        </a-entity>
+        -->
+
+        <a-entity position="0 2.2 4" id="camera" camera look-controls wasd-controls touch-controls>
+
+
+       
+            <a-entity collide-check></a-entity>
+
+           
+            <a-entity cursor="fuse: true; fuseTimeout: 1000" position="0 0 -3" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.001;" material="color: white; shader: flat">
+                <!--<a-animation dur="1000" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation> -->
+                <!--<a-animation dur="1000" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation> -->
+            </a-entity>
+
+       
+        </a-entity>
+
+        <a-light type="ambient" color="#FFFFFF">
+
+        </a-light>
+
+
+
+    </a-scene>
+
+</body>
+
+</html>
