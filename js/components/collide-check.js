@@ -36,10 +36,6 @@ AFRAME.registerComponent('collide-check', {
         if (this.intersectedEl === intersectedEl) {
 
 
-
-
-
-
             if (this.intersectedEl.id == 'vidbox') {
 
 
@@ -49,7 +45,7 @@ AFRAME.registerComponent('collide-check', {
 
 
                     channelsplane[i].setAttribute('material', 'opacity', '0');
-                    menuplane[i].setAttribute('material', 'opacity', '0');
+                  //  menuplane[i].setAttribute('material', 'opacity', '0');
 
                     /*
                     menuitems[i].setAttribute('material', 'opacity', '0');
@@ -79,7 +75,7 @@ AFRAME.registerComponent('collide-check', {
 
 
                         channelsplane[i].setAttribute('material', 'opacity', '1');
-                        menuplane[i].setAttribute('material', 'opacity', '1');
+                   //     menuplane[i].setAttribute('material', 'opacity', '1');
 
 
                         /*

@@ -1,5 +1,11 @@
 // Component to change to color on click.
 AFRAME.registerComponent('channel-selection', {
+    
+     schema: function () {
+
+         
+    },
+    
     init: function () {
 
 
@@ -16,9 +22,12 @@ AFRAME.registerComponent('channel-selection', {
 
 
         var channelsplane;
-        var menuplane;
+    //    var menuplane;
+        
+        
         channelsplane = document.querySelectorAll(".channelsplane");
-        menuplane = document.querySelectorAll(".menuplane");
+        
+      //  menuplane = document.querySelectorAll(".menuplane");
 
 
 
@@ -27,8 +36,9 @@ AFRAME.registerComponent('channel-selection', {
             console.log("clicked on channel");
 
             for (i = 0; i < channelsplane.length; i++) {
+                console.log("unknown property?");
                 channelsplane[i].setAttribute('material', 'color', '#2D2D2D');
-                menuplane[i].setAttribute('material', 'color', '#2D2D2D');
+             //   menuplane[i].setAttribute('material', 'color', '#2D2D2D');
             }
 
 
