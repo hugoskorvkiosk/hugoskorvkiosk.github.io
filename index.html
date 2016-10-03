@@ -9,25 +9,25 @@
 
 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
-   
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-    
-    
-    
 
-   <!--
+
+
+
+    <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 -->
-   
-   
+
+
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
 
-   <!--
+    <!--
     <script src="https://rawgit.com/ngokevin/aframe-template-component/master/dist/aframe-template-component.min.js"></script>
 -->
-   
+
     <script src="js/components/channel-selection.js"></script>
 
     <script src="js/components/collide-check.js"></script>
@@ -56,22 +56,17 @@
             <img id="tv5" src="images/Resurs5.png">
 
 
-            
-         <script id="clouds" type="text/x-jade-template">
-          - for (var x = 0; x < 2; x++) {
-            - for (var y = 0; y < 6; y++) {
-              a-entity(channel-selection, class='channelsplane',id=x+'plane'+y, geometry="primitive:plane;width: 0.5; height:0.15" material="color:#2D2D2D", position="#{2.6*x-1.3} #{y/5+2} #{2}")
-            - }
-          - }
-        </script>
+
 
         </a-assets>
+        
+        <a-entity id="thetemplatescene" template="src: scenes/channelplanes.html"> </a-entity>
 
 
-        <a-entity template="src: #clouds"></a-entity>
-    
-       
-       <!--
+        <a-entity id="thescene" ></a-entity>
+
+
+        <!--
         
 
         <a-entity look-at=[camera] layout="type: box; margin: .2" position="-1.3 2 2">
@@ -132,8 +127,8 @@
         -->
 
 
-        <a-plane color="black" width="5" height="3.4" position="0 2.5 -1"></a-plane>
-        <a-image id="vidbox" width="3.5" height="2.4" position="0 2.5 0"></a-image>
+        <!--<a-plane color="black" width="5" height="3.4" position="0 2.5 -1"></a-plane>-->
+        <a-image id="vidbox" color="black" width="3.5" height="2.4" position="0 2.5 0"></a-image>
 
 
 

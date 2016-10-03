@@ -6,7 +6,7 @@ AFRAME.registerComponent('collide-check', {
 
         this.el.addEventListener('raycaster-intersection', this.onIntersection.bind(this));
 
-
+        this.maskEl = this.el.sceneEl.querySelector('#thescene');
 
     },
 
@@ -19,6 +19,10 @@ AFRAME.registerComponent('collide-check', {
         var channelsplane;
         var menuplane;
 
+        var currentscene;
+
+        //  currentscene = document.querySelector('#thescene');
+        channelmenuplanes = document.querySelector('#thetemplatescene');
 
         channelsplane = document.querySelectorAll(".channelsplane");
         menuplane = document.querySelectorAll(".menuplane");
@@ -33,78 +37,78 @@ AFRAME.registerComponent('collide-check', {
         var intersectedEl = evt.detail.els[0]; // Grab the closest.
 
         // Set intersected entity if not already intersecting.
-        if (this.intersectedEl === intersectedEl) {
 
+
+
+
+        if (this.intersectedEl === intersectedEl) {
 
             if (this.intersectedEl.id == 'vidbox') {
 
 
 
-                for (i = 0; i < channelsplane.length; i++) {
+
+                //currentscene.setAttribute('visible', 'false');
 
 
+                // currentscene.children[1].setAttribute('material', 'opacity', '0');
 
-                    channelsplane[i].setAttribute('material', 'opacity', '0');
-                  //  menuplane[i].setAttribute('material', 'opacity', '0');
+                // console.log(currentscene.children[1]);
 
+                //currentscene[1].emit('fade');
+
+                //  currentscene.children[1].emit('fade');
+                // self.maskEl.emit('fade');
+
+
+                if (channelsplane[1].getAttribute('material').opacity != 0) {
+                    
+                   // channelsplane[i].setAttribute('material', 'opacity', '0');
+                  //  console.log(channelmenuplanes.children[1].getAttribute('material').opacity);
+                   // channelmenuplanes.children[1].setAttribute('material', 'opacity', '0');
+                //    channelmenuplanes.children[1]('material').opacity = 0;
+                    
+                    
                     /*
-                    menuitems[i].setAttribute('material', 'opacity', '0');
-                    channels[i].setAttribute('material', 'opacity', '0');
-                    */
+                    for (i = 0; i < channelsplane.length; i++) {
 
-                    /*
-                    channels[i].emit('fade');
-                    channelsplane[i].emit('fade');
-                    menuitems[i].emit('fade');
-                    menuplane[i].emit('fade');
+
+                        console.log("fading");
+                        channelsplane[i].emit('fade');
+
+                        // channelsplane[i].setAttribute('material', 'opacity', '0');
+                        //  menuplane[i].setAttribute('material', 'opacity', '0');
+
+                    }
+                    
                     */
                 }
 
+            } else  {
 
+              
 
-
-            } else {
-
-
-
-                if (channelsplane[1].getAttribute('material').opacity == 0) {
-
-
+             if (channelsplane[1].getAttribute('material').opacity != 1) {
+                 
+                 
+                 /*
                     for (i = 0; i < channelsplane.length; i++) {
 
 
 
                         channelsplane[i].setAttribute('material', 'opacity', '1');
-                   //     menuplane[i].setAttribute('material', 'opacity', '1');
-
-
-                        /*
-                        channels[i].setAttribute('material', 'opacity', '1');
-                        menuitems[i].setAttribute('material', 'opacity', '1');
-
-                        */
-
-                        /*
-
-                        channels[i].emit('unfade');
-                        channelsplane[i].emit('unfade');
-                        menuitems[i].emit('unfade');
-                        menuplane[i].emit('unfade');
-                        
-                        */
+                        //  menuplane[i].setAttribute('material', 'opacity', '0');
 
                     }
-
+                    */
                 }
+
             }
 
         }
-
-
+        
+        
         this.intersectedEl = intersectedEl;
-
-
-
 
     }
 });
