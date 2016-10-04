@@ -10,26 +10,21 @@
 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
 
+   <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
+    -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-
-
-
-
     <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
--->
+    -->
 
 
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
 
-    <!--
-    <script src="https://rawgit.com/ngokevin/aframe-template-component/master/dist/aframe-template-component.min.js"></script>
--->
 
-    <script src="js/components/channel-selection.js"></script>
-
+    
+    <script src="js/components/channel-selection.js"></script> 
+    
     <script src="js/components/collide-check.js"></script>
 
 
@@ -60,71 +55,13 @@
 
         </a-assets>
         
-        <a-entity id="thetemplatescene" template="src: scenes/channelplanes.html"> </a-entity>
+        <a-entity id="thetemplatescene" template="src: scenes/channelplanes.html" > </a-entity>
 
 
-        <a-entity id="thescene" ></a-entity>
+        <a-entity id="thescene"></a-entity>
+        <a-entity id="menuscene" </a-entity>
 
 
-        <!--
-        
-
-        <a-entity look-at=[camera] layout="type: box; margin: .2" position="-1.3 2 2">
-
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-            </a-entity>
-
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-               </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-
-
-            </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-
-            </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-
-
-            </a-entity>
-            <a-entity channel-selection class="channelsplane" mixin="fontplane">
-
-
-            </a-entity>
-
-
-        </a-entity>
-
-        <a-entity look-at=[camera] layout="type: box; margin: .2" position="1.3 2 2">
-
-            <a-entity channel-selection class="menuplane" mixin="fontplane">
-
-            </a-entity>
-            <a-entity channel-selection class="menuplane" mixin="fontplane">
-
-            </a-entity>
-
-            <a-entity channel-selection class="menuplane" mixin="fontplane">
-
-            </a-entity>
-
-            <a-entity channel-selection class="menuplane" mixin="fontplane">
-
-            </a-entity>
-
-            <a-entity channel-selection class="menuplane" mixin="fontplane">
-
-            </a-entity>
-
-            <a-entity channel-selection class="menuplane" mixin="fontplane">
-
-            </a-entity>
-
-
-
-        </a-entity>
-        
-        -->
 
 
         <!--<a-plane color="black" width="5" height="3.4" position="0 2.5 -1"></a-plane>-->

@@ -4,9 +4,21 @@ AFRAME.registerComponent('collide-check', {
 
     init: function () {
 
-        this.el.addEventListener('raycaster-intersection', this.onIntersection.bind(this));
+        var cursorEl = this.el;
+        var canvas = cursorEl.sceneEl.canvas;
 
-        this.maskEl = this.el.sceneEl.querySelector('#thescene');
+        if (!canvas) {
+            cursorEl.sceneEl.addEventListener('render-target-loaded', this.init.bind(this));
+            return;
+        }
+
+
+        this.el.addEventListener('raycaster-intersection', this.onIntersection.bind(this));
+        this.el.addEventListener('raycaster-intersection-cleared',
+            this.onIntersectionCleared.bind(this));
+
+
+        // this.maskEl = this.el.sceneEl.querySelector('#thescene');
 
     },
 
@@ -14,18 +26,22 @@ AFRAME.registerComponent('collide-check', {
 
 
 
+        var thetemplatescene;
         var channels;
         var menuitems;
         var channelsplane;
         var menuplane;
 
         var currentscene;
+        var templatescene;
 
         //  currentscene = document.querySelector('#thescene');
-        channelmenuplanes = document.querySelector('#thetemplatescene');
+        thetemplatescene = document.querySelector('#thetemplatescene');
 
-        channelsplane = document.querySelectorAll(".channelsplane");
-        menuplane = document.querySelectorAll(".menuplane");
+        // channelsplane = document.querySelectorAll(".channelsplane");
+        //    menuplane = document.querySelectorAll(".menuplane");
+
+
         /*
         channels = document.querySelectorAll(".channels");
         menuitems = document.querySelectorAll(".menu");
@@ -45,70 +61,50 @@ AFRAME.registerComponent('collide-check', {
 
             if (this.intersectedEl.id == 'vidbox') {
 
-
-
-
-                //currentscene.setAttribute('visible', 'false');
-
-
-                // currentscene.children[1].setAttribute('material', 'opacity', '0');
-
-                // console.log(currentscene.children[1]);
-
-                //currentscene[1].emit('fade');
-
-                //  currentscene.children[1].emit('fade');
-                // self.maskEl.emit('fade');
-
-
-                if (channelsplane[1].getAttribute('material').opacity != 0) {
-                    
-                   // channelsplane[i].setAttribute('material', 'opacity', '0');
-                  //  console.log(channelmenuplanes.children[1].getAttribute('material').opacity);
-                   // channelmenuplanes.children[1].setAttribute('material', 'opacity', '0');
-                //    channelmenuplanes.children[1]('material').opacity = 0;
-                    
-                    
-                    /*
-                    for (i = 0; i < channelsplane.length; i++) {
-
-
-                        console.log("fading");
-                        channelsplane[i].emit('fade');
-
-                        // channelsplane[i].setAttribute('material', 'opacity', '0');
-                        //  menuplane[i].setAttribute('material', 'opacity', '0');
-
-                    }
-                    
-                    */
+                if (thetemplatescene.getAttribute('template').src == 'channelplanes.html') {
+                    thetemplatescene.setAttribute('template').src == 'empty.html'
                 }
 
-            } else  {
-
-              
-
-             if (channelsplane[1].getAttribute('material').opacity != 1) {
-                 
-                 
-                 /*
-                    for (i = 0; i < channelsplane.length; i++) {
-
-
-
-                        channelsplane[i].setAttribute('material', 'opacity', '1');
-                        //  menuplane[i].setAttribute('material', 'opacity', '0');
-
-                    }
-                    */
-                }
+            } else {
 
             }
 
         }
-        
-        
+
+
         this.intersectedEl = intersectedEl;
 
+    },
+
+    /**
+     * Handle intersection cleared.
+     */
+    onIntersectionCleared: function (evt) {
+        var cursorEl = this.el;
+        var intersectedEl = evt.detail.el;
+
+
+        // Not intersecting.
+        if (!intersectedEl || !this.intersectedEl) {
+
+            console.log("not intersecting");
+            
+
+            if (thetemplatescene.getAttribute('template').src == '') {
+                
+                console.log("is this working?");
+                
+                thetemplatescene.setAttribute('template').src == 'channelplanes.html'
+            }
+
+        }
+
+        // Unset intersected entity (after emitting the event).
+        this.intersectedEl = null;
+
     }
+
+
+
+
 });
