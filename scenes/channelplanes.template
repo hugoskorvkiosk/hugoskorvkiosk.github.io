@@ -1,7 +1,6 @@
 <script id="channelplanes" type="text/x-jade-template">
 
         a-entity(id="channelbox" position="0 0 0")
-        
         - for (var y=0 ; y < 6; y++) { 
             a-entity(channelselection="", class='channelplane', id='channelplane'+y, geometry="primitive:plane;width: 0.5; height:0.15" material="color:#2D2D2D" , position="#{-1.3} #{y/5+2} #{2}")
                 a-entity(material="color:white", text="text: Channel#{'plane'+y}; size:0.04; font: Open Sans;", position="-0.2 0 -0.04" )
