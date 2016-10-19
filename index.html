@@ -18,16 +18,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
     -->
 
-
-    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
-
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
 
+    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
 
 
-    <script src="js/components/channel-selection.js"></script>
+    <script src="fonts/open_sans_regular.typeface.js"></script>
+
+    <script src="js/components/channelselection.js"></script>
 
     <script src="js/components/collide-check.js"></script>
+
+    <script src="js/components/scrollchannel.js"></script>
+    <script src="js/components/event-proxy.js"></script>
 
 
     <!--
@@ -56,41 +59,89 @@
             <img id="vidbox1" src="images/vidbox1.png">
             <img id="vidbox2" src="images/vidbox2.png">
             <img id="vidbox3" src="images/vidbox3.png">
-       
+
 
 
         </a-assets>
 
-        <a-entity id="thetemplatescene" template="src: scenes/channelplanes.html"> </a-entity>
+
+        <a-sphere color="red" radius="0.25" position="0 0 0" alongpath="path:2,2,-5 -2,1,-2.5 0,1,-1; closed:false; dur:5000; delay:4000">
+        </a-sphere>
+
+        <a-entity event-proxy="listen:animation-complete" material="opacity:1"  id="thechanneltemplatescene" position="0 0 0" template="src: scenes/channelplanes.template" animation="property:position; startEvents: beginscroll; from:0; to:0 0 0; dur:100">
+            
 
 
-        <a-entity id="thescene"></a-entity>
-        <a-entity id="menuscene" </a-entity>
-
-            <a-sky src="#sky"></a-sky>
+        </a-entity>
 
 
+        <a-entity material="opacity:1" id="themenutemplatescene" template="src: scenes/menuplanes.template">
 
-            <!--<a-plane color="black" width="5" height="3.4" position="0 2.5 -1"></a-plane>-->
-            <a-image id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1"></a-image>
-            <a-image id="channelbox" width="0.6" height="0.2" src="#tv1" position="1.3 3.4 0.1"></a-image>
+        </a-entity>
 
+<!--
+        <a-entity material="opacity:1" id="testmenu" template="src: scenes/menuscene2.template">
 
+        </a-entity>
+-->
 
-            <a-entity position="0 2.4 4" id="camera" camera look-controls wasd-controls touch-controls>
-
-
-
-                <a-entity collide-check></a-entity>
-
-
-                <a-entity cursor="fuse: true; fuseTimeout: 1000" position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.007; radiusInner: 0.001;" material="color: pink; shader: flat">
-                    <!--<a-animation dur="1000" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation> -->
-                    <!--<a-animation dur="1000" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation> -->
-                </a-entity>
-
-
+        <a-entity position="-1.20 2.7 2.09" rotation="" scale="" visible="">
+            <a-entity id="scrollup" class="scrollbuttons" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.28 -0.22 0.01" geometry="primitive:plane; width: 0.13; height:0.15" material="color:#2D2D2D" rotation="" scale="" visible="" 
+            event-set__1="_event: click; _target: #scrolldown; visible: true" 
+            event-set__2="_event: mouseenter; material.color: #F15A24" 
+            event-set__3="_event: mouseleave; material.color: #2D2D2D">
             </a-entity>
+            <a-entity id="scrolldown" class="scrollbuttons" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.28 -0.38 0.01" geometry="primitive:plane;width: 0.13; height:0.15" material="color:#2D2D2D" rotation="" scale="" visible=""
+            event-set__4="_event: click; _target: #scrolldown; visible: true" 
+            event-set__5="_event: mouseenter; material.color: #F15A24" 
+            event-set__6="_event: mouseleave; material.color: #2D2D2D">
+            </a-entity>
+            <!--
+         <a-entity position="0 -0.23 0" geometry="primitive:plane;width:0.6;height:0.01" material="color:#F15A24" rotation="" scale="" visible="">
+        </a-entity>
+          <a-entity position="0 -0.38 0" geometry="primitive:plane;width:0.6;height:0.01" material="color:#F15A24" rotation="" scale="" visible="">
+        </a-entity>
+        -->
+            <a-entity position="-0.07 -0.30 -0.1" geometry="primitive:plane;width:0.6;height:0.17" material="color:#F15A24" rotation="" scale="" visible="">
+            </a-entity>
+
+        </a-entity>
+
+
+        <a-entity id="thescene"> </a-entity>
+        <a-entity id="menuscene"> </a-entity>
+
+
+
+        <a-sky src="#sky"></a-sky>
+
+
+
+        <!--<a-plane color="black" width="5" height="3.4" position="0 2.5 -1"></a-plane>-->
+        
+        
+        <a-image id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1" 
+                 event-proxy="target: #thechanneltemplatescene; emit:fade; listen:click"></a-image>
+        
+        
+        <a-image id="channelbox" width="0.6" height="0.2" src="#tv1" position="1.3 3.4 0.1"></a-image>
+
+
+
+        <a-entity position="0 2.4 4" id="camera" camera look-controls wasd-controls touch-controls>
+
+
+
+            <a-entity collide-check></a-entity>
+
+
+            <a-entity cursor="fuse: true; fuseTimeout: 200" position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.007; radiusInner: 0.001;" material="color: pink; shader: flat">
+                <a-animation dur="200" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+                <a-animation dur="200" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+            </a-entity>
+
+
+        </a-entity>
 
 
     </a-scene>
