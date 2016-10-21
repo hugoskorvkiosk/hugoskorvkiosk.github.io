@@ -2,7 +2,7 @@ AFRAME.registerComponent('collide-check', {
     dependencies: ['raycaster'],
 
 
-    init: function() {
+    init: function () {
 
         var cursorEl = this.el;
         var canvas = cursorEl.sceneEl.canvas;
@@ -22,7 +22,7 @@ AFRAME.registerComponent('collide-check', {
 
     },
 
-    onIntersection: function(evt) {
+    onIntersection: function (evt) {
 
         var self = this;
         var cursorEl = this.el;
@@ -54,7 +54,7 @@ AFRAME.registerComponent('collide-check', {
 
         if (this.intersectedEl === intersectedEl) {
 
-            console.log("intersecting same as last time");
+          
 
             if (this.intersectedEl.id == 'vidbox') {
 
@@ -82,6 +82,11 @@ AFRAME.registerComponent('collide-check', {
 
             } else {
 
+
+
+       
+
+
             }
 
         }
@@ -94,7 +99,7 @@ AFRAME.registerComponent('collide-check', {
     /**
      * Handle intersection cleared.
      */
-    onIntersectionCleared: function(evt) {
+    onIntersectionCleared: function (evt) {
         var cursorEl = this.el;
         var intersectedEl = evt.detail.el;
 
@@ -105,6 +110,7 @@ AFRAME.registerComponent('collide-check', {
         var themenutemplate = document.querySelector('#themenutemplate');
 
 
+  console.log("not intersecting");
 
 
         // thechanneltemplatescene.emit('unfade');
@@ -113,8 +119,9 @@ AFRAME.registerComponent('collide-check', {
 
         // Not intersecting.
         if (!intersectedEl || !this.intersectedEl) {
-
-
+            
+            
+         
 
             /*
                         for (i = 0; i < channelplanes.length; i++ ){

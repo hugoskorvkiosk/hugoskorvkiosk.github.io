@@ -1,8 +1,10 @@
 <script id="menuplanes" type="text/x-jade-template">
     - for (var y=0 ; y < 6; y++) { 
-        a-entity(channelselection="", class='menuplane', id='menuplane'+y, geometry="primitive:plane;width: 0.5; height:0.15" material="color:#2D2D2D" , position="#{1.3} #{y/5+2} #{2}")
-            a-entity(material="color:white", text="text: Menu#{'plane'+y}; size:0.04; font: Open Sans;", position="-0.2 0 -0.04" )
-            a-animation( attribute="material.opacity", begin="fade", to="0", dur="2000")
+        a-entity(channelselection="", class='menuplane fadewhenvid', id='menuplane'+y, geometry="primitive:plane;width: 0.5; height:0.15" material="color:#2D2D2D" , position="#{1.3} #{y/5+2} #{2}")
+            a-entity(class="channelplane fadewhenvid" material="color:white", text="text: Menu#{'plane'+y}; size:0.04; font: Open Sans;", position="-0.2 0 -0.04" )
+                a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
+                a-animation( attribute="material.opacity", begin="unfade", to="1", dur="500")
+            a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
             a-animation( attribute="material.opacity", begin="unfade", to="1", dur="500")
 
     - } 

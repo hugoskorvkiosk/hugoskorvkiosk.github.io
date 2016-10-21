@@ -16,20 +16,20 @@ AFRAME.registerComponent('scrollchannel', {
 
     update: function () {
         var data = this.data;
-        
-//        console.log(document.querySelector('#thescene').getAttribute('material').opactiy);
-        
+
+        //        console.log(document.querySelector('#thescene').getAttribute('material').opactiy);
+
 
 
         var thechanneltemplatescene = document.querySelector('#thechanneltemplatescene');
 
-        //        var themenutemplatescene = document.querySelector('#themenutemplatescene');
-        //        var themenutemplate = document.querySelector('#themenutemplate');
-        //        var menuplanes = document.querySelectorAll('.menuplane');
-        //        var channelplanes = document.querySelectorAll('.channelplane');
-        //        var scrollbuttons = document.querySelectorAll('.scrollbuttons');
-        //        var scrollup = document.querySelector('#scrollup');
-        //        var scrolldownanimation = document.querySelector('#scrolldownanimation');
+
+        var channelplanes = document.querySelector('#thechanneltemplatescene').children[1];
+     
+        var channelcount = channelplanes.length;
+//        var firstchannel = channelplanes[0];
+//        var lastchannel = channelplanes[channelcount];
+
 
         var position;
         var newpositiony;
@@ -41,6 +41,51 @@ AFRAME.registerComponent('scrollchannel', {
             //                scrolldownanimation.setAttribute('from', position.x + ' ' + position.y + ' ' + position.z);
 
             
+            var firstchannelposy = thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y;
+            var lastchannelposy = thechanneltemplatescene.children[1].childNodes[channelcount].getAttribute("position").y;
+            
+            
+            
+            var templateposy = document.querySelector('#thechanneltemplatescene').getAttribute("position").y;
+            var channelselectedposy = document.querySelector('#channelselectedindication').getAttribute("position").y;
+            
+            var distancefromselected = parseFloat(channelselectedposy - templateposy).toFixed(3);
+            
+            
+            // TODO: Om toppen av thechanneltemplateposition är nära channelselectedposy - return; 
+            if(  distancefromselected > 0.15 || distancefromselected < ){
+               
+               
+               
+               return;
+               
+               
+               
+               }
+            
+            
+            // firstchannel pos == 2
+            // channelcount == 9
+            // lastchannel pos == 3.8 == firstchannelpos + channelcount * channelplanes[0].getAttribute('property').height;
+            
+           
+            
+//            var chtemplateheight = channelcount * channelplanes[0].getAttribute('property').height;
+            
+//             console.log(chtemplateheight);
+            
+
+//            var chtemplateposition = thechanneltemplatescene.getAttribute('position');
+//            
+//            
+//            
+//            var firstchannelpos = firstchannel.getAttribute('position');
+//            var lastchannelpos = lastchannel.getAttribute('position');
+
+         
+            
+
+
             console.log(event);
 
             position = document.querySelector('#thechanneltemplatescene').getAttribute('position');
@@ -48,14 +93,15 @@ AFRAME.registerComponent('scrollchannel', {
 
             if (this.getAttribute("id") == "scrolldown") {
                 newpositiony = parseFloat(position.y) + 0.2;
-                newpositiony = parseFloat(newpositiony);
+                newpositiony = parseFloat(newpositiony).toPrecision(5);
+
 
 
             } else {
                 newpositiony = parseFloat(position.y) - 0.2;
-                newpositiony = parseFloat(newpositiony);
+                newpositiony = parseFloat(newpositiony).toPrecision(5);
                 console.log("clicked scrollup");
-              
+
             }
 
             var newpos = {
@@ -77,7 +123,7 @@ AFRAME.registerComponent('scrollchannel', {
 
             data.target.emit(data.emit);
 
-          
+
 
 
             //            
@@ -157,7 +203,7 @@ AFRAME.registerComponent('scrollchannel', {
 
         });
 
-   
+
 
     },
 

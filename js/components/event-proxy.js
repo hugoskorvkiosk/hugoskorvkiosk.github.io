@@ -14,9 +14,11 @@ AFRAME.registerComponent('event-proxy', {
     this.el.addEventListener(data.listen, function () {
         
         
-        console.log("eventproxy");
+      
         
-        data.target.emit(data.emit);
+        
+        
+//        data.target.emit(data.emit);
     
     
 //        document.querySelector('#thescene').setAttribute('material', 'opacity', '0.99');
