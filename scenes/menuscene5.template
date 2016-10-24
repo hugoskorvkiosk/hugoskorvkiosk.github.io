@@ -1,5 +1,5 @@
 <a-entity look-at=[camera] geometry="primitive: plane; width:2; height:0.4" material="color: #F15A24" position="4.5 3.6 0">
-     <a-entity material="color:white", text="text: MenuItem2; size:0.17", position="-0.6 -0.1 -0.04" >
+     <a-entity material="color:white", text="text: MenuItem5; size:0.17", position="-0.6 -0.1 -0.04" >
      </a-entity>
 </a-entity>
 
