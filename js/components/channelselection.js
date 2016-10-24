@@ -38,6 +38,13 @@ AFRAME.registerComponent('channelselection', {
 
 
             console.log(this);
+            
+            
+            // should be added
+            
+            // if(this.getAttribute('material').opacity != "1"){
+            // return;
+            // }
 
 
             switch (this.getAttribute('id')) {

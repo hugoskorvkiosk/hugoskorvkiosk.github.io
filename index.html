@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>A-frame web TV platform</title>
     <meta name="description" content="Hello, World! - A-Frame">
+    
     <script src="js/aframe.js"></script>
 
 
@@ -33,11 +34,15 @@
     <script src="js/components/event-proxy.js"></script>
 
     <script src="js/components/fade-channelmenu.js"></script>
-    <script src="js/components/unfade-channelmenu.js"></script>
+    <script src="js/components/unfade-channelmenu-clicked.js"></script>
+     <script src="js/components/unfade-channelmenu.js"></script>
 
     <script src="js/components/aframe-event-set-component.js"></script>
     
     <script src="js/components/movechannelclicked.js"></script>
+    
+    <script src="js/components/menuselected.js"></script>
+   
 
 
     <!--
@@ -75,11 +80,17 @@
 
             <a-mixin id="fadewhenvidclicked" attribute="material.opacity" begin="fade" to="0" dur="3000"></a-mixin>
             <a-mixin id="unfadewhenvidclicked" attribute="material.opacity" begin="unfade" to="1" dur="500"></a-mixin>
+            
+            <a-mixin id="menuitemselect" attribute="scale" begin="menuitemselect" to="1.5 1.5 1.5" dur="500"></a-mixin>
+          
 
 
             <a-mixin id="testfade" animation="property:material.opacity; startEvents: fade; to:0; dur:3000" animation_2="property:material.opacity; startEvents: unfade; to:1; dur:500"></a-mixin>
 
+            <script id="templateforchannel" type="text/x-jade-template" src="scenes/channelplanes.template"></script>
 
+             
+            
 
         </a-assets>
 
@@ -94,7 +105,7 @@
 
 
         <a-entity material="opacity:1" id="themenutemplatescene" template="src: scenes/menuplanes.template">
-
+            <a-animation mixin="menuitemselect"></a-animation>
         </a-entity>
 
         <!--
@@ -116,7 +127,7 @@
 
             </a-entity>
 
-            <a-entity unfade-channelmenu class="scrollbuttons" position="1.2 -0.88 0.01" geometry="primitive:plane;width: 0.43; height:0.10" material="color:#F15F15; opacity:0.4" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" >
+            <a-entity unfade-channelmenu-clicked class="scrollbuttons" position="1.2 -0.88 0.01" geometry="primitive:plane;width: 0.43; height:0.10" material="color:#F15F15; opacity:0.4" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" >
             </a-entity>
 
 
@@ -153,7 +164,7 @@
         <!--<a-plane color="black" width="5" height="3.4" position="0 2.5 -1"></a-plane>-->
 
 
-        <a-image fade-channelmenu id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1" eventset__8="_event: mouseleave; _target: .fadewhenvid; material.color: #FFFFFF"></a-image>
+        <a-image fade-channelmenu unfade-channelmenu id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1" eventset__8="_event: mouseleave; _target: .fadewhenvid; material.color: #FFFFFF"></a-image>
 
 
         <a-image id="channelbox" width="0.6" height="0.2" src="#tv4" position="1.3 3.4 0.1"></a-image>

@@ -1,7 +1,7 @@
-AFRAME.registerComponent('unfade-channelmenu', {
+AFRAME.registerComponent('unfade-channelmenu-clicked', {
     schema: {
         listen: {
-            default: 'mouseleave'
+            default: 'click'
         },
         emit: {
             default: ''
@@ -12,16 +12,12 @@ AFRAME.registerComponent('unfade-channelmenu', {
         var data = this.data;
         this.el.addEventListener(data.listen, function () {
 
-            
-            console.log("mouseleave");
 
                 var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
                   
-            console.log(document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '0');
-            
-            console.log("before if opacity");
+                  console.log(document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '0');
 
-                if (document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '0') {
+                if (document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity != '1') {
                     
                     console.log("opacity is not 1");
                     

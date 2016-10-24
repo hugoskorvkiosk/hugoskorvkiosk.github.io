@@ -1,7 +1,7 @@
 AFRAME.registerComponent('fade-channelmenu', {
     schema: {
         listen: {
-            default: 'click'
+            default: 'mouseenter'
         },
         target: {
             type: 'selector'
@@ -15,9 +15,10 @@ AFRAME.registerComponent('fade-channelmenu', {
         var data = this.data;
         this.el.addEventListener(data.listen, function () {
 
+            console.log("mouseenter");
 
 
-            if(document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity != '0')
+            if(document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '1')
             {
 
                 var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');

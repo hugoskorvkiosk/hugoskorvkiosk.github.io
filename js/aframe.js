@@ -50149,968 +50149,9 @@ TWEEN.Interpolation = {
 } )( this );
 
 },{}],19:[function(_dereq_,module,exports){
-(function (global){
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof _dereq_=="function"&&_dereq_;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof _dereq_=="function"&&_dereq_;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
-(function (process,global){
-/*!
- * @overview es6-promise - a tiny implementation of Promises/A+.
- * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
- * @license   Licensed under MIT license
- *            See https://raw.githubusercontent.com/jakearchibald/es6-promise/master/LICENSE
- * @version   3.1.2
- */
-
-(function() {
-    "use strict";
-    function lib$es6$promise$utils$$objectOrFunction(x) {
-      return typeof x === 'function' || (typeof x === 'object' && x !== null);
-    }
-
-    function lib$es6$promise$utils$$isFunction(x) {
-      return typeof x === 'function';
-    }
-
-    function lib$es6$promise$utils$$isMaybeThenable(x) {
-      return typeof x === 'object' && x !== null;
-    }
-
-    var lib$es6$promise$utils$$_isArray;
-    if (!Array.isArray) {
-      lib$es6$promise$utils$$_isArray = function (x) {
-        return Object.prototype.toString.call(x) === '[object Array]';
-      };
-    } else {
-      lib$es6$promise$utils$$_isArray = Array.isArray;
-    }
-
-    var lib$es6$promise$utils$$isArray = lib$es6$promise$utils$$_isArray;
-    var lib$es6$promise$asap$$len = 0;
-    var lib$es6$promise$asap$$vertxNext;
-    var lib$es6$promise$asap$$customSchedulerFn;
-
-    var lib$es6$promise$asap$$asap = function asap(callback, arg) {
-      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len] = callback;
-      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len + 1] = arg;
-      lib$es6$promise$asap$$len += 2;
-      if (lib$es6$promise$asap$$len === 2) {
-        // If len is 2, that means that we need to schedule an async flush.
-        // If additional callbacks are queued before the queue is flushed, they
-        // will be processed by this flush that we are scheduling.
-        if (lib$es6$promise$asap$$customSchedulerFn) {
-          lib$es6$promise$asap$$customSchedulerFn(lib$es6$promise$asap$$flush);
-        } else {
-          lib$es6$promise$asap$$scheduleFlush();
-        }
-      }
-    }
-
-    function lib$es6$promise$asap$$setScheduler(scheduleFn) {
-      lib$es6$promise$asap$$customSchedulerFn = scheduleFn;
-    }
-
-    function lib$es6$promise$asap$$setAsap(asapFn) {
-      lib$es6$promise$asap$$asap = asapFn;
-    }
-
-    var lib$es6$promise$asap$$browserWindow = (typeof window !== 'undefined') ? window : undefined;
-    var lib$es6$promise$asap$$browserGlobal = lib$es6$promise$asap$$browserWindow || {};
-    var lib$es6$promise$asap$$BrowserMutationObserver = lib$es6$promise$asap$$browserGlobal.MutationObserver || lib$es6$promise$asap$$browserGlobal.WebKitMutationObserver;
-    var lib$es6$promise$asap$$isNode = typeof process !== 'undefined' && {}.toString.call(process) === '[object process]';
-
-    // test for web worker but not in IE10
-    var lib$es6$promise$asap$$isWorker = typeof Uint8ClampedArray !== 'undefined' &&
-      typeof importScripts !== 'undefined' &&
-      typeof MessageChannel !== 'undefined';
-
-    // node
-    function lib$es6$promise$asap$$useNextTick() {
-      // node version 0.10.x displays a deprecation warning when nextTick is used recursively
-      // see https://github.com/cujojs/when/issues/410 for details
-      return function() {
-        process.nextTick(lib$es6$promise$asap$$flush);
-      };
-    }
-
-    // vertx
-    function lib$es6$promise$asap$$useVertxTimer() {
-      return function() {
-        lib$es6$promise$asap$$vertxNext(lib$es6$promise$asap$$flush);
-      };
-    }
-
-    function lib$es6$promise$asap$$useMutationObserver() {
-      var iterations = 0;
-      var observer = new lib$es6$promise$asap$$BrowserMutationObserver(lib$es6$promise$asap$$flush);
-      var node = document.createTextNode('');
-      observer.observe(node, { characterData: true });
-
-      return function() {
-        node.data = (iterations = ++iterations % 2);
-      };
-    }
-
-    // web worker
-    function lib$es6$promise$asap$$useMessageChannel() {
-      var channel = new MessageChannel();
-      channel.port1.onmessage = lib$es6$promise$asap$$flush;
-      return function () {
-        channel.port2.postMessage(0);
-      };
-    }
-
-    function lib$es6$promise$asap$$useSetTimeout() {
-      return function() {
-        setTimeout(lib$es6$promise$asap$$flush, 1);
-      };
-    }
-
-    var lib$es6$promise$asap$$queue = new Array(1000);
-    function lib$es6$promise$asap$$flush() {
-      for (var i = 0; i < lib$es6$promise$asap$$len; i+=2) {
-        var callback = lib$es6$promise$asap$$queue[i];
-        var arg = lib$es6$promise$asap$$queue[i+1];
-
-        callback(arg);
-
-        lib$es6$promise$asap$$queue[i] = undefined;
-        lib$es6$promise$asap$$queue[i+1] = undefined;
-      }
-
-      lib$es6$promise$asap$$len = 0;
-    }
-
-    function lib$es6$promise$asap$$attemptVertx() {
-      try {
-        var r = _dereq_;
-        var vertx = r('vertx');
-        lib$es6$promise$asap$$vertxNext = vertx.runOnLoop || vertx.runOnContext;
-        return lib$es6$promise$asap$$useVertxTimer();
-      } catch(e) {
-        return lib$es6$promise$asap$$useSetTimeout();
-      }
-    }
-
-    var lib$es6$promise$asap$$scheduleFlush;
-    // Decide what async method to use to triggering processing of queued callbacks:
-    if (lib$es6$promise$asap$$isNode) {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useNextTick();
-    } else if (lib$es6$promise$asap$$BrowserMutationObserver) {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMutationObserver();
-    } else if (lib$es6$promise$asap$$isWorker) {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMessageChannel();
-    } else if (lib$es6$promise$asap$$browserWindow === undefined && typeof _dereq_ === 'function') {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$attemptVertx();
-    } else {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useSetTimeout();
-    }
-    function lib$es6$promise$then$$then(onFulfillment, onRejection) {
-      var parent = this;
-      var state = parent._state;
-
-      if (state === lib$es6$promise$$internal$$FULFILLED && !onFulfillment || state === lib$es6$promise$$internal$$REJECTED && !onRejection) {
-        return this;
-      }
-
-      var child = new this.constructor(lib$es6$promise$$internal$$noop);
-      var result = parent._result;
-
-      if (state) {
-        var callback = arguments[state - 1];
-        lib$es6$promise$asap$$asap(function(){
-          lib$es6$promise$$internal$$invokeCallback(state, child, callback, result);
-        });
-      } else {
-        lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection);
-      }
-
-      return child;
-    }
-    var lib$es6$promise$then$$default = lib$es6$promise$then$$then;
-    function lib$es6$promise$promise$resolve$$resolve(object) {
-      /*jshint validthis:true */
-      var Constructor = this;
-
-      if (object && typeof object === 'object' && object.constructor === Constructor) {
-        return object;
-      }
-
-      var promise = new Constructor(lib$es6$promise$$internal$$noop);
-      lib$es6$promise$$internal$$resolve(promise, object);
-      return promise;
-    }
-    var lib$es6$promise$promise$resolve$$default = lib$es6$promise$promise$resolve$$resolve;
-
-    function lib$es6$promise$$internal$$noop() {}
-
-    var lib$es6$promise$$internal$$PENDING   = void 0;
-    var lib$es6$promise$$internal$$FULFILLED = 1;
-    var lib$es6$promise$$internal$$REJECTED  = 2;
-
-    var lib$es6$promise$$internal$$GET_THEN_ERROR = new lib$es6$promise$$internal$$ErrorObject();
-
-    function lib$es6$promise$$internal$$selfFulfillment() {
-      return new TypeError("You cannot resolve a promise with itself");
-    }
-
-    function lib$es6$promise$$internal$$cannotReturnOwn() {
-      return new TypeError('A promises callback cannot return that same promise.');
-    }
-
-    function lib$es6$promise$$internal$$getThen(promise) {
-      try {
-        return promise.then;
-      } catch(error) {
-        lib$es6$promise$$internal$$GET_THEN_ERROR.error = error;
-        return lib$es6$promise$$internal$$GET_THEN_ERROR;
-      }
-    }
-
-    function lib$es6$promise$$internal$$tryThen(then, value, fulfillmentHandler, rejectionHandler) {
-      try {
-        then.call(value, fulfillmentHandler, rejectionHandler);
-      } catch(e) {
-        return e;
-      }
-    }
-
-    function lib$es6$promise$$internal$$handleForeignThenable(promise, thenable, then) {
-       lib$es6$promise$asap$$asap(function(promise) {
-        var sealed = false;
-        var error = lib$es6$promise$$internal$$tryThen(then, thenable, function(value) {
-          if (sealed) { return; }
-          sealed = true;
-          if (thenable !== value) {
-            lib$es6$promise$$internal$$resolve(promise, value);
-          } else {
-            lib$es6$promise$$internal$$fulfill(promise, value);
-          }
-        }, function(reason) {
-          if (sealed) { return; }
-          sealed = true;
-
-          lib$es6$promise$$internal$$reject(promise, reason);
-        }, 'Settle: ' + (promise._label || ' unknown promise'));
-
-        if (!sealed && error) {
-          sealed = true;
-          lib$es6$promise$$internal$$reject(promise, error);
-        }
-      }, promise);
-    }
-
-    function lib$es6$promise$$internal$$handleOwnThenable(promise, thenable) {
-      if (thenable._state === lib$es6$promise$$internal$$FULFILLED) {
-        lib$es6$promise$$internal$$fulfill(promise, thenable._result);
-      } else if (thenable._state === lib$es6$promise$$internal$$REJECTED) {
-        lib$es6$promise$$internal$$reject(promise, thenable._result);
-      } else {
-        lib$es6$promise$$internal$$subscribe(thenable, undefined, function(value) {
-          lib$es6$promise$$internal$$resolve(promise, value);
-        }, function(reason) {
-          lib$es6$promise$$internal$$reject(promise, reason);
-        });
-      }
-    }
-
-    function lib$es6$promise$$internal$$handleMaybeThenable(promise, maybeThenable, then) {
-      if (maybeThenable.constructor === promise.constructor &&
-          then === lib$es6$promise$then$$default &&
-          constructor.resolve === lib$es6$promise$promise$resolve$$default) {
-        lib$es6$promise$$internal$$handleOwnThenable(promise, maybeThenable);
-      } else {
-        if (then === lib$es6$promise$$internal$$GET_THEN_ERROR) {
-          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$GET_THEN_ERROR.error);
-        } else if (then === undefined) {
-          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
-        } else if (lib$es6$promise$utils$$isFunction(then)) {
-          lib$es6$promise$$internal$$handleForeignThenable(promise, maybeThenable, then);
-        } else {
-          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
-        }
-      }
-    }
-
-    function lib$es6$promise$$internal$$resolve(promise, value) {
-      if (promise === value) {
-        lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$selfFulfillment());
-      } else if (lib$es6$promise$utils$$objectOrFunction(value)) {
-        lib$es6$promise$$internal$$handleMaybeThenable(promise, value, lib$es6$promise$$internal$$getThen(value));
-      } else {
-        lib$es6$promise$$internal$$fulfill(promise, value);
-      }
-    }
-
-    function lib$es6$promise$$internal$$publishRejection(promise) {
-      if (promise._onerror) {
-        promise._onerror(promise._result);
-      }
-
-      lib$es6$promise$$internal$$publish(promise);
-    }
-
-    function lib$es6$promise$$internal$$fulfill(promise, value) {
-      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
-
-      promise._result = value;
-      promise._state = lib$es6$promise$$internal$$FULFILLED;
-
-      if (promise._subscribers.length !== 0) {
-        lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish, promise);
-      }
-    }
-
-    function lib$es6$promise$$internal$$reject(promise, reason) {
-      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
-      promise._state = lib$es6$promise$$internal$$REJECTED;
-      promise._result = reason;
-
-      lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publishRejection, promise);
-    }
-
-    function lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection) {
-      var subscribers = parent._subscribers;
-      var length = subscribers.length;
-
-      parent._onerror = null;
-
-      subscribers[length] = child;
-      subscribers[length + lib$es6$promise$$internal$$FULFILLED] = onFulfillment;
-      subscribers[length + lib$es6$promise$$internal$$REJECTED]  = onRejection;
-
-      if (length === 0 && parent._state) {
-        lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish, parent);
-      }
-    }
-
-    function lib$es6$promise$$internal$$publish(promise) {
-      var subscribers = promise._subscribers;
-      var settled = promise._state;
-
-      if (subscribers.length === 0) { return; }
-
-      var child, callback, detail = promise._result;
-
-      for (var i = 0; i < subscribers.length; i += 3) {
-        child = subscribers[i];
-        callback = subscribers[i + settled];
-
-        if (child) {
-          lib$es6$promise$$internal$$invokeCallback(settled, child, callback, detail);
-        } else {
-          callback(detail);
-        }
-      }
-
-      promise._subscribers.length = 0;
-    }
-
-    function lib$es6$promise$$internal$$ErrorObject() {
-      this.error = null;
-    }
-
-    var lib$es6$promise$$internal$$TRY_CATCH_ERROR = new lib$es6$promise$$internal$$ErrorObject();
-
-    function lib$es6$promise$$internal$$tryCatch(callback, detail) {
-      try {
-        return callback(detail);
-      } catch(e) {
-        lib$es6$promise$$internal$$TRY_CATCH_ERROR.error = e;
-        return lib$es6$promise$$internal$$TRY_CATCH_ERROR;
-      }
-    }
-
-    function lib$es6$promise$$internal$$invokeCallback(settled, promise, callback, detail) {
-      var hasCallback = lib$es6$promise$utils$$isFunction(callback),
-          value, error, succeeded, failed;
-
-      if (hasCallback) {
-        value = lib$es6$promise$$internal$$tryCatch(callback, detail);
-
-        if (value === lib$es6$promise$$internal$$TRY_CATCH_ERROR) {
-          failed = true;
-          error = value.error;
-          value = null;
-        } else {
-          succeeded = true;
-        }
-
-        if (promise === value) {
-          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$cannotReturnOwn());
-          return;
-        }
-
-      } else {
-        value = detail;
-        succeeded = true;
-      }
-
-      if (promise._state !== lib$es6$promise$$internal$$PENDING) {
-        // noop
-      } else if (hasCallback && succeeded) {
-        lib$es6$promise$$internal$$resolve(promise, value);
-      } else if (failed) {
-        lib$es6$promise$$internal$$reject(promise, error);
-      } else if (settled === lib$es6$promise$$internal$$FULFILLED) {
-        lib$es6$promise$$internal$$fulfill(promise, value);
-      } else if (settled === lib$es6$promise$$internal$$REJECTED) {
-        lib$es6$promise$$internal$$reject(promise, value);
-      }
-    }
-
-    function lib$es6$promise$$internal$$initializePromise(promise, resolver) {
-      try {
-        resolver(function resolvePromise(value){
-          lib$es6$promise$$internal$$resolve(promise, value);
-        }, function rejectPromise(reason) {
-          lib$es6$promise$$internal$$reject(promise, reason);
-        });
-      } catch(e) {
-        lib$es6$promise$$internal$$reject(promise, e);
-      }
-    }
-
-    function lib$es6$promise$promise$all$$all(entries) {
-      return new lib$es6$promise$enumerator$$default(this, entries).promise;
-    }
-    var lib$es6$promise$promise$all$$default = lib$es6$promise$promise$all$$all;
-    function lib$es6$promise$promise$race$$race(entries) {
-      /*jshint validthis:true */
-      var Constructor = this;
-
-      var promise = new Constructor(lib$es6$promise$$internal$$noop);
-
-      if (!lib$es6$promise$utils$$isArray(entries)) {
-        lib$es6$promise$$internal$$reject(promise, new TypeError('You must pass an array to race.'));
-        return promise;
-      }
-
-      var length = entries.length;
-
-      function onFulfillment(value) {
-        lib$es6$promise$$internal$$resolve(promise, value);
-      }
-
-      function onRejection(reason) {
-        lib$es6$promise$$internal$$reject(promise, reason);
-      }
-
-      for (var i = 0; promise._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
-        lib$es6$promise$$internal$$subscribe(Constructor.resolve(entries[i]), undefined, onFulfillment, onRejection);
-      }
-
-      return promise;
-    }
-    var lib$es6$promise$promise$race$$default = lib$es6$promise$promise$race$$race;
-    function lib$es6$promise$promise$reject$$reject(reason) {
-      /*jshint validthis:true */
-      var Constructor = this;
-      var promise = new Constructor(lib$es6$promise$$internal$$noop);
-      lib$es6$promise$$internal$$reject(promise, reason);
-      return promise;
-    }
-    var lib$es6$promise$promise$reject$$default = lib$es6$promise$promise$reject$$reject;
-
-    var lib$es6$promise$promise$$counter = 0;
-
-    function lib$es6$promise$promise$$needsResolver() {
-      throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
-    }
-
-    function lib$es6$promise$promise$$needsNew() {
-      throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
-    }
-
-    var lib$es6$promise$promise$$default = lib$es6$promise$promise$$Promise;
-    /**
-      Promise objects represent the eventual result of an asynchronous operation. The
-      primary way of interacting with a promise is through its `then` method, which
-      registers callbacks to receive either a promise's eventual value or the reason
-      why the promise cannot be fulfilled.
-
-      Terminology
-      -----------
-
-      - `promise` is an object or function with a `then` method whose behavior conforms to this specification.
-      - `thenable` is an object or function that defines a `then` method.
-      - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
-      - `exception` is a value that is thrown using the throw statement.
-      - `reason` is a value that indicates why a promise was rejected.
-      - `settled` the final resting state of a promise, fulfilled or rejected.
-
-      A promise can be in one of three states: pending, fulfilled, or rejected.
-
-      Promises that are fulfilled have a fulfillment value and are in the fulfilled
-      state.  Promises that are rejected have a rejection reason and are in the
-      rejected state.  A fulfillment value is never a thenable.
-
-      Promises can also be said to *resolve* a value.  If this value is also a
-      promise, then the original promise's settled state will match the value's
-      settled state.  So a promise that *resolves* a promise that rejects will
-      itself reject, and a promise that *resolves* a promise that fulfills will
-      itself fulfill.
-
-
-      Basic Usage:
-      ------------
-
-      ```js
-      var promise = new Promise(function(resolve, reject) {
-        // on success
-        resolve(value);
-
-        // on failure
-        reject(reason);
-      });
-
-      promise.then(function(value) {
-        // on fulfillment
-      }, function(reason) {
-        // on rejection
-      });
-      ```
-
-      Advanced Usage:
-      ---------------
-
-      Promises shine when abstracting away asynchronous interactions such as
-      `XMLHttpRequest`s.
-
-      ```js
-      function getJSON(url) {
-        return new Promise(function(resolve, reject){
-          var xhr = new XMLHttpRequest();
-
-          xhr.open('GET', url);
-          xhr.onreadystatechange = handler;
-          xhr.responseType = 'json';
-          xhr.setRequestHeader('Accept', 'application/json');
-          xhr.send();
-
-          function handler() {
-            if (this.readyState === this.DONE) {
-              if (this.status === 200) {
-                resolve(this.response);
-              } else {
-                reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
-              }
-            }
-          };
-        });
-      }
-
-      getJSON('/posts.json').then(function(json) {
-        // on fulfillment
-      }, function(reason) {
-        // on rejection
-      });
-      ```
-
-      Unlike callbacks, promises are great composable primitives.
-
-      ```js
-      Promise.all([
-        getJSON('/posts'),
-        getJSON('/comments')
-      ]).then(function(values){
-        values[0] // => postsJSON
-        values[1] // => commentsJSON
-
-        return values;
-      });
-      ```
-
-      @class Promise
-      @param {function} resolver
-      Useful for tooling.
-      @constructor
-    */
-    function lib$es6$promise$promise$$Promise(resolver) {
-      this._id = lib$es6$promise$promise$$counter++;
-      this._state = undefined;
-      this._result = undefined;
-      this._subscribers = [];
-
-      if (lib$es6$promise$$internal$$noop !== resolver) {
-        typeof resolver !== 'function' && lib$es6$promise$promise$$needsResolver();
-        this instanceof lib$es6$promise$promise$$Promise ? lib$es6$promise$$internal$$initializePromise(this, resolver) : lib$es6$promise$promise$$needsNew();
-      }
-    }
-
-    lib$es6$promise$promise$$Promise.all = lib$es6$promise$promise$all$$default;
-    lib$es6$promise$promise$$Promise.race = lib$es6$promise$promise$race$$default;
-    lib$es6$promise$promise$$Promise.resolve = lib$es6$promise$promise$resolve$$default;
-    lib$es6$promise$promise$$Promise.reject = lib$es6$promise$promise$reject$$default;
-    lib$es6$promise$promise$$Promise._setScheduler = lib$es6$promise$asap$$setScheduler;
-    lib$es6$promise$promise$$Promise._setAsap = lib$es6$promise$asap$$setAsap;
-    lib$es6$promise$promise$$Promise._asap = lib$es6$promise$asap$$asap;
-
-    lib$es6$promise$promise$$Promise.prototype = {
-      constructor: lib$es6$promise$promise$$Promise,
-
-    /**
-      The primary way of interacting with a promise is through its `then` method,
-      which registers callbacks to receive either a promise's eventual value or the
-      reason why the promise cannot be fulfilled.
-
-      ```js
-      findUser().then(function(user){
-        // user is available
-      }, function(reason){
-        // user is unavailable, and you are given the reason why
-      });
-      ```
-
-      Chaining
-      --------
-
-      The return value of `then` is itself a promise.  This second, 'downstream'
-      promise is resolved with the return value of the first promise's fulfillment
-      or rejection handler, or rejected if the handler throws an exception.
-
-      ```js
-      findUser().then(function (user) {
-        return user.name;
-      }, function (reason) {
-        return 'default name';
-      }).then(function (userName) {
-        // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
-        // will be `'default name'`
-      });
-
-      findUser().then(function (user) {
-        throw new Error('Found user, but still unhappy');
-      }, function (reason) {
-        throw new Error('`findUser` rejected and we're unhappy');
-      }).then(function (value) {
-        // never reached
-      }, function (reason) {
-        // if `findUser` fulfilled, `reason` will be 'Found user, but still unhappy'.
-        // If `findUser` rejected, `reason` will be '`findUser` rejected and we're unhappy'.
-      });
-      ```
-      If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
-
-      ```js
-      findUser().then(function (user) {
-        throw new PedagogicalException('Upstream error');
-      }).then(function (value) {
-        // never reached
-      }).then(function (value) {
-        // never reached
-      }, function (reason) {
-        // The `PedgagocialException` is propagated all the way down to here
-      });
-      ```
-
-      Assimilation
-      ------------
-
-      Sometimes the value you want to propagate to a downstream promise can only be
-      retrieved asynchronously. This can be achieved by returning a promise in the
-      fulfillment or rejection handler. The downstream promise will then be pending
-      until the returned promise is settled. This is called *assimilation*.
-
-      ```js
-      findUser().then(function (user) {
-        return findCommentsByAuthor(user);
-      }).then(function (comments) {
-        // The user's comments are now available
-      });
-      ```
-
-      If the assimliated promise rejects, then the downstream promise will also reject.
-
-      ```js
-      findUser().then(function (user) {
-        return findCommentsByAuthor(user);
-      }).then(function (comments) {
-        // If `findCommentsByAuthor` fulfills, we'll have the value here
-      }, function (reason) {
-        // If `findCommentsByAuthor` rejects, we'll have the reason here
-      });
-      ```
-
-      Simple Example
-      --------------
-
-      Synchronous Example
-
-      ```javascript
-      var result;
-
-      try {
-        result = findResult();
-        // success
-      } catch(reason) {
-        // failure
-      }
-      ```
-
-      Errback Example
-
-      ```js
-      findResult(function(result, err){
-        if (err) {
-          // failure
-        } else {
-          // success
-        }
-      });
-      ```
-
-      Promise Example;
-
-      ```javascript
-      findResult().then(function(result){
-        // success
-      }, function(reason){
-        // failure
-      });
-      ```
-
-      Advanced Example
-      --------------
-
-      Synchronous Example
-
-      ```javascript
-      var author, books;
-
-      try {
-        author = findAuthor();
-        books  = findBooksByAuthor(author);
-        // success
-      } catch(reason) {
-        // failure
-      }
-      ```
-
-      Errback Example
-
-      ```js
-
-      function foundBooks(books) {
-
-      }
-
-      function failure(reason) {
-
-      }
-
-      findAuthor(function(author, err){
-        if (err) {
-          failure(err);
-          // failure
-        } else {
-          try {
-            findBoooksByAuthor(author, function(books, err) {
-              if (err) {
-                failure(err);
-              } else {
-                try {
-                  foundBooks(books);
-                } catch(reason) {
-                  failure(reason);
-                }
-              }
-            });
-          } catch(error) {
-            failure(err);
-          }
-          // success
-        }
-      });
-      ```
-
-      Promise Example;
-
-      ```javascript
-      findAuthor().
-        then(findBooksByAuthor).
-        then(function(books){
-          // found books
-      }).catch(function(reason){
-        // something went wrong
-      });
-      ```
-
-      @method then
-      @param {Function} onFulfilled
-      @param {Function} onRejected
-      Useful for tooling.
-      @return {Promise}
-    */
-      then: lib$es6$promise$then$$default,
-
-    /**
-      `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
-      as the catch block of a try/catch statement.
-
-      ```js
-      function findAuthor(){
-        throw new Error('couldn't find that author');
-      }
-
-      // synchronous
-      try {
-        findAuthor();
-      } catch(reason) {
-        // something went wrong
-      }
-
-      // async with promises
-      findAuthor().catch(function(reason){
-        // something went wrong
-      });
-      ```
-
-      @method catch
-      @param {Function} onRejection
-      Useful for tooling.
-      @return {Promise}
-    */
-      'catch': function(onRejection) {
-        return this.then(null, onRejection);
-      }
-    };
-    var lib$es6$promise$enumerator$$default = lib$es6$promise$enumerator$$Enumerator;
-    function lib$es6$promise$enumerator$$Enumerator(Constructor, input) {
-      this._instanceConstructor = Constructor;
-      this.promise = new Constructor(lib$es6$promise$$internal$$noop);
-
-      if (Array.isArray(input)) {
-        this._input     = input;
-        this.length     = input.length;
-        this._remaining = input.length;
-
-        this._result = new Array(this.length);
-
-        if (this.length === 0) {
-          lib$es6$promise$$internal$$fulfill(this.promise, this._result);
-        } else {
-          this.length = this.length || 0;
-          this._enumerate();
-          if (this._remaining === 0) {
-            lib$es6$promise$$internal$$fulfill(this.promise, this._result);
-          }
-        }
-      } else {
-        lib$es6$promise$$internal$$reject(this.promise, this._validationError());
-      }
-    }
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._validationError = function() {
-      return new Error('Array Methods must be provided an Array');
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._enumerate = function() {
-      var length  = this.length;
-      var input   = this._input;
-
-      for (var i = 0; this._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
-        this._eachEntry(input[i], i);
-      }
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._eachEntry = function(entry, i) {
-      var c = this._instanceConstructor;
-      var resolve = c.resolve;
-
-      if (resolve === lib$es6$promise$promise$resolve$$default) {
-        var then = lib$es6$promise$$internal$$getThen(entry);
-
-        if (then === lib$es6$promise$then$$default &&
-            entry._state !== lib$es6$promise$$internal$$PENDING) {
-          this._settledAt(entry._state, i, entry._result);
-        } else if (typeof then !== 'function') {
-          this._remaining--;
-          this._result[i] = entry;
-        } else if (c === lib$es6$promise$promise$$default) {
-          var promise = new c(lib$es6$promise$$internal$$noop);
-          lib$es6$promise$$internal$$handleMaybeThenable(promise, entry, then);
-          this._willSettleAt(promise, i);
-        } else {
-          this._willSettleAt(new c(function(resolve) { resolve(entry); }), i);
-        }
-      } else {
-        this._willSettleAt(resolve(entry), i);
-      }
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._settledAt = function(state, i, value) {
-      var promise = this.promise;
-
-      if (promise._state === lib$es6$promise$$internal$$PENDING) {
-        this._remaining--;
-
-        if (state === lib$es6$promise$$internal$$REJECTED) {
-          lib$es6$promise$$internal$$reject(promise, value);
-        } else {
-          this._result[i] = value;
-        }
-      }
-
-      if (this._remaining === 0) {
-        lib$es6$promise$$internal$$fulfill(promise, this._result);
-      }
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._willSettleAt = function(promise, i) {
-      var enumerator = this;
-
-      lib$es6$promise$$internal$$subscribe(promise, undefined, function(value) {
-        enumerator._settledAt(lib$es6$promise$$internal$$FULFILLED, i, value);
-      }, function(reason) {
-        enumerator._settledAt(lib$es6$promise$$internal$$REJECTED, i, reason);
-      });
-    };
-    function lib$es6$promise$polyfill$$polyfill() {
-      var local;
-
-      if (typeof global !== 'undefined') {
-          local = global;
-      } else if (typeof self !== 'undefined') {
-          local = self;
-      } else {
-          try {
-              local = Function('return this')();
-          } catch (e) {
-              throw new Error('polyfill failed because global object is unavailable in this environment');
-          }
-      }
-
-      var P = local.Promise;
-
-      if (P && Object.prototype.toString.call(P.resolve()) === '[object Promise]' && !P.cast) {
-        return;
-      }
-
-      local.Promise = lib$es6$promise$promise$$default;
-    }
-    var lib$es6$promise$polyfill$$default = lib$es6$promise$polyfill$$polyfill;
-
-    var lib$es6$promise$umd$$ES6Promise = {
-      'Promise': lib$es6$promise$promise$$default,
-      'polyfill': lib$es6$promise$polyfill$$default
-    };
-
-    /* global define:true module:true window: true */
-    if (typeof define === 'function' && define['amd']) {
-      define(function() { return lib$es6$promise$umd$$ES6Promise; });
-    } else if (typeof module !== 'undefined' && module['exports']) {
-      module['exports'] = lib$es6$promise$umd$$ES6Promise;
-    } else if (typeof this !== 'undefined') {
-      this['ES6Promise'] = lib$es6$promise$umd$$ES6Promise;
-    }
-
-    lib$es6$promise$polyfill$$default();
-}).call(this);
-
-
-}).call(this,_dereq_('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":3}],2:[function(_dereq_,module,exports){
-/* eslint-disable no-unused-vars */
 'use strict';
+/* eslint-disable no-unused-vars */
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -51122,7 +50163,51 @@ function toObject(val) {
 	return Object(val);
 }
 
-module.exports = Object.assign || function (target, source) {
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (e) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	var from;
 	var to = toObject(target);
 	var symbols;
@@ -51149,100 +50234,7 @@ module.exports = Object.assign || function (target, source) {
 	return to;
 };
 
-},{}],3:[function(_dereq_,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = setTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    clearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}],4:[function(_dereq_,module,exports){
+},{}],2:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51265,6 +50257,21 @@ var WakeLock = _dereq_('./wakelock.js');
 var nextDisplayId = 1000;
 var hasShowDeprecationWarning = false;
 
+var defaultLeftBounds = [0, 0, 0.5, 1];
+var defaultRightBounds = [0.5, 0, 0.5, 1];
+
+/**
+ * The base class for all VR frame data.
+ */
+
+function VRFrameData() {
+  this.leftProjectionMatrix = new Float32Array(16);
+  this.leftViewMatrix = new Float32Array(16);
+  this.rightProjectionMatrix = new Float32Array(16);
+  this.rightViewMatrix = new Float32Array(16);
+  this.pose = null;
+};
+
 /**
  * The base class for all VR displays.
  */
@@ -51272,6 +50279,9 @@ function VRDisplay() {
   this.isPolyfilled = true;
   this.displayId = nextDisplayId++;
   this.displayName = 'webvr-polyfill displayName';
+
+  this.depthNear = 0.01;
+  this.depthFar = 10000.0;
 
   this.isConnected = true;
   this.isPresenting = false;
@@ -51298,6 +50308,12 @@ function VRDisplay() {
 
   this.wakelock_ = new WakeLock();
 }
+
+VRDisplay.prototype.getFrameData = function(frameData) {
+  // TODO: Technically this should retain it's value for the duration of a frame
+  // but I doubt that's practical to do in javascript.
+  return Util.frameDataFromPose(frameData, this.getPose(), this);
+};
 
 VRDisplay.prototype.getPose = function() {
   // TODO: Technically this should retain it's value for the duration of a frame
@@ -51396,10 +50412,7 @@ VRDisplay.prototype.removeFullscreenWrapper = function() {
 };
 
 VRDisplay.prototype.requestPresent = function(layers) {
-  if (this.isPresenting) {
-    console.error('Already presenting!');
-    return;
-  }
+  var wasPresenting = this.isPresenting;
   var self = this;
 
   if (!(layers instanceof Array)) {
@@ -51421,7 +50434,52 @@ VRDisplay.prototype.requestPresent = function(layers) {
       return;
     }
 
-    self.layer_ = layers[0];
+    var incomingLayer = layers[0];
+    if (!incomingLayer.source) {
+      /*
+      todo: figure out the correct behavior if the source is not provided.
+      see https://github.com/w3c/webvr/issues/58
+      */
+      resolve();
+      return;
+    }
+
+    var leftBounds = incomingLayer.leftBounds || defaultLeftBounds;
+    var rightBounds = incomingLayer.rightBounds || defaultRightBounds;
+    if (wasPresenting) {
+      // Already presenting, just changing configuration
+      var changed = false;
+      var layer = self.layer_;
+      if (layer.source !== incomingLayer.source) {
+        layer.source = incomingLayer.source;
+        changed = true;
+      }
+
+      for (var i = 0; i < 4; i++) {
+        if (layer.leftBounds[i] !== leftBounds[i]) {
+          layer.leftBounds[i] = leftBounds[i];
+          changed = true;
+        }
+        if (layer.rightBounds[i] !== rightBounds[i]) {
+          layer.rightBounds[i] = rightBounds[i];
+          changed = true;
+        }
+      }
+
+      if (changed) {
+        self.fireVRDisplayPresentChange_();
+      }
+      resolve();
+      return;
+    }
+
+    // Was not already presenting.
+    self.layer_ = {
+      predistorted: incomingLayer.predistorted,
+      source: incomingLayer.source,
+      leftBounds: leftBounds.slice(0),
+      rightBounds: rightBounds.slice(0)
+    };
 
     self.waitingForPresent_ = false;
     if (self.layer_ && self.layer_.source) {
@@ -51433,7 +50491,9 @@ VRDisplay.prototype.requestPresent = function(layers) {
         self.isPresenting = (fullscreenElement === actualFullscreenElement);
         if (self.isPresenting) {
           if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape-primary');
+            screen.orientation.lock('landscape-primary').catch(function(error){
+                    console.error('screen.orientation.lock() failed due to', error.message)
+            });
           }
           self.waitingForPresent_ = false;
           self.beginPresent_();
@@ -51528,17 +50588,27 @@ VRDisplay.prototype.addFullscreenListeners_ = function(element, changeHandler, e
   this.fullscreenErrorHandler_ = errorHandler;
 
   if (changeHandler) {
-    element.addEventListener('fullscreenchange', changeHandler, false);
-    element.addEventListener('webkitfullscreenchange', changeHandler, false);
-    document.addEventListener('mozfullscreenchange', changeHandler, false);
-    element.addEventListener('msfullscreenchange', changeHandler, false);
+    if (document.fullscreenEnabled) {
+      element.addEventListener('fullscreenchange', changeHandler, false);
+    } else if (document.webkitFullscreenEnabled) {
+      element.addEventListener('webkitfullscreenchange', changeHandler, false);
+    } else if (document.mozFullScreenEnabled) {
+      document.addEventListener('mozfullscreenchange', changeHandler, false);
+    } else if (document.msFullscreenEnabled) {
+      element.addEventListener('msfullscreenchange', changeHandler, false);
+    }
   }
 
   if (errorHandler) {
-    element.addEventListener('fullscreenerror', errorHandler, false);
-    element.addEventListener('webkitfullscreenerror', errorHandler, false);
-    document.addEventListener('mozfullscreenerror', errorHandler, false);
-    element.addEventListener('msfullscreenerror', errorHandler, false);
+    if (document.fullscreenEnabled) {
+      element.addEventListener('fullscreenerror', errorHandler, false);
+    } else if (document.webkitFullscreenEnabled) {
+      element.addEventListener('webkitfullscreenerror', errorHandler, false);
+    } else if (document.mozFullScreenEnabled) {
+      document.addEventListener('mozfullscreenerror', errorHandler, false);
+    } else if (document.msFullscreenEnabled) {
+      element.addEventListener('msfullscreenerror', errorHandler, false);
+    }
   }
 };
 
@@ -51614,12 +50684,13 @@ function PositionSensorVRDevice() {
 }
 PositionSensorVRDevice.prototype = new VRDevice();
 
+module.exports.VRFrameData = VRFrameData;
 module.exports.VRDisplay = VRDisplay;
 module.exports.VRDevice = VRDevice;
 module.exports.HMDVRDevice = HMDVRDevice;
 module.exports.PositionSensorVRDevice = PositionSensorVRDevice;
 
-},{"./util.js":24,"./wakelock.js":26}],5:[function(_dereq_,module,exports){
+},{"./util.js":22,"./wakelock.js":24}],3:[function(_dereq_,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52267,7 +51338,7 @@ CardboardDistorter.prototype.getOwnPropertyDescriptor_ = function(proto, attrNam
 
 module.exports = CardboardDistorter;
 
-},{"./cardboard-ui.js":6,"./deps/wglu-preserve-state.js":8,"./util.js":24}],6:[function(_dereq_,module,exports){
+},{"./cardboard-ui.js":4,"./deps/wglu-preserve-state.js":6,"./util.js":22}],4:[function(_dereq_,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52555,7 +51626,7 @@ CardboardUI.prototype.renderNoState = function() {
 
 module.exports = CardboardUI;
 
-},{"./deps/wglu-preserve-state.js":8,"./util.js":24}],7:[function(_dereq_,module,exports){
+},{"./deps/wglu-preserve-state.js":6,"./util.js":22}],5:[function(_dereq_,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52665,7 +51736,13 @@ CardboardVRDisplay.prototype.onDeviceParamsUpdated_ = function(newParams) {
   this.deviceInfo_.updateDeviceParams(newParams);
 
   if (this.distorter_) {
-    this.distorter.updateDeviceInfo(this.deviceInfo_);
+    this.distorter_.updateDeviceInfo(this.deviceInfo_);
+  }
+};
+
+CardboardVRDisplay.prototype.updateBounds_ = function () {
+  if (this.layer_ && this.distorter_ && (this.layer_.leftBounds || this.layer_.rightBounds)) {
+    this.distorter_.setTextureBounds(this.layer_.leftBounds, this.layer_.rightBounds);
   }
 };
 
@@ -52691,10 +51768,6 @@ CardboardVRDisplay.prototype.beginPresent_ = function() {
     this.distorter_ = new CardboardDistorter(gl);
     this.distorter_.updateDeviceInfo(this.deviceInfo_);
     this.cardboardUI_ = this.distorter_.cardboardUI;
-
-    if (this.layer_.leftBounds || this.layer_.rightBounds) {
-      this.distorter_.setTextureBounds(this.layer_.leftBounds, this.layer_.rightBounds);
-    }
   }
 
   if (this.cardboardUI_) {
@@ -52725,6 +51798,10 @@ CardboardVRDisplay.prototype.beginPresent_ = function() {
   this.orientationHandler = this.onOrientationChange_.bind(this);
   window.addEventListener('orientationchange', this.orientationHandler);
 
+  // Listen for present display change events in order to update distorter dimensions
+  this.vrdisplaypresentchangeHandler = this.updateBounds_.bind(this);
+  window.addEventListener('vrdisplaypresentchange', this.vrdisplaypresentchangeHandler);
+
   // Fire this event initially, to give geometry-distortion clients the chance
   // to do something custom.
   this.fireVRDisplayDeviceParamsChange_();
@@ -52746,6 +51823,7 @@ CardboardVRDisplay.prototype.endPresent_ = function() {
   this.viewerSelector_.hide();
 
   window.removeEventListener('orientationchange', this.orientationHandler);
+  window.removeEventListener('vrdisplaypresentchange', this.vrdisplaypresentchangeHandler);
 };
 
 CardboardVRDisplay.prototype.submitFrame = function(pose) {
@@ -52828,7 +51906,7 @@ CardboardVRDisplay.prototype.fireVRDisplayDeviceParamsChange_ = function() {
 
 module.exports = CardboardVRDisplay;
 
-},{"./base.js":4,"./cardboard-distorter.js":5,"./cardboard-ui.js":6,"./device-info.js":9,"./dpdb/dpdb.js":13,"./rotate-instructions.js":18,"./sensor-fusion/fusion-pose-sensor.js":20,"./util.js":24,"./viewer-selector.js":25}],8:[function(_dereq_,module,exports){
+},{"./base.js":2,"./cardboard-distorter.js":3,"./cardboard-ui.js":4,"./device-info.js":7,"./dpdb/dpdb.js":11,"./rotate-instructions.js":16,"./sensor-fusion/fusion-pose-sensor.js":18,"./util.js":22,"./viewer-selector.js":23}],6:[function(_dereq_,module,exports){
 /*
 Copyright (c) 2016, Brandon Jones.
 
@@ -52993,7 +52071,7 @@ function WGLUPreserveGLState(gl, bindings, callback) {
 }
 
 module.exports = WGLUPreserveGLState;
-},{}],9:[function(_dereq_,module,exports){
+},{}],7:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53360,7 +52438,7 @@ function CardboardViewer(params) {
 DeviceInfo.Viewers = Viewers;
 module.exports = DeviceInfo;
 
-},{"./distortion/distortion.js":11,"./math-util.js":16,"./util.js":24}],10:[function(_dereq_,module,exports){
+},{"./distortion/distortion.js":9,"./math-util.js":14,"./util.js":22}],8:[function(_dereq_,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53452,7 +52530,7 @@ module.exports.VRDisplayHMDDevice = VRDisplayHMDDevice;
 module.exports.VRDisplayPositionSensorDevice = VRDisplayPositionSensorDevice;
 
 
-},{"./base.js":4}],11:[function(_dereq_,module,exports){
+},{"./base.js":2}],9:[function(_dereq_,module,exports){
 /**
  * TODO(smus): Implement coefficient inversion.
  */
@@ -53635,7 +52713,7 @@ Distortion.prototype.approximateInverse = function(maxRadius, numSamples) {
 
 module.exports = Distortion;
 
-},{}],12:[function(_dereq_,module,exports){
+},{}],10:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54606,7 +53684,7 @@ var DPDB_CACHE = {
 
 module.exports = DPDB_CACHE;
 
-},{}],13:[function(_dereq_,module,exports){
+},{}],11:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54796,7 +53874,7 @@ function DeviceParams(params) {
 }
 
 module.exports = Dpdb;
-},{"../util.js":24,"./dpdb-cache.js":12}],14:[function(_dereq_,module,exports){
+},{"../util.js":22,"./dpdb-cache.js":10}],12:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54840,7 +53918,7 @@ Emitter.prototype.on = function(eventName, callback) {
 
 module.exports = Emitter;
 
-},{}],15:[function(_dereq_,module,exports){
+},{}],13:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54856,7 +53934,7 @@ module.exports = Emitter;
  * limitations under the License.
  */
 var Util = _dereq_('./util.js');
-var WebVRPolyfill = _dereq_('./webvr-polyfill.js');
+var WebVRPolyfill = _dereq_('./webvr-polyfill.js').WebVRPolyfill;
 
 // Initialize a WebVRConfig just in case.
 window.WebVRConfig = Util.extend({
@@ -54869,8 +53947,8 @@ window.WebVRConfig = Util.extend({
   // How far into the future to predict during fast motion (in seconds).
   PREDICTION_TIME_S: 0.040,
 
-  // Flag to disable touch panner. In case you have your own touch controls.
-  TOUCH_PANNER_DISABLED: false,
+  // Flag to enable touch panner. In case you have your own touch controls.
+  TOUCH_PANNER_DISABLED: true,
 
   // Flag to disabled the UI in VR Mode.
   CARDBOARD_UI_DISABLED: false, // Default: false
@@ -54917,7 +53995,7 @@ if (!window.WebVRConfig.DEFER_INITIALIZATION) {
   }
 }
 
-},{"./util.js":24,"./webvr-polyfill.js":27}],16:[function(_dereq_,module,exports){
+},{"./util.js":22,"./webvr-polyfill.js":25}],14:[function(_dereq_,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55276,7 +54354,7 @@ MathUtil.Quaternion.prototype = {
 
 module.exports = MathUtil;
 
-},{}],17:[function(_dereq_,module,exports){
+},{}],15:[function(_dereq_,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55455,7 +54533,7 @@ MouseKeyboardVRDisplay.prototype.resetPose = function() {
 
 module.exports = MouseKeyboardVRDisplay;
 
-},{"./base.js":4,"./math-util.js":16,"./util.js":24}],18:[function(_dereq_,module,exports){
+},{"./base.js":2,"./math-util.js":14,"./util.js":22}],16:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55601,7 +54679,7 @@ RotateInstructions.prototype.loadIcon_ = function() {
 
 module.exports = RotateInstructions;
 
-},{"./util.js":24}],19:[function(_dereq_,module,exports){
+},{"./util.js":22}],17:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55617,9 +54695,6 @@ module.exports = RotateInstructions;
  * limitations under the License.
  */
 
-/**
- * TODO: Fix up all "new THREE" instantiations to improve performance.
- */
 var SensorSample = _dereq_('./sensor-sample.js');
 var MathUtil = _dereq_('../math-util.js');
 var Util = _dereq_('../util.js');
@@ -55648,9 +54723,14 @@ function ComplementaryFilter(kFilter) {
   this.currentGyroMeasurement = new SensorSample();
   this.previousGyroMeasurement = new SensorSample();
 
-  // Current filter orientation
-  this.filterQ = new MathUtil.Quaternion();
+  // Set default look direction to be in the correct direction.
+  if (Util.isIOS()) {
+    this.filterQ = new MathUtil.Quaternion(-1, 0, 0, 1);
+  } else {
+    this.filterQ = new MathUtil.Quaternion(1, 0, 0, 1);
+  }
   this.previousFilterQ = new MathUtil.Quaternion();
+  this.previousFilterQ.copy(this.filterQ);
 
   // Orientation based on the accelerometer.
   this.accelQ = new MathUtil.Quaternion();
@@ -55769,7 +54849,7 @@ ComplementaryFilter.prototype.gyroToQuaternionDelta_ = function(gyro, dt) {
 
 module.exports = ComplementaryFilter;
 
-},{"../math-util.js":16,"../util.js":24,"./sensor-sample.js":22}],20:[function(_dereq_,module,exports){
+},{"../math-util.js":14,"../util.js":22,"./sensor-sample.js":20}],18:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55954,7 +55034,7 @@ FusionPoseSensor.prototype.setScreenTransform_ = function() {
 
 module.exports = FusionPoseSensor;
 
-},{"../math-util.js":16,"../touch-panner.js":23,"../util.js":24,"./complementary-filter.js":19,"./pose-predictor.js":21}],21:[function(_dereq_,module,exports){
+},{"../math-util.js":14,"../touch-panner.js":21,"../util.js":22,"./complementary-filter.js":17,"./pose-predictor.js":19}],19:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56029,6 +55109,7 @@ PosePredictor.prototype.getPrediction = function(currentQ, gyro, timestampS) {
   this.outQ.multiply(this.deltaQ);
 
   this.previousQ.copy(currentQ);
+  this.previousTimestampS = timestampS;
 
   return this.outQ;
 };
@@ -56036,7 +55117,7 @@ PosePredictor.prototype.getPrediction = function(currentQ, gyro, timestampS) {
 
 module.exports = PosePredictor;
 
-},{"../math-util.js":16}],22:[function(_dereq_,module,exports){
+},{"../math-util.js":14}],20:[function(_dereq_,module,exports){
 function SensorSample(sample, timestampS) {
   this.set(sample, timestampS);
 };
@@ -56052,7 +55133,7 @@ SensorSample.prototype.copy = function(sensorSample) {
 
 module.exports = SensorSample;
 
-},{}],23:[function(_dereq_,module,exports){
+},{}],21:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56130,7 +55211,7 @@ TouchPanner.prototype.onTouchEnd_ = function(e) {
 
 module.exports = TouchPanner;
 
-},{"./math-util.js":16,"./util.js":24}],24:[function(_dereq_,module,exports){
+},{"./math-util.js":14,"./util.js":22}],22:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56348,9 +55429,187 @@ Util.safariCssSizeWorkaround = function(canvas) {
   window.canvas = canvas;
 };
 
+Util.frameDataFromPose = (function() {
+  var piOver180 = Math.PI / 180.0;
+  var rad45 = Math.PI * 0.25;
+
+  // Borrowed from glMatrix.
+  function mat4_perspectiveFromFieldOfView(out, fov, near, far) {
+    var upTan = Math.tan(fov ? (fov.upDegrees * piOver180) : rad45),
+    downTan = Math.tan(fov ? (fov.downDegrees * piOver180) : rad45),
+    leftTan = Math.tan(fov ? (fov.leftDegrees * piOver180) : rad45),
+    rightTan = Math.tan(fov ? (fov.rightDegrees * piOver180) : rad45),
+    xScale = 2.0 / (leftTan + rightTan),
+    yScale = 2.0 / (upTan + downTan);
+
+    out[0] = xScale;
+    out[1] = 0.0;
+    out[2] = 0.0;
+    out[3] = 0.0;
+    out[4] = 0.0;
+    out[5] = yScale;
+    out[6] = 0.0;
+    out[7] = 0.0;
+    out[8] = -((leftTan - rightTan) * xScale * 0.5);
+    out[9] = ((upTan - downTan) * yScale * 0.5);
+    out[10] = far / (near - far);
+    out[11] = -1.0;
+    out[12] = 0.0;
+    out[13] = 0.0;
+    out[14] = (far * near) / (near - far);
+    out[15] = 0.0;
+    return out;
+  }
+
+  function mat4_fromRotationTranslation(out, q, v) {
+    // Quaternion math
+    var x = q[0], y = q[1], z = q[2], w = q[3],
+        x2 = x + x,
+        y2 = y + y,
+        z2 = z + z,
+
+        xx = x * x2,
+        xy = x * y2,
+        xz = x * z2,
+        yy = y * y2,
+        yz = y * z2,
+        zz = z * z2,
+        wx = w * x2,
+        wy = w * y2,
+        wz = w * z2;
+
+    out[0] = 1 - (yy + zz);
+    out[1] = xy + wz;
+    out[2] = xz - wy;
+    out[3] = 0;
+    out[4] = xy - wz;
+    out[5] = 1 - (xx + zz);
+    out[6] = yz + wx;
+    out[7] = 0;
+    out[8] = xz + wy;
+    out[9] = yz - wx;
+    out[10] = 1 - (xx + yy);
+    out[11] = 0;
+    out[12] = v[0];
+    out[13] = v[1];
+    out[14] = v[2];
+    out[15] = 1;
+
+    return out;
+  };
+
+  function mat4_translate(out, a, v) {
+    var x = v[0], y = v[1], z = v[2],
+        a00, a01, a02, a03,
+        a10, a11, a12, a13,
+        a20, a21, a22, a23;
+
+    if (a === out) {
+      out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+      out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+      out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+      out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+    } else {
+      a00 = a[0]; a01 = a[1]; a02 = a[2]; a03 = a[3];
+      a10 = a[4]; a11 = a[5]; a12 = a[6]; a13 = a[7];
+      a20 = a[8]; a21 = a[9]; a22 = a[10]; a23 = a[11];
+
+      out[0] = a00; out[1] = a01; out[2] = a02; out[3] = a03;
+      out[4] = a10; out[5] = a11; out[6] = a12; out[7] = a13;
+      out[8] = a20; out[9] = a21; out[10] = a22; out[11] = a23;
+
+      out[12] = a00 * x + a10 * y + a20 * z + a[12];
+      out[13] = a01 * x + a11 * y + a21 * z + a[13];
+      out[14] = a02 * x + a12 * y + a22 * z + a[14];
+      out[15] = a03 * x + a13 * y + a23 * z + a[15];
+    }
+
+    return out;
+  };
+
+  mat4_invert = function(out, a) {
+    var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3],
+        a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7],
+        a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11],
+        a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15],
+
+        b00 = a00 * a11 - a01 * a10,
+        b01 = a00 * a12 - a02 * a10,
+        b02 = a00 * a13 - a03 * a10,
+        b03 = a01 * a12 - a02 * a11,
+        b04 = a01 * a13 - a03 * a11,
+        b05 = a02 * a13 - a03 * a12,
+        b06 = a20 * a31 - a21 * a30,
+        b07 = a20 * a32 - a22 * a30,
+        b08 = a20 * a33 - a23 * a30,
+        b09 = a21 * a32 - a22 * a31,
+        b10 = a21 * a33 - a23 * a31,
+        b11 = a22 * a33 - a23 * a32,
+
+        // Calculate the determinant
+        det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+
+    if (!det) {
+      return null;
+    }
+    det = 1.0 / det;
+
+    out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+    out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+    out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+    out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+    out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+    out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+    out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+    out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+    out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+    out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+    out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+    out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+    out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
+    out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+    out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
+    out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+
+    return out;
+  };
+
+  var defaultOrientation = new Float32Array([0, 0, 0, 1]);
+  var defaultPosition = new Float32Array([0, 0, 0]);
+
+  function updateEyeMatrices(projection, view, pose, parameters, vrDisplay) {
+    mat4_perspectiveFromFieldOfView(projection, parameters ? parameters.fieldOfView : null, vrDisplay.depthNear, vrDisplay.depthFar);
+
+    var orientation = pose.orientation || defaultOrientation;
+    var position = pose.position || defaultPosition;
+
+    mat4_fromRotationTranslation(view, orientation, position);
+    if (parameters)
+      mat4_translate(view, view, parameters.offset);
+    mat4_invert(view, view);
+  }
+
+  return function(frameData, pose, vrDisplay) {
+    if (!frameData || !pose)
+      return false;
+
+    frameData.pose = pose;
+    frameData.timestamp = pose.timestamp;
+
+    updateEyeMatrices(
+        frameData.leftProjectionMatrix, frameData.leftViewMatrix,
+        pose, vrDisplay.getEyeParameters("left"), vrDisplay);
+    updateEyeMatrices(
+        frameData.rightProjectionMatrix, frameData.rightViewMatrix,
+        pose, vrDisplay.getEyeParameters("right"), vrDisplay);
+
+    return true;
+  };
+})();
+
 module.exports = Util;
 
-},{"object-assign":2}],25:[function(_dereq_,module,exports){
+},{"object-assign":1}],23:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56551,7 +55810,7 @@ ViewerSelector.prototype.createButton_ = function(label, onclick) {
 
 module.exports = ViewerSelector;
 
-},{"./device-info.js":9,"./emitter.js":14,"./util.js":24}],26:[function(_dereq_,module,exports){
+},{"./device-info.js":7,"./emitter.js":12,"./util.js":22}],24:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56626,7 +55885,7 @@ function getWakeLock() {
 }
 
 module.exports = getWakeLock();
-},{"./util.js":24}],27:[function(_dereq_,module,exports){
+},{"./util.js":22}],25:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56642,14 +55901,13 @@ module.exports = getWakeLock();
  * limitations under the License.
  */
 
-// Polyfill ES6 Promises (mostly for IE 11).
-_dereq_('es6-promise').polyfill();
-
+var Util = _dereq_('./util.js');
 var CardboardVRDisplay = _dereq_('./cardboard-vr-display.js');
 var MouseKeyboardVRDisplay = _dereq_('./mouse-keyboard-vr-display.js');
 // Uncomment to add positional tracking via webcam.
 //var WebcamPositionSensorVRDevice = require('./webcam-position-sensor-vr-device.js');
 var VRDisplay = _dereq_('./base.js').VRDisplay;
+var VRFrameData = _dereq_('./base.js').VRFrameData;
 var HMDVRDevice = _dereq_('./base.js').HMDVRDevice;
 var PositionSensorVRDevice = _dereq_('./base.js').PositionSensorVRDevice;
 var VRDisplayHMDDevice = _dereq_('./display-wrappers.js').VRDisplayHMDDevice;
@@ -56670,6 +55928,9 @@ function WebVRPolyfill() {
       this.enableDeprecatedPolyfill();
     }
   }
+
+  // Put a shim in place to update the API to 1.1 if needed.
+  InstallWebVRSpecShim();
 }
 
 WebVRPolyfill.prototype.isWebVRAvailable = function() {
@@ -56727,6 +55988,21 @@ WebVRPolyfill.prototype.enablePolyfill = function() {
 
   // Provide the VRDisplay object.
   window.VRDisplay = VRDisplay;
+
+  // Provide navigator.vrEnabled.
+  var self = this;
+  Object.defineProperty(navigator, 'vrEnabled', {
+    get: function () {
+      return self.isCardboardCompatible() &&
+        (document.fullscreenEnabled ||
+          document.mozFullScreenEnabled ||
+          document.webkitFullscreenEnabled ||
+          false);
+    }
+  });
+
+  // Provide the VRFrameData object.
+  window.VRFrameData = VRFrameData;
 };
 
 WebVRPolyfill.prototype.enableDeprecatedPolyfill = function() {
@@ -56805,16 +56081,37 @@ WebVRPolyfill.prototype.isCardboardCompatible = function() {
   return this.isMobile() || WebVRConfig.FORCE_ENABLE_VR;
 };
 
-module.exports = WebVRPolyfill;
+// Installs a shim that updates a WebVR 1.0 spec implementation to WebVR 1.1
+function InstallWebVRSpecShim() {
+  if ('VRDisplay' in window && !('VRFrameData' in window)) {
+    // Provide the VRFrameData object.
+    window.VRFrameData = VRFrameData;
 
-},{"./base.js":4,"./cardboard-vr-display.js":7,"./display-wrappers.js":10,"./mouse-keyboard-vr-display.js":17,"es6-promise":1}]},{},[15]);
+    // A lot of Chrome builds don't have depthNear and depthFar, even
+    // though they're in the WebVR 1.0 spec. Patch them in if they're not present.
+    if(!('depthNear' in window.VRDisplay.prototype)) {
+      window.VRDisplay.prototype.depthNear = 0.01;
+    }
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+    if(!('depthFar' in window.VRDisplay.prototype)) {
+      window.VRDisplay.prototype.depthFar = 10000.0;
+    }
+
+    window.VRDisplay.prototype.getFrameData = function(frameData) {
+      return Util.frameDataFromPose(frameData, this.getPose(), this);
+    }
+  }
+};
+
+module.exports.WebVRPolyfill = WebVRPolyfill;
+
+},{"./base.js":2,"./cardboard-vr-display.js":5,"./display-wrappers.js":8,"./mouse-keyboard-vr-display.js":15,"./util.js":22}]},{},[13])
+
 
 },{}],20:[function(_dereq_,module,exports){
 module.exports={
   "name": "aframe",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Building blocks for the VR Web",
   "homepage": "https://aframe.io/",
   "main": "dist/aframe.js",
@@ -56829,8 +56126,7 @@ module.exports={
     "dist:release": "npm run dist:release:min && npm run dist:release:max",
     "dist:release:max": "npm run browserify -s -- --debug | exorcist dist/aframe-v0.3.0.js.map > dist/aframe-v0.3.0.js",
     "dist:release:min": "npm run browserify -s -- --debug -p [minifyify --map aframe-v0.3.0.min.js.map --output dist/aframe-v0.3.0.min.js.map] -o dist/aframe-v0.3.0.min.js",
-    "gh-pages": "npm run ghpages",
-    "ghpages": "node ./scripts/gh-pages",
+    "ghpages": "ghpages -p gh-pages/",
     "lint": "semistandard -v | snazzy",
     "precommit": "npm run lint",
     "preghpages": "npm run dist && rimraf gh-pages && mkdirp gh-pages && cp -r {.nojekyll,dist,lib,examples,index.html,style} gh-pages/. 2>/dev/null || : && git checkout dist/ && replace 'build/aframe.js' 'dist/aframe.min.js' gh-pages/ -r --silent",
@@ -56846,12 +56142,13 @@ module.exports={
   "repository": "aframevr/aframe",
   "license": "MIT",
   "dependencies": {
+    "browserify-css": "^0.8.2",
     "debug": "^2.2.0",
     "deep-assign": "^2.0.0",
     "document-register-element": "dmarcos/document-register-element#8ccc532b7",
-    "promise-polyfill": "^3.1.0",
     "object-assign": "^4.0.1",
     "present": "0.0.6",
+    "promise-polyfill": "^3.1.0",
     "style-attr": "^1.0.2",
     "three": "^0.76.1",
     "tween.js": "^15.0.0",
@@ -56859,39 +56156,38 @@ module.exports={
   },
   "devDependencies": {
     "browserify": "^13.1.0",
-    "browserify-css": "^0.8.2",
     "browserify-derequire": "^0.9.4",
     "browserify-istanbul": "^2.0.0",
-    "budo": "^8.1.0",
+    "budo": "^9.2.0",
     "chai": "^3.5.0",
-    "chai-shallow-deep-equal": "^1.3.0",
+    "chai-shallow-deep-equal": "^1.4.0",
     "codecov": "^1.0.1",
     "exorcist": "^0.4.0",
-    "gh-pages": "^0.6.0",
-    "husky": "^0.10.1",
-    "istanbul": "^0.4.4",
-    "karma": "^1.2.0",
+    "ghpages": "0.0.8",
+    "husky": "^0.11.7",
+    "istanbul": "^0.4.5",
+    "karma": "^1.3.0",
     "karma-browserify": "^5.1.0",
     "karma-chai-shallow-deep-equal": "0.0.4",
-    "karma-chrome-launcher": "^1.0.1",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-env-preprocessor": "^0.1.1",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.1.0",
-    "karma-sinon-chai": "^1.2.3",
+    "karma-sinon-chai": "^1.2.4",
     "lolex": "^1.5.1",
     "minifyify": "^7.3.3",
-    "mkdirp": "0.5.1",
+    "mkdirp": "^0.5.1",
     "mocha": "^3.0.2",
-    "mozilla-download": "^1.0.5",
+    "mozilla-download": "^1.1.1",
     "open": "0.0.5",
     "replace": "^0.3.0",
-    "rimraf": "2.5.0",
-    "semistandard": "^7.0.2",
+    "rimraf": "^2.5.4",
+    "semistandard": "^9.0.0",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
-    "snazzy": "^3.0.0",
+    "snazzy": "^5.0.0",
     "uglifyjs": "^2.4.10"
   },
   "link": true,
@@ -56972,10 +56268,11 @@ module.exports.Component = registerComponent('blend-character-model', {
   }
 });
 
-},{"../core/component":59,"../lib/three":103}],22:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103}],22:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
+var bind = utils.bind;
 
 var checkHeadsetConnected = utils.checkHeadsetConnected;
 
@@ -57009,8 +56306,8 @@ module.exports.Component = registerComponent('camera', {
     el.setObject3D('camera', camera);
 
     // Add listeners to save and restore camera pose if headset is present.
-    this.onEnterVR = this.onEnterVR.bind(this);
-    this.onExitVR = this.onExitVR.bind(this);
+    this.onEnterVR = bind(this.onEnterVR, this);
+    this.onExitVR = bind(this.onExitVR, this);
     sceneEl.addEventListener('enter-vr', this.onEnterVR);
     sceneEl.addEventListener('exit-vr', this.onExitVR);
   },
@@ -57084,7 +56381,7 @@ module.exports.Component = registerComponent('camera', {
     var userHeightOffset = this.data.userHeight;
 
     oldOffset = oldOffset || 0;
-    currentPosition = el.getComputedAttribute('position') || {x: 0, y: 0, z: 0};
+    currentPosition = el.getAttribute('position') || {x: 0, y: 0, z: 0};
     el.setAttribute('position', {
       x: currentPosition.x,
       y: currentPosition.y - oldOffset + userHeightOffset,
@@ -57150,7 +56447,7 @@ module.exports.Component = registerComponent('camera', {
   }
 });
 
-},{"../core/component":59,"../lib/three":103,"../utils/":120}],23:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103,"../utils/":121}],23:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 
@@ -57187,9 +56484,10 @@ module.exports.Component = registerComponent('collada-model', {
   }
 });
 
-},{"../core/component":59,"../lib/three":103}],24:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103}],24:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var utils = _dereq_('../utils/');
+var bind = utils.bind;
 
 var EVENTS = {
   CLICK: 'click',
@@ -57212,6 +56510,8 @@ var STATES = {
  *
  * @member {object} fuseTimeout - Timeout to trigger fuse-click.
  * @member {Element} mouseDownEl - Entity that was last mousedowned during current click.
+ * @member {object} intersection - Attributes of the current intersection event, including
+ *         3D- and 2D-space coordinates. See: http://threejs.org/docs/api/core/Raycaster.html
  * @member {Element} intersectedEl - Currently-intersected entity. Used to keep track to
  *         emit events when unintersecting.
  */
@@ -57228,20 +56528,21 @@ module.exports.Component = registerComponent('cursor', {
     var canvas = cursorEl.sceneEl.canvas;
     this.fuseTimeout = undefined;
     this.mouseDownEl = null;
+    this.intersection = null;
     this.intersectedEl = null;
 
     // Wait for canvas to load.
     if (!canvas) {
-      cursorEl.sceneEl.addEventListener('render-target-loaded', this.init.bind(this));
+      cursorEl.sceneEl.addEventListener('render-target-loaded', bind(this.init, this));
       return;
     }
 
     // Attach event listeners.
-    canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
-    canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
-    cursorEl.addEventListener('raycaster-intersection', this.onIntersection.bind(this));
+    canvas.addEventListener('mousedown', bind(this.onMouseDown, this));
+    canvas.addEventListener('mouseup', bind(this.onMouseUp, this));
+    cursorEl.addEventListener('raycaster-intersection', bind(this.onIntersection, this));
     cursorEl.addEventListener('raycaster-intersection-cleared',
-                              this.onIntersectionCleared.bind(this));
+                              bind(this.onIntersectionCleared, this));
   },
 
   /**
@@ -57259,7 +56560,7 @@ module.exports.Component = registerComponent('cursor', {
    * - Currently-intersected entity is the same as the one when mousedown was triggered,
    *   in case user mousedowned one entity, dragged to another, and mouseupped.
    */
-  onMouseUp: function () {
+  onMouseUp: function (evt) {
     this.twoWayEmit(EVENTS.MOUSEUP);
     if (this.data.fuse || !this.intersectedEl ||
         this.mouseDownEl !== this.intersectedEl) { return; }
@@ -57273,10 +56574,29 @@ module.exports.Component = registerComponent('cursor', {
     var self = this;
     var cursorEl = this.el;
     var data = this.data;
-    var intersectedEl = evt.detail.els[0];  // Grab the closest.
+    var index;
+    var intersectedEl;
+    var intersection;
 
-    // Set intersected entity if not already intersecting.
-    if (this.intersectedEl === intersectedEl) { return; }
+    // Select closest object, excluding the cursor.
+    index = evt.detail.els[0] === cursorEl ? 1 : 0;
+    intersection = evt.detail.intersections[index];
+    intersectedEl = evt.detail.els[index];
+
+    // If cursor is the only intersected object, ignore the event.
+    if (!intersectedEl) { return; }
+
+    // Already intersecting this entity.
+    if (this.intersectedEl === intersectedEl) {
+      this.intersection = intersection;
+      return;
+    }
+
+    // Unset current intersection.
+    if (this.intersectedEl) { this.clearCurrentIntersection(); }
+
+    // Set new intersection.
+    this.intersection = intersection;
     this.intersectedEl = intersectedEl;
 
     // Hovering.
@@ -57300,16 +56620,26 @@ module.exports.Component = registerComponent('cursor', {
     var cursorEl = this.el;
     var intersectedEl = evt.detail.el;
 
-    // Not intersecting.
-    if (!intersectedEl || !this.intersectedEl) { return; }
+    // Ignore the cursor.
+    if (cursorEl === intersectedEl) { return; }
+
+    // Ignore if the event didn't occur on the current intersection.
+    if (intersectedEl !== this.intersectedEl) { return; }
+
+    this.clearCurrentIntersection();
+  },
+
+  clearCurrentIntersection: function () {
+    var cursorEl = this.el;
 
     // No longer hovering (or fusing).
-    intersectedEl.removeState(STATES.HOVERED);
+    this.intersectedEl.removeState(STATES.HOVERED);
     cursorEl.removeState(STATES.HOVERING);
     cursorEl.removeState(STATES.FUSING);
     this.twoWayEmit(EVENTS.MOUSELEAVE);
 
     // Unset intersected entity (after emitting the event).
+    this.intersection = null;
     this.intersectedEl = null;
 
     // Clear fuseTimeout.
@@ -57320,14 +56650,16 @@ module.exports.Component = registerComponent('cursor', {
    * Helper to emit on both the cursor and the intersected entity (if exists).
    */
   twoWayEmit: function (evtName) {
+    var el = this.el;
     var intersectedEl = this.intersectedEl;
-    this.el.emit(evtName, {intersectedEl: this.intersectedEl});
+    var intersection = this.intersection;
+    el.emit(evtName, {intersectedEl: intersectedEl, intersection: intersection});
     if (!intersectedEl) { return; }
-    intersectedEl.emit(evtName, {cursorEl: this.el});
+    intersectedEl.emit(evtName, {cursorEl: el, intersection: intersection});
   }
 });
 
-},{"../core/component":59,"../utils/":120}],25:[function(_dereq_,module,exports){
+},{"../core/component":60,"../utils/":121}],25:[function(_dereq_,module,exports){
 var debug = _dereq_('../utils/debug');
 var geometries = _dereq_('../core/geometry').geometries;
 var geometryNames = _dereq_('../core/geometry').geometryNames;
@@ -57343,10 +56675,10 @@ var warn = debug('components:geometry:warn');
  */
 module.exports.Component = registerComponent('geometry', {
   schema: {
-    buffer: { default: true },
-    mergeTo: { type: 'selector' },
-    primitive: { default: 'box', oneOf: geometryNames },
-    skipCache: { default: false }
+    buffer: {default: true},
+    mergeTo: {type: 'selector'},
+    primitive: {default: 'box', oneOf: geometryNames},
+    skipCache: {default: false}
   },
 
   init: function () {
@@ -57399,7 +56731,7 @@ module.exports.Component = registerComponent('geometry', {
     toMesh = toEl.getObject3D('mesh');
     if (!toMesh) {
       toMesh = toEl.getOrCreateObject3D('mesh', THREE.Mesh);
-      toEl.setAttribute('material', el.getComputedAttribute('material'));
+      toEl.setAttribute('material', el.getAttribute('material'));
       return;
     }
 
@@ -57451,7 +56783,7 @@ module.exports.Component = registerComponent('geometry', {
   }
 });
 
-},{"../core/component":59,"../core/geometry":60,"../lib/three":103,"../utils/debug":117}],26:[function(_dereq_,module,exports){
+},{"../core/component":60,"../core/geometry":61,"../lib/three":103,"../utils/debug":118}],26:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 var LEFT_HAND_MODEL_URL = 'https://cdn.aframe.io/controllers/hands/leftHand.json';
@@ -57582,7 +56914,7 @@ module.exports.Component = registerComponent('hand-controls', {
   }
 });
 
-},{"../core/component":59}],27:[function(_dereq_,module,exports){
+},{"../core/component":60}],27:[function(_dereq_,module,exports){
 _dereq_('./blend-character-model');
 _dereq_('./camera');
 _dereq_('./collada-model');
@@ -57590,7 +56922,6 @@ _dereq_('./cursor');
 _dereq_('./geometry');
 _dereq_('./hand-controls');
 _dereq_('./light');
-_dereq_('./look-at');
 _dereq_('./look-controls');
 _dereq_('./material');
 _dereq_('./obj-model');
@@ -57610,10 +56941,12 @@ _dereq_('./scene/embedded');
 _dereq_('./scene/inspector');
 _dereq_('./scene/fog');
 _dereq_('./scene/keyboard-shortcuts');
+_dereq_('./scene/pool');
 _dereq_('./scene/stats');
 _dereq_('./scene/vr-mode-ui');
 
-},{"./blend-character-model":21,"./camera":22,"./collada-model":23,"./cursor":24,"./geometry":25,"./hand-controls":26,"./light":28,"./look-at":29,"./look-controls":30,"./material":31,"./obj-model":32,"./position":33,"./raycaster":34,"./rotation":35,"./scale":36,"./scene/canvas":37,"./scene/debug":38,"./scene/embedded":39,"./scene/fog":40,"./scene/inspector":41,"./scene/keyboard-shortcuts":42,"./scene/stats":43,"./scene/vr-mode-ui":44,"./sound":45,"./tracked-controls":46,"./visible":47,"./vive-controls":48,"./wasd-controls":49}],28:[function(_dereq_,module,exports){
+},{"./blend-character-model":21,"./camera":22,"./collada-model":23,"./cursor":24,"./geometry":25,"./hand-controls":26,"./light":28,"./look-controls":29,"./material":30,"./obj-model":31,"./position":32,"./raycaster":33,"./rotation":34,"./scale":35,"./scene/canvas":36,"./scene/debug":37,"./scene/embedded":38,"./scene/fog":39,"./scene/inspector":40,"./scene/keyboard-shortcuts":41,"./scene/pool":42,"./scene/stats":43,"./scene/vr-mode-ui":44,"./sound":45,"./tracked-controls":46,"./visible":47,"./vive-controls":48,"./wasd-controls":49}],28:[function(_dereq_,module,exports){
+var bind = _dereq_('../utils/bind');
 var diff = _dereq_('../utils').diff;
 var debug = _dereq_('../utils/debug');
 var registerComponent = _dereq_('../core/component').registerComponent;
@@ -57632,8 +56965,7 @@ module.exports.Component = registerComponent('light', {
     groundColor: {type: 'color', if: {type: ['hemisphere']}},
     decay: {default: 1, if: {type: ['point', 'spot']}},
     distance: {default: 0.0, min: 0, if: {type: ['point', 'spot']}},
-    intensity: {default: 1.0, min: 0,
-                if: {type: ['ambient', 'directional', 'hemisphere', 'point', 'spot']}},
+    intensity: {default: 1.0, min: 0, if: {type: ['ambient', 'directional', 'hemisphere', 'point', 'spot']}},
     penumbra: {default: 0, min: 0, max: 1, if: {type: ['spot']}},
     type: {default: 'directional',
            oneOf: ['ambient', 'directional', 'hemisphere', 'point', 'spot']},
@@ -57692,7 +57024,7 @@ module.exports.Component = registerComponent('light', {
               if (value.hasLoaded) {
                 self.onSetTarget(value);
               } else {
-                value.addEventListener('loaded', self.onSetTarget.bind(self, value));
+                value.addEventListener('loaded', bind(self.onSetTarget, self, value));
               }
             }
             break;
@@ -57763,7 +57095,7 @@ module.exports.Component = registerComponent('light', {
           if (target.hasLoaded) {
             this.onSetTarget(target);
           } else {
-            target.addEventListener('loaded', this.onSetTarget.bind(this, target));
+            target.addEventListener('loaded', bind(this.onSetTarget, this, target));
           }
         }
         return light;
@@ -57784,7 +57116,7 @@ module.exports.Component = registerComponent('light', {
           if (target.hasLoaded) {
             this.onSetTarget(target);
           } else {
-            target.addEventListener('loaded', this.onSetTarget.bind(this, target));
+            target.addEventListener('loaded', bind(this.onSetTarget, this, target));
           }
         }
         return light;
@@ -57809,106 +57141,11 @@ module.exports.Component = registerComponent('light', {
   }
 });
 
-},{"../core/component":59,"../lib/three":103,"../utils":120,"../utils/debug":117}],29:[function(_dereq_,module,exports){
-var debug = _dereq_('../utils/debug');
-var coordinates = _dereq_('../utils/coordinates');
-var registerComponent = _dereq_('../core/component').registerComponent;
-var THREE = _dereq_('../lib/three');
-
-var warn = debug('components:look-at:warn');
-var isCoordinate = coordinates.isCoordinate;
-
-/**
- * Look-at component.
- *
- * Modifies rotation to either track another entity OR do a one-time turn towards a position
- * vector.
- *
- * If tracking an object via setting the component value via a selector, look-at will register
- * a behavior to the scene to update rotation on every tick.
- */
-module.exports.Component = registerComponent('look-at', {
-  schema: {
-    default: '',
-
-    parse: function (value) {
-      // A static position to look at.
-      if (isCoordinate(value) || typeof value === 'object') {
-        return coordinates.parse(value);
-      }
-      // A selector to a target entity.
-      return value;
-    },
-
-    stringify: function (data) {
-      if (typeof data === 'object') {
-        return coordinates.stringify(data);
-      }
-      return data;
-    }
-  },
-
-  init: function () {
-    this.target3D = null;
-    this.vector = new THREE.Vector3();
-    warn('The `look-at` component is deprecated - ' +
-         'use https://github.com/ngokevin/aframe-look-at-component instead.');
-  },
-
-  /**
-   * If tracking an object, this will be called on every tick.
-   * If looking at a position vector, this will only be called once (until further updates).
-   */
-  update: function () {
-    var self = this;
-    var target = self.data;
-    var object3D = self.el.object3D;
-    var targetEl;
-
-    // No longer looking at anything (i.e., look-at="").
-    if (!target || (typeof target === 'object' && !Object.keys(target).length)) {
-      return self.remove();
-    }
-
-    // Look at a position.
-    if (typeof target === 'object') {
-      return object3D.lookAt(new THREE.Vector3(target.x, target.y, target.z));
-    }
-
-    // Assume target is a string.
-    // Query for the element, grab its object3D, then register a behavior on the scene to
-    // track the target on every tick.
-    targetEl = self.el.sceneEl.querySelector(target);
-    if (!targetEl) {
-      warn('"' + target + '" does not point to a valid entity to look-at');
-      return;
-    }
-    if (!targetEl.hasLoaded) {
-      return targetEl.addEventListener('loaded', function () {
-        self.beginTracking(targetEl);
-      });
-    }
-    return self.beginTracking(targetEl);
-  },
-
-  tick: function (t) {
-    // Track target object position. Depends on parent object keeping global transforms up
-    // to state with updateMatrixWorld(). In practice, this is handled by the renderer.
-    var target3D = this.target3D;
-    if (target3D) {
-      return this.el.object3D.lookAt(this.vector.setFromMatrixPosition(target3D.matrixWorld));
-    }
-  },
-
-  beginTracking: function (targetEl) {
-    this.target3D = targetEl.object3D;
-  }
-});
-
-},{"../core/component":59,"../lib/three":103,"../utils/coordinates":116,"../utils/debug":117}],30:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103,"../utils":121,"../utils/bind":115,"../utils/debug":118}],29:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 var isMobile = _dereq_('../utils/').isMobile();
+var bind = _dereq_('../utils/bind');
 
 // To avoid recalculation at every mouse movement tick
 var PI_2 = Math.PI / 2;
@@ -57918,9 +57155,9 @@ module.exports.Component = registerComponent('look-controls', {
   dependencies: ['position', 'rotation'],
 
   schema: {
-    enabled: { default: true },
-    hmdEnabled: { default: true },
-    standing: { default: true }
+    enabled: {default: true},
+    hmdEnabled: {default: true},
+    standing: {default: true}
   },
 
   init: function () {
@@ -57971,12 +57208,12 @@ module.exports.Component = registerComponent('look-controls', {
   },
 
   bindMethods: function () {
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.releaseMouse = this.releaseMouse.bind(this);
-    this.onTouchStart = this.onTouchStart.bind(this);
-    this.onTouchMove = this.onTouchMove.bind(this);
-    this.onTouchEnd = this.onTouchEnd.bind(this);
+    this.onMouseDown = bind(this.onMouseDown, this);
+    this.onMouseMove = bind(this.onMouseMove, this);
+    this.releaseMouse = bind(this.releaseMouse, this);
+    this.onTouchStart = bind(this.onTouchStart, this);
+    this.onTouchMove = bind(this.onTouchMove, this);
+    this.onTouchEnd = bind(this.onTouchEnd, this);
   },
 
   setupMouseControls: function () {
@@ -58001,7 +57238,7 @@ module.exports.Component = registerComponent('look-controls', {
 
     // listen for canvas to load.
     if (!canvasEl) {
-      sceneEl.addEventListener('render-target-loaded', this.addEventListeners.bind(this));
+      sceneEl.addEventListener('render-target-loaded', bind(this.addEventListeners, this));
       return;
     }
 
@@ -58052,7 +57289,7 @@ module.exports.Component = registerComponent('look-controls', {
           z: radToDeg(hmdEuler.z)
         };
       } else if (!sceneEl.is('vr-mode') || isNullVector(hmdEuler) || !this.data.hmdEnabled) {
-        currentRotation = this.el.getComputedAttribute('rotation');
+        currentRotation = this.el.getAttribute('rotation');
         deltaRotation = this.calculateDeltaRotation();
         // Mouse look only if HMD disabled or no info coming from the sensors
         rotation = {
@@ -58104,7 +57341,7 @@ module.exports.Component = registerComponent('look-controls', {
     var deltaHMDPosition = new THREE.Vector3();
     return function () {
       var el = this.el;
-      var currentPosition = el.getComputedAttribute('position');
+      var currentPosition = el.getAttribute('position');
       var currentHMDPosition;
       var previousHMDPosition = this.previousHMDPosition;
       var sceneEl = this.el.sceneEl;
@@ -58194,7 +57431,7 @@ function isNullVector (vector) {
   return vector.x === 0 && vector.y === 0 && vector.z === 0;
 }
 
-},{"../core/component":59,"../lib/three":103,"../utils/":120}],31:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103,"../utils/":121,"../utils/bind":115}],30:[function(_dereq_,module,exports){
 /* global Promise */
 var utils = _dereq_('../utils/');
 var component = _dereq_('../core/component');
@@ -58362,7 +57599,7 @@ function disposeMaterial (material, system) {
   system.unregisterMaterial(material);
 }
 
-},{"../core/component":59,"../core/shader":67,"../lib/three":103,"../utils/":120}],32:[function(_dereq_,module,exports){
+},{"../core/component":60,"../core/shader":68,"../lib/three":103,"../utils/":121}],31:[function(_dereq_,module,exports){
 var debug = _dereq_('../utils/debug');
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
@@ -58373,8 +57610,8 @@ module.exports.Component = registerComponent('obj-model', {
   dependencies: ['material'],
 
   schema: {
-    mtl: { type: 'src' },
-    obj: { type: 'src' }
+    mtl: {type: 'src'},
+    obj: {type: 'src'}
   },
 
   init: function () {
@@ -58440,11 +57677,11 @@ module.exports.Component = registerComponent('obj-model', {
   }
 });
 
-},{"../core/component":59,"../lib/three":103,"../utils/debug":117}],33:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103,"../utils/debug":118}],32:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 module.exports.Component = registerComponent('position', {
-  schema: { type: 'vec3' },
+  schema: {type: 'vec3'},
 
   update: function () {
     var object3D = this.el.object3D;
@@ -58453,9 +57690,10 @@ module.exports.Component = registerComponent('position', {
   }
 });
 
-},{"../core/component":59}],34:[function(_dereq_,module,exports){
+},{"../core/component":60}],33:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
+var bind = _dereq_('../utils/').bind;
 
 var scaleDummy = new THREE.Vector3();
 
@@ -58487,6 +57725,17 @@ module.exports.Component = registerComponent('raycaster', {
     this.prevCheckTime = undefined;
     this.raycaster = new THREE.Raycaster();
     this.updateOriginDirection();
+    this.refreshObjects = bind(this.refreshObjects, this);
+  },
+
+  play: function () {
+    this.el.sceneEl.addEventListener('child-attached', this.refreshObjects);
+    this.el.sceneEl.addEventListener('child-detached', this.refreshObjects);
+  },
+
+  pause: function () {
+    this.el.sceneEl.removeEventListener('child-attached', this.refreshObjects);
+    this.el.sceneEl.removeEventListener('child-detached', this.refreshObjects);
   },
 
   /**
@@ -58565,7 +57814,7 @@ module.exports.Component = registerComponent('raycaster', {
     // Emit all intersections at once on raycasting entity.
     if (intersections.length) {
       el.emit('raycaster-intersection', {
-        els: intersectedEls,
+        els: intersectedEls.slice(),
         intersections: intersections
       });
     }
@@ -58603,12 +57852,12 @@ module.exports.Component = registerComponent('raycaster', {
   })()
 });
 
-},{"../core/component":59,"../lib/three":103}],35:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103,"../utils/":121}],34:[function(_dereq_,module,exports){
 var degToRad = _dereq_('../lib/three').Math.degToRad;
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 module.exports.Component = registerComponent('rotation', {
-  schema: { type: 'vec3' },
+  schema: {type: 'vec3'},
 
   /**
    * Updates object3D rotation.
@@ -58621,7 +57870,7 @@ module.exports.Component = registerComponent('rotation', {
   }
 });
 
-},{"../core/component":59,"../lib/three":103}],36:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103}],35:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 // Avoids triggering a zero-determinant which makes object3D matrix non-invertible.
@@ -58630,7 +57879,7 @@ var zeroScale = 0.00001;
 module.exports.Component = registerComponent('scale', {
   schema: {
     type: 'vec3',
-    default: { x: 1, y: 1, z: 1 }
+    default: {x: 1, y: 1, z: 1}
   },
 
   update: function () {
@@ -58643,7 +57892,8 @@ module.exports.Component = registerComponent('scale', {
   }
 });
 
-},{"../core/component":59}],37:[function(_dereq_,module,exports){
+},{"../core/component":60}],36:[function(_dereq_,module,exports){
+var bind = _dereq_('../../utils/bind');
 var register = _dereq_('../../core/component').registerComponent;
 
 module.exports.Component = register('canvas', {
@@ -58694,20 +57944,20 @@ module.exports.Component = register('canvas', {
       document.body.focus();
       // For unkown reasons a syncrhonous resize does
       // not work on desktop when entering/exiting fullscreen
-      setTimeout(sceneEl.resize.bind(sceneEl), 0);
+      setTimeout(bind(sceneEl.resize, sceneEl), 0);
     }
   }
 
 });
 
-},{"../../core/component":59}],38:[function(_dereq_,module,exports){
+},{"../../core/component":60,"../../utils/bind":115}],37:[function(_dereq_,module,exports){
 var register = _dereq_('../../core/component').registerComponent;
 
 module.exports.Component = register('debug', {
-  schema: { default: true }
+  schema: {default: true}
 });
 
-},{"../../core/component":59}],39:[function(_dereq_,module,exports){
+},{"../../core/component":60}],38:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 
 /**
@@ -58716,7 +57966,7 @@ var registerComponent = _dereq_('../../core/component').registerComponent;
 module.exports.Component = registerComponent('embedded', {
   dependencies: ['vr-mode-ui'],
 
-  schema: { default: true },
+  schema: {default: true},
 
   update: function () {
     var sceneEl = this.el;
@@ -58732,7 +57982,7 @@ module.exports.Component = registerComponent('embedded', {
 
 });
 
-},{"../../core/component":59}],40:[function(_dereq_,module,exports){
+},{"../../core/component":60}],39:[function(_dereq_,module,exports){
 var register = _dereq_('../../core/component').registerComponent;
 var THREE = _dereq_('../../lib/three');
 var debug = _dereq_('../../utils/debug');
@@ -58745,11 +57995,11 @@ var warn = debug('components:fog:warn');
  */
 module.exports.Component = register('fog', {
   schema: {
-    color: { default: '#000' },
-    density: { default: 0.00025 },
-    far: { default: 1000, min: 0 },
-    near: { default: 1, min: 0 },
-    type: { default: 'linear', oneOf: ['linear', 'exponential'] }
+    color: {default: '#000'},
+    density: {default: 0.00025},
+    far: {default: 1000, min: 0},
+    near: {default: 1, min: 0},
+    type: {default: 'linear', oneOf: ['linear', 'exponential']}
   },
 
   update: function () {
@@ -58807,10 +58057,12 @@ function getFog (data) {
   return fog;
 }
 
-},{"../../core/component":59,"../../lib/three":103,"../../utils/debug":117}],41:[function(_dereq_,module,exports){
+},{"../../core/component":60,"../../lib/three":103,"../../utils/debug":118}],40:[function(_dereq_,module,exports){
 /* global AFRAME */
-var registerComponent = _dereq_('../../core/component').registerComponent;
+var AFRAME_INJECTED = _dereq_('../../constants').AFRAME_INJECTED;
+var bind = _dereq_('../../utils/bind');
 var pkg = _dereq_('../../../package');
+var registerComponent = _dereq_('../../core/component').registerComponent;
 
 var INSPECTOR_URL = pkg.homepage + 'releases/' + pkg.version + '/aframe-inspector.min.js';
 
@@ -58820,7 +58072,7 @@ module.exports.Component = registerComponent('inspector', {
   },
 
   init: function () {
-    this.onKeydown = this.onKeydown.bind(this);
+    this.onKeydown = bind(this.onKeydown, this);
     window.addEventListener('keydown', this.onKeydown);
   },
 
@@ -58840,6 +58092,8 @@ module.exports.Component = registerComponent('inspector', {
     // Inject.
     script = document.createElement('script');
     script.src = this.data.url;
+    script.setAttribute('data-name', 'aframe-inspector');
+    script.setAttribute(AFRAME_INJECTED, '');
     script.onload = function () {
       AFRAME.INSPECTOR.open();
       window.removeEventListener('keydown', self.onKeydown);
@@ -58853,7 +58107,7 @@ module.exports.Component = registerComponent('inspector', {
   }
 });
 
-},{"../../../package":20,"../../core/component":59}],42:[function(_dereq_,module,exports){
+},{"../../../package":20,"../../constants":51,"../../core/component":60,"../../utils/bind":115}],41:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var shouldCaptureKeyEvent = _dereq_('../../utils/').shouldCaptureKeyEvent;
 var THREE = _dereq_('../../lib/three');
@@ -58862,9 +58116,9 @@ var controls = new THREE.VRControls(new THREE.Object3D());
 
 module.exports.Component = registerComponent('keyboard-shortcuts', {
   schema: {
-    enterVR: { default: true },
-    exitVR: { default: true },
-    resetSensor: { default: true }
+    enterVR: {default: true},
+    exitVR: {default: true},
+    resetSensor: {default: true}
   },
 
   init: function () {
@@ -58896,35 +58150,150 @@ module.exports.Component = registerComponent('keyboard-shortcuts', {
   }
 });
 
-},{"../../core/component":59,"../../lib/three":103,"../../utils/":120}],43:[function(_dereq_,module,exports){
+},{"../../core/component":60,"../../lib/three":103,"../../utils/":121}],42:[function(_dereq_,module,exports){
+var debug = _dereq_('../../utils/debug');
+var registerComponent = _dereq_('../../core/component').registerComponent;
+
+var warn = debug('components:pool:warn');
+
+/**
+ * Pool component.
+ * A pool of entities that will be reused.
+ * It avoids creating and destroying the same kind of entities
+ * in dynamic scenes. It will help reduce GC pauses. Useful for example
+ * in a game where you want to reuse enemies entities.
+ *
+ * @member {array} availableEls - Available entities in the pool.
+ * @member {array} useedEls - Entities of the pool in use.
+ *
+ */
+module.exports.Component = registerComponent('pool', {
+  schema: {
+    mixin: {default: ''},
+    size: {default: 0},
+    dynamic: {default: false}
+  },
+
+  multiple: true,
+
+  init: function () {
+    this.initPool();
+  },
+
+  initPool: function () {
+    var i;
+    var mixin = this.data.mixin;
+    if (!mixin) { return; }
+    this.availableEls = [];
+    this.usedEls = [];
+    for (i = 0; i < this.data.size; ++i) {
+      this.createEntity();
+    }
+  },
+
+  update: function (oldData) {
+    var data = this.data;
+    if (oldData.mixin !== data.mixin || oldData.size !== data.size) {
+      this.initPool();
+    }
+  },
+
+  /**
+   * Add a new entity to the list of available entities.
+   */
+  createEntity: function () {
+    var el = document.createElement('a-entity');
+    el.play = this.wrapPlay(el.play);
+    el.setAttribute('mixin', this.data.mixin);
+    el.setAttribute('visible', false);
+    this.el.appendChild(el);
+    this.availableEls.push(el);
+  },
+
+  /**
+   * Play wrapper for pooled entities. When pausing and playing
+   * a scene we don't want to play the entities that are not in use
+   */
+  wrapPlay: function (playMethod) {
+    var usedEls = this.usedEls;
+    return function () {
+      if (usedEls.indexOf(this) === -1) { return; }
+      playMethod.call(this);
+    };
+  },
+
+  /**
+   * Used to request one of the available entities of the pool
+   */
+  requestEntity: function () {
+    var el;
+    if (this.availableEls.length === 0) {
+      if (this.data.dynamic === false) {
+        warn('Requested entity from empty pool ' + this.name);
+        return;
+      } else {
+        warn('Requested entity from empty pool. This pool is dynamic' +
+        'and will resize automatically. You might want to increase its initial size' + this.name);
+      }
+      this.createEntity();
+    }
+    el = this.availableEls.shift();
+    this.usedEls.push(el);
+    el.setAttribute('visible', true);
+    return el;
+  },
+
+  /**
+   * Used to return a used entity to the pool
+   */
+  returnEntity: function (el) {
+    var index = this.usedEls.indexOf(el);
+    if (index === -1) {
+      warn('The returned entity was not previously pooled from ' + this.name);
+      return;
+    }
+    this.usedEls.splice(index, 1);
+    this.availableEls.push(el);
+    el.setAttribute('visible', false);
+    el.pause();
+  }
+});
+
+},{"../../core/component":60,"../../utils/debug":118}],43:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var RStats = _dereq_('../../../vendor/rStats');
+var utils = _dereq_('../../utils');
 _dereq_('../../../vendor/rStats.extras');
 _dereq_('../../lib/rStatsAframe');
 
+var AFrameStats = window.aframeStats;
+var bind = utils.bind;
 var HIDDEN_CLASS = 'a-hidden';
 var ThreeStats = window.threeStats;
-var AFrameStats = window.aframeStats;
 
 /**
  * Stats appended to document.body by RStats.
  */
 module.exports.Component = registerComponent('stats', {
-  schema: { default: true },
+  schema: {default: true},
 
   init: function () {
     var scene = this.el;
+
+    if (utils.getUrlParameter('stats') === 'false') { return; }
+
     this.stats = createStats(scene);
     this.statsEl = document.querySelector('.rs-base');
 
-    this.hideBound = this.hide.bind(this);
-    this.showBound = this.show.bind(this);
+    this.hideBound = bind(this.hide, this);
+    this.showBound = bind(this.show, this);
 
     scene.addEventListener('enter-vr', this.hideBound);
     scene.addEventListener('exit-vr', this.showBound);
   },
 
   update: function () {
+    if (!this.stats) { return; }
     return (!this.data) ? this.hide() : this.show();
   },
 
@@ -58936,6 +58305,9 @@ module.exports.Component = registerComponent('stats', {
 
   tick: function () {
     var stats = this.stats;
+
+    if (!stats) { return; }
+
     stats('rAF').tick();
     stats('FPS').frame();
     stats().update();
@@ -58966,10 +58338,11 @@ function createStats (scene) {
   });
 }
 
-},{"../../../vendor/rStats":127,"../../../vendor/rStats.extras":126,"../../core/component":59,"../../lib/rStatsAframe":102}],44:[function(_dereq_,module,exports){
+},{"../../../vendor/rStats":128,"../../../vendor/rStats.extras":127,"../../core/component":60,"../../lib/rStatsAframe":102,"../../utils":121}],44:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var constants = _dereq_('../../constants/');
 var utils = _dereq_('../../utils/');
+var bind = utils.bind;
 
 var ENTER_VR_CLASS = 'a-enter-vr';
 var ENTER_VR_BTN_CLASS = 'a-enter-vr-button';
@@ -58992,15 +58365,15 @@ module.exports.Component = registerComponent('vr-mode-ui', {
 
     if (utils.getUrlParameter('ui') === 'false') { return; }
 
-    this.enterVR = sceneEl.enterVR.bind(sceneEl);
-    this.exitVR = sceneEl.exitVR.bind(sceneEl);
+    this.enterVR = bind(sceneEl.enterVR, sceneEl);
+    this.exitVR = bind(sceneEl.exitVR, sceneEl);
     this.insideLoader = false;
     this.enterVREl = null;
     this.orientationModalEl = null;
 
     // Hide/show VR UI when entering/exiting VR mode.
-    sceneEl.addEventListener('enter-vr', this.updateEnterVRInterface.bind(this));
-    sceneEl.addEventListener('exit-vr', this.updateEnterVRInterface.bind(this));
+    sceneEl.addEventListener('enter-vr', bind(this.updateEnterVRInterface, this));
+    sceneEl.addEventListener('exit-vr', bind(this.updateEnterVRInterface, this));
 
     window.addEventListener('message', function (event) {
       if (event.data.type === 'loaderReady') {
@@ -59010,7 +58383,7 @@ module.exports.Component = registerComponent('vr-mode-ui', {
     });
 
     // Modal that tells the user to change orientation if in portrait.
-    window.addEventListener('orientationchange', this.toggleOrientationModalIfNeeded.bind(this));
+    window.addEventListener('orientationchange', bind(this.toggleOrientationModalIfNeeded, this));
   },
 
   update: function () {
@@ -59114,9 +58487,10 @@ function createOrientationModal (exitVRHandler) {
   return modal;
 }
 
-},{"../../constants/":51,"../../core/component":59,"../../utils/":120}],45:[function(_dereq_,module,exports){
-var debug = _dereq_('../utils/debug');
+},{"../../constants/":51,"../../core/component":60,"../../utils/":121}],45:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
+var debug = _dereq_('../utils/debug');
+var bind = _dereq_('../utils/bind');
 var THREE = _dereq_('../lib/three');
 
 var warn = debug('components:sound:warn');
@@ -59126,11 +58500,12 @@ var warn = debug('components:sound:warn');
  */
 module.exports.Component = registerComponent('sound', {
   schema: {
-    src: { type: 'src' },
-    on: { default: '' },
-    autoplay: { default: false },
-    loop: { default: false },
-    volume: { default: 1 }
+    autoplay: {default: false},
+    loop: {default: false},
+    on: {default: ''},
+    poolSize: {default: 1},
+    src: {type: 'src'},
+    volume: {default: 1}
   },
 
   multiple: true,
@@ -59138,13 +58513,12 @@ module.exports.Component = registerComponent('sound', {
   init: function () {
     this.listener = null;
     this.audioLoader = new THREE.AudioLoader();
-    this.sound = null;
-    this.playSound = this.playSound.bind(this);
+    this.pool = new THREE.Group();
+    this.playSound = bind(this.playSound, this);
   },
 
   update: function (oldData) {
     var data = this.data;
-    var sound = this.sound;
     var srcChanged = data.src !== oldData.src;
     // Create new sound if not yet created or changing `src`.
     if (srcChanged) {
@@ -59152,12 +58526,14 @@ module.exports.Component = registerComponent('sound', {
         warn('Audio source was not specified with `src`');
         return;
       }
-      sound = this.setupSound();
+      this.setupSound();
     }
 
-    sound.autoplay = data.autoplay;
-    sound.setLoop(data.loop);
-    sound.setVolume(data.volume);
+    this.pool.children.forEach(function (sound) {
+      sound.autoplay = data.autoplay;
+      sound.setLoop(data.loop);
+      sound.setVolume(data.volume);
+    });
 
     if (data.on !== oldData.on) {
       this.updateEventListener(oldData.on);
@@ -59165,8 +58541,11 @@ module.exports.Component = registerComponent('sound', {
 
     // All sound values set. Load in `src`.
     if (srcChanged) {
+      var self = this;
       this.audioLoader.load(data.src, function (buffer) {
-        sound.setBuffer(buffer);
+        self.pool.children.forEach(function (sound) {
+          sound.setBuffer(buffer);
+        });
         // Remove this key from cache, otherwise we can't play it again
         THREE.Cache.remove(data.src);
       });
@@ -59190,7 +58569,9 @@ module.exports.Component = registerComponent('sound', {
     this.removeEventListener();
     this.el.removeObject3D(this.attrName);
     try {
-      this.sound.disconnect();
+      this.pool.children.forEach(function (sound) {
+        sound.disconnect();
+      });
     } catch (e) {
       // disconnect() will throw if it was never connected initially.
       warn('Audio source not properly disconnected');
@@ -59198,19 +58579,11 @@ module.exports.Component = registerComponent('sound', {
   },
 
   play: function () {
-    if (!this.sound) { return; }
-    if (this.sound.source.buffer && this.data.autoplay) {
-      this.sound.play();
+    // Look for an unused sound in the pool and play it if found.
+    if (this.data.autoplay) {
+      this.playSound();
     }
     this.updateEventListener();
-  },
-
-  pause: function () {
-    if (!this.sound) { return; }
-    if (this.sound.source.buffer && this.sound.isPlaying) {
-      this.sound.pause();
-    }
-    this.removeEventListener();
   },
 
   /**
@@ -59221,10 +58594,9 @@ module.exports.Component = registerComponent('sound', {
   setupSound: function () {
     var el = this.el;
     var sceneEl = el.sceneEl;
-    var sound = this.sound;
 
-    if (sound) {
-      this.stopSound();
+    if (this.pool.children.length > 0) {
+      this.stop();
       el.removeObject3D('sound');
     }
 
@@ -59241,29 +58613,57 @@ module.exports.Component = registerComponent('sound', {
       evt.detail.cameraEl.getObject3D('camera').add(listener);
     });
 
-    sound = this.sound = new THREE.PositionalAudio(listener);
-    el.setObject3D(this.attrName, sound);
+    // Create [poolSize] audio instances and attach them to pool
+    this.pool = new THREE.Group();
+    for (var i = 0; i < this.data.poolSize; i++) {
+      var sound = new THREE.PositionalAudio(listener);
+      this.pool.add(sound);
+    }
+    el.setObject3D(this.attrName, this.pool);
 
-    sound.source.onended = function () {
-      sound.onEnded();
-      el.emit('sound-ended');
-    };
-
-    return sound;
+    this.pool.children.forEach(function (sound) {
+      sound.source.onended = function () {
+        sound.onEnded();
+        el.emit('sound-ended', {index: i});
+      };
+    });
   },
 
   playSound: function () {
-    if (!this.sound.source.buffer) { return; }
-    this.sound.play();
+    // Look for an unused sound in the pool and play it if found.
+    var found = false;
+    this.pool.children.forEach(function (sound) {
+      if (!sound.isPlaying && sound.source.buffer && !found) {
+        sound.play();
+        found = true;
+        return;
+      }
+    });
+
+    if (!found) {
+      warn('All the sounds are playing. If you need to play more sounds simultaneously consider increasing the size of pool with the `poolSize` attribute.');
+    }
   },
 
-  stopSound: function () {
-    if (!this.sound.source.buffer) { return; }
-    this.sound.stop();
+  stop: function () {
+    // Stop all the sounds in the pool
+    this.pool.children.forEach(function (sound) {
+      if (!sound.source.buffer) { return; }
+      sound.stop();
+    });
+  },
+
+  pause: function () {
+    // Pause all the sounds in the pool
+    this.pool.children.forEach(function (sound) {
+      if (!sound.source.buffer || !sound.isPlaying) { return; }
+      sound.pause();
+    });
+    this.removeEventListener();
   }
 });
 
-},{"../core/component":59,"../lib/three":103,"../utils/debug":117}],46:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103,"../utils/bind":115,"../utils/debug":118}],46:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 
@@ -59279,13 +58679,13 @@ var THREE = _dereq_('../lib/three');
  */
 module.exports.Component = registerComponent('tracked-controls', {
   schema: {
-    controller: { default: 0 },
-    id: { default: 'OpenVR Gamepad' }
+    controller: {default: 0},
+    id: {default: 'OpenVR Gamepad'}
   },
 
   init: function () {
     this.buttonStates = {};
-    this.axisState = [];
+    this.previousAxis = [];
   },
 
   update: function () {
@@ -59299,8 +58699,8 @@ module.exports.Component = registerComponent('tracked-controls', {
 
   tick: function (time, delta) {
     var mesh = this.el.getObject3D('mesh');
-    if (!mesh) { return; }
-    if (mesh.update) { mesh.update(delta / 1000); }
+    // Update mesh animations.
+    if (mesh && mesh.update) { mesh.update(delta / 1000); }
     this.updatePose();
     this.updateButtons();
   },
@@ -59361,7 +58761,7 @@ module.exports.Component = registerComponent('tracked-controls', {
   },
 
   handleAxes: function (controllerAxes) {
-    var previousAxis = this.axisState;
+    var previousAxis = this.previousAxis;
     var changed = false;
     var i;
     for (i = 0; i < controllerAxes.length; ++i) {
@@ -59371,8 +58771,8 @@ module.exports.Component = registerComponent('tracked-controls', {
       }
     }
     if (!changed) { return; }
-    previousAxis = controllerAxes.slice();
-    this.el.emit('axismove', {axis: previousAxis});
+    this.previousAxis = controllerAxes.slice();
+    this.el.emit('axismove', {axis: this.previousAxis});
   },
 
   handleButton: function (id, buttonState) {
@@ -59424,22 +58824,23 @@ module.exports.Component = registerComponent('tracked-controls', {
   }
 });
 
-},{"../core/component":59,"../lib/three":103}],47:[function(_dereq_,module,exports){
+},{"../core/component":60,"../lib/three":103}],47:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 /**
  * Visibility component.
  */
 module.exports.Component = registerComponent('visible', {
-  schema: { default: true },
+  schema: {default: true},
 
   update: function () {
     this.el.object3D.visible = this.data;
   }
 });
 
-},{"../core/component":59}],48:[function(_dereq_,module,exports){
+},{"../core/component":60}],48:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
+var bind = _dereq_('../utils/bind');
 
 var VIVE_CONTROLLER_MODEL_OBJ_URL = 'https://cdn.aframe.io/controllers/vive/vr_controller_vive.obj';
 var VIVE_CONTROLLER_MODEL_OBJ_MTL = 'https://cdn.aframe.io/controllers/vive/vr_controller_vive.mtl';
@@ -59479,10 +58880,10 @@ module.exports.Component = registerComponent('vive-controls', {
   init: function () {
     var self = this;
     this.animationActive = 'pointing';
-    this.onButtonChanged = this.onButtonChanged.bind(this);
+    this.onButtonChanged = bind(this.onButtonChanged, this);
     this.onButtonDown = function (evt) { self.onButtonEvent(evt.detail.id, 'down'); };
     this.onButtonUp = function (evt) { self.onButtonEvent(evt.detail.id, 'up'); };
-    this.onModelLoaded = this.onModelLoaded.bind(this);
+    this.onModelLoaded = bind(this.onModelLoaded, this);
   },
 
   play: function () {
@@ -59559,11 +58960,16 @@ module.exports.Component = registerComponent('vive-controls', {
   }
 });
 
-},{"../core/component":59}],49:[function(_dereq_,module,exports){
+},{"../core/component":60,"../utils/bind":115}],49:[function(_dereq_,module,exports){
+var KEYCODE_TO_CODE = _dereq_('../constants').keyboardevent.KEYCODE_TO_CODE;
 var registerComponent = _dereq_('../core/component').registerComponent;
-var shouldCaptureKeyEvent = _dereq_('../utils/').shouldCaptureKeyEvent;
 var THREE = _dereq_('../lib/three');
+var utils = _dereq_('../utils/');
 
+var bind = utils.bind;
+var shouldCaptureKeyEvent = utils.shouldCaptureKeyEvent;
+
+var CLAMP_VELOCITY = 0.00001;
 var MAX_DELTA = 0.2;
 
 /**
@@ -59571,80 +58977,60 @@ var MAX_DELTA = 0.2;
  */
 module.exports.Component = registerComponent('wasd-controls', {
   schema: {
-    easing: { default: 20 },
-    acceleration: { default: 65 },
-    enabled: { default: true },
-    fly: { default: false },
-    wsAxis: { default: 'z', oneOf: [ 'x', 'y', 'z' ] },
-    adAxis: { default: 'x', oneOf: [ 'x', 'y', 'z' ] },
-    wsInverted: { default: false },
-    wsEnabled: { default: true },
-    adInverted: { default: false },
-    adEnabled: { default: true }
+    acceleration: {default: 65},
+    adAxis: {default: 'x', oneOf: ['x', 'y', 'z']},
+    adEnabled: {default: true},
+    adInverted: {default: false},
+    easing: {default: 20},
+    enabled: {default: true},
+    fly: {default: false},
+    wsAxis: {default: 'z', oneOf: ['x', 'y', 'z']},
+    wsEnabled: {default: true},
+    wsInverted: {default: false}
   },
 
   init: function () {
-    this.velocity = new THREE.Vector3();
-    // To keep track of the pressed keys
+    // To keep track of the pressed keys.
     this.keys = {};
-    this.onBlur = this.onBlur.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onVisibilityChange = this.onVisibilityChange.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.onKeyUp = this.onKeyUp.bind(this);
+
+    this.velocity = new THREE.Vector3();
+
+    // Bind methods and add event listeners.
+    this.onBlur = bind(this.onBlur, this);
+    this.onFocus = bind(this.onFocus, this);
+    this.onKeyDown = bind(this.onKeyDown, this);
+    this.onKeyUp = bind(this.onKeyUp, this);
+    this.onVisibilityChange = bind(this.onVisibilityChange, this);
     this.attachVisibilityEventListeners();
   },
 
-  update: function (previousData) {
+  tick: function (time, delta) {
     var data = this.data;
-    var acceleration = data.acceleration;
-    var easing = data.easing;
-    var velocity = this.velocity;
-    var prevTime = this.prevTime = this.prevTime || Date.now();
-    var time = window.performance.now();
-    var delta = (time - prevTime) / 1000;
-    var keys = this.keys;
-    var movementVector;
-    var adAxis = data.adAxis;
-    var wsAxis = data.wsAxis;
-    var adSign = data.adInverted ? -1 : 1;
-    var wsSign = data.wsInverted ? -1 : 1;
     var el = this.el;
-    this.prevTime = time;
+    var movementVector;
+    var position;
+    var velocity = this.velocity;
 
-    // If data changed or FPS too low, reset velocity.
-    if (previousData || delta > MAX_DELTA) {
-      velocity[adAxis] = 0;
-      velocity[wsAxis] = 0;
-      return;
-    }
+    // Use seconds.
+    delta = delta / 1000;
 
-    velocity[adAxis] -= velocity[adAxis] * easing * delta;
-    velocity[wsAxis] -= velocity[wsAxis] * easing * delta;
+    // Get velocity.
+    this.updateVelocity(delta);
+    if (!velocity[data.adAxis] && !velocity[data.wsAxis]) { return; }
 
-    var position = el.getComputedAttribute('position');
-
-    if (data.enabled) {
-      if (data.adEnabled) {
-        if (keys[65]) { velocity[adAxis] -= adSign * acceleration * delta; } // Left
-        if (keys[68]) { velocity[adAxis] += adSign * acceleration * delta; } // Right
-      }
-      if (data.wsEnabled) {
-        if (keys[87]) { velocity[wsAxis] -= wsSign * acceleration * delta; } // Up
-        if (keys[83]) { velocity[wsAxis] += wsSign * acceleration * delta; } // Down
-      }
-    }
-
+    // Get movement vector and translate position.
     movementVector = this.getMovementVector(delta);
-    el.object3D.translateX(movementVector.x);
-    el.object3D.translateY(movementVector.y);
-    el.object3D.translateZ(movementVector.z);
-
+    position = el.getAttribute('position');
     el.setAttribute('position', {
       x: position.x + movementVector.x,
       y: position.y + movementVector.y,
       z: position.z + movementVector.z
     });
+  },
+
+  remove: function () {
+    this.removeKeyEventListeners();
+    this.removeVisibilityEventListeners();
   },
 
   play: function () {
@@ -59656,14 +59042,76 @@ module.exports.Component = registerComponent('wasd-controls', {
     this.removeKeyEventListeners();
   },
 
-  tick: function (t) {
-    this.update();
+  updateVelocity: function (delta) {
+    var acceleration;
+    var adAxis;
+    var adSign;
+    var data = this.data;
+    var keys = this.keys;
+    var velocity = this.velocity;
+    var wsAxis;
+    var wsSign;
+
+    adAxis = data.adAxis;
+    wsAxis = data.wsAxis;
+
+    // If FPS too low, reset velocity.
+    if (delta > MAX_DELTA) {
+      velocity[adAxis] = 0;
+      velocity[wsAxis] = 0;
+      return;
+    }
+
+    // Decay velocity.
+    if (velocity[adAxis] !== 0) {
+      velocity[adAxis] -= velocity[adAxis] * data.easing * delta;
+    }
+    if (velocity[wsAxis] !== 0) {
+      velocity[wsAxis] -= velocity[wsAxis] * data.easing * delta;
+    }
+
+    // Clamp velocity easing.
+    if (Math.abs(velocity[adAxis]) < CLAMP_VELOCITY) { velocity[adAxis] = 0; }
+    if (Math.abs(velocity[wsAxis]) < CLAMP_VELOCITY) { velocity[wsAxis] = 0; }
+
+    if (!data.enabled) { return; }
+
+    // Update velocity using keys pressed.
+    acceleration = data.acceleration;
+    if (data.adEnabled) {
+      adSign = data.adInverted ? -1 : 1;
+      if (keys.KeyA || keys.ArrowLeft) { velocity[adAxis] -= adSign * acceleration * delta; }
+      if (keys.KeyD || keys.ArrowRight) { velocity[adAxis] += adSign * acceleration * delta; }
+    }
+    if (data.wsEnabled) {
+      wsSign = data.wsInverted ? -1 : 1;
+      if (keys.KeyW || keys.ArrowUp) { velocity[wsAxis] -= wsSign * acceleration * delta; }
+      if (keys.KeyS || keys.ArrowDown) { velocity[wsAxis] += wsSign * acceleration * delta; }
+    }
   },
 
-  remove: function () {
-    this.pause();
-    this.removeVisibilityEventListeners();
-  },
+  getMovementVector: (function () {
+    var directionVector = new THREE.Vector3(0, 0, 0);
+    var rotationEuler = new THREE.Euler(0, 0, 0, 'YXZ');
+
+    return function (delta) {
+      var rotation = this.el.getAttribute('rotation');
+      var velocity = this.velocity;
+
+      directionVector.copy(velocity);
+      directionVector.multiplyScalar(delta);
+
+      // Absolute.
+      if (!rotation) { return directionVector; }
+
+      if (!this.data.fly) { rotation.x = 0; }
+
+      // Transform direction relative to heading.
+      rotationEuler.set(THREE.Math.degToRad(rotation.x), THREE.Math.degToRad(rotation.y), 0);
+      directionVector.applyEuler(rotationEuler);
+      return directionVector;
+    };
+  })(),
 
   attachVisibilityEventListeners: function () {
     window.addEventListener('blur', this.onBlur);
@@ -59704,34 +59152,21 @@ module.exports.Component = registerComponent('wasd-controls', {
   },
 
   onKeyDown: function (event) {
+    var code;
     if (!shouldCaptureKeyEvent(event)) { return; }
-    this.keys[event.keyCode] = true;
+    code = event.code || KEYCODE_TO_CODE[event.keyCode];
+    this.keys[code] = true;
   },
 
   onKeyUp: function (event) {
+    var code;
     if (!shouldCaptureKeyEvent(event)) { return; }
-    this.keys[event.keyCode] = false;
-  },
-
-  getMovementVector: (function (delta) {
-    var direction = new THREE.Vector3(0, 0, 0);
-    var rotation = new THREE.Euler(0, 0, 0, 'YXZ');
-    return function (delta) {
-      var velocity = this.velocity;
-      var elRotation = this.el.getComputedAttribute('rotation');
-      direction.copy(velocity);
-      direction.multiplyScalar(delta);
-      if (!elRotation) { return direction; }
-      if (!this.data.fly) { elRotation.x = 0; }
-      rotation.set(THREE.Math.degToRad(elRotation.x),
-                   THREE.Math.degToRad(elRotation.y), 0);
-      direction.applyEuler(rotation);
-      return direction;
-    };
-  })()
+    code = event.code || KEYCODE_TO_CODE[event.keyCode];
+    this.keys[code] = false;
+  }
 });
 
-},{"../core/component":59,"../lib/three":103,"../utils/":120}],50:[function(_dereq_,module,exports){
+},{"../constants":51,"../core/component":60,"../lib/three":103,"../utils/":121}],50:[function(_dereq_,module,exports){
 /**
  * Animation configuration options for TWEEN.js animations.
  * Used by `<a-animation>`.
@@ -59838,10 +59273,27 @@ module.exports.repeats = REPEATS;
 },{"tween.js":18}],51:[function(_dereq_,module,exports){
 module.exports = {
   AFRAME_INJECTED: 'aframe-injected',
-  animation: _dereq_('./animation')
+  DEFAULT_CAMERA_HEIGHT: 1.6,
+  animation: _dereq_('./animation'),
+  keyboardevent: _dereq_('./keyboardevent')
 };
 
-},{"./animation":50}],52:[function(_dereq_,module,exports){
+},{"./animation":50,"./keyboardevent":52}],52:[function(_dereq_,module,exports){
+module.exports = {
+  // Tiny KeyboardEvent.code polyfill.
+  KEYCODE_TO_CODE: {
+    '38': 'ArrowUp',
+    '37': 'ArrowLeft',
+    '40': 'ArrowDown',
+    '39': 'ArrowRight',
+    '87': 'KeyW',
+    '65': 'KeyA',
+    '83': 'KeyS',
+    '68': 'KeyD'
+  }
+};
+
+},{}],53:[function(_dereq_,module,exports){
 var ANode = _dereq_('./a-node');
 var animationConstants = _dereq_('../constants/animation');
 var coordinates = _dereq_('../utils/').coordinates;
@@ -59850,6 +59302,7 @@ var registerElement = _dereq_('./a-register-element').registerElement;
 var TWEEN = _dereq_('tween.js');
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
+var bind = utils.bind;
 
 var getComponentProperty = utils.entity.getComponentProperty;
 var DEFAULTS = animationConstants.defaults;
@@ -59978,7 +59431,7 @@ module.exports.AAnimation = registerElement('a-animation', {
           .onUpdate(function () {
             self.partialSetAttribute(this);
           })
-          .onComplete(self.onCompleted.bind(self));
+          .onComplete(bind(self.onCompleted, self));
       }
     },
 
@@ -60003,7 +59456,7 @@ module.exports.AAnimation = registerElement('a-animation', {
         // Cancel previous event listeners
         if (this.evt) { this.removeEventListeners(this.evt); }
         // Store new event name.
-        this.evt = { begin: begin, end: end };
+        this.evt = {begin: begin, end: end};
         // Add new event listeners
         this.addEventListeners(this.evt);
         // If `begin` is not defined, start the animation right away.
@@ -60101,10 +59554,10 @@ module.exports.AAnimation = registerElement('a-animation', {
      */
     bindMethods: {
       value: function () {
-        this.start = this.start.bind(this);
-        this.stop = this.stop.bind(this);
-        this.onStateAdded = this.onStateAdded.bind(this);
-        this.onStateRemoved = this.onStateRemoved.bind(this);
+        this.start = bind(this.start, this);
+        this.stop = bind(this.stop, this);
+        this.onStateAdded = bind(this.onStateAdded, this);
+        this.onStateRemoved = bind(this.onStateRemoved, this);
       }
     },
 
@@ -60384,8 +59837,9 @@ function rgbVectorToHex (color) {
   }).join('');
 }
 
-},{"../constants/animation":50,"../lib/three":103,"../utils/":120,"./a-node":57,"./a-register-element":58,"./schema":66,"tween.js":18}],53:[function(_dereq_,module,exports){
+},{"../constants/animation":50,"../lib/three":103,"../utils/":121,"./a-node":58,"./a-register-element":59,"./schema":67,"tween.js":18}],54:[function(_dereq_,module,exports){
 var ANode = _dereq_('./a-node');
+var bind = _dereq_('../utils/bind');
 var debug = _dereq_('../utils/debug');
 var registerElement = _dereq_('./a-register-element').registerElement;
 var THREE = _dereq_('../lib/three');
@@ -60437,7 +59891,7 @@ module.exports = registerElement('a-assets', {
         }
 
         // Trigger loaded for scene to start rendering.
-        Promise.all(loaded).then(this.load.bind(this));
+        Promise.all(loaded).then(bind(this.load, this));
 
         // Timeout to start loading anyways.
         timeout = parseInt(this.getAttribute('timeout'), 10) || 3000;
@@ -60542,11 +59996,13 @@ function setCrossOrigin (mediaEl) {
 
   src = mediaEl.getAttribute('src');
 
-  // Does not have protocol.
-  if (src.indexOf('://') === -1) { return mediaEl; }
+  if (src !== null) {
+    // Does not have protocol.
+    if (src.indexOf('://') === -1) { return mediaEl; }
 
-  // Determine if cross origin is actually needed.
-  if (extractDomain(src) === window.location.host) { return mediaEl; }
+    // Determine if cross origin is actually needed.
+    if (extractDomain(src) === window.location.host) { return mediaEl; }
+  }
 
   warn('Cross-origin element was requested without `crossorigin` set. ' +
        'A-Frame will re-request the asset with `crossorigin` attribute set.', src);
@@ -60571,7 +60027,7 @@ function extractDomain (url) {
   return domain.split(':')[0];
 }
 
-},{"../lib/three":103,"../utils/debug":117,"./a-node":57,"./a-register-element":58}],54:[function(_dereq_,module,exports){
+},{"../lib/three":103,"../utils/bind":115,"../utils/debug":118,"./a-node":58,"./a-register-element":59}],55:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var debug = _dereq_('../utils/debug');
 var registerElement = _dereq_('./a-register-element').registerElement;
@@ -60622,16 +60078,18 @@ module.exports = registerElement('a-cubemap', {
   })
 });
 
-},{"../utils/debug":117,"./a-register-element":58}],55:[function(_dereq_,module,exports){
+},{"../utils/debug":118,"./a-register-element":59}],56:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var ANode = _dereq_('./a-node');
-var components = _dereq_('./component').components;
+var COMPONENTS = _dereq_('./component').components;
 var registerElement = _dereq_('./a-register-element').registerElement;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
+var bind = utils.bind;
 
 var AEntity;
 var debug = utils.debug('core:a-entity:debug');
+var warn = utils.debug('core:a-entity:warn');
 
 var MULTIPLE_COMPONENT_DELIMITER = '__';
 
@@ -60725,8 +60183,9 @@ var proto = Object.create(ANode.prototype, {
     value: function () {
       if (!this.parentEl || this.isScene) { return; }
       // Remove components.
-      Object.keys(this.components).forEach(this.removeComponent.bind(this));
-      this.parentEl.remove(this);
+      Object.keys(this.components).forEach(bind(this.removeComponent, this));
+      this.removeFromParent();
+      ANode.prototype.detachedCallback.call(this);
     }
   },
 
@@ -60739,7 +60198,7 @@ var proto = Object.create(ANode.prototype, {
         this.updateComponents();
         return;
       }
-      this.updateComponent(attrName, this.getAttribute(attrName));
+      this.updateComponent(attrName, this.getDOMAttribute(attrName));
     }
   },
 
@@ -60860,6 +60319,19 @@ var proto = Object.create(ANode.prototype, {
     }
   },
 
+  /**
+   * Tell parentNode to remove this entity from itself.
+   */
+  removeFromParent: {
+    value: function () {
+      var parentEl = this.parentEl;
+      this.parentEl.remove(this);
+      this.attachedToParent = false;
+      this.parentEl = this.parentNode = null;
+      parentEl.emit('child-detached', {el: this});
+    }
+  },
+
   load: {
     value: function () {
       var self = this;
@@ -60921,7 +60393,7 @@ var proto = Object.create(ANode.prototype, {
       var componentName = componentInfo[0];
       var isComponentDefined = checkComponentDefined(this, attrName) || data !== undefined;
       // Check if component is registered and whether component should be initialized.
-      if (!components[componentName] ||
+      if (!COMPONENTS[componentName] ||
           (!isComponentDefined && !isDependency) ||
           // If component already initialized.
           (attrName in this.components)) {
@@ -60932,12 +60404,12 @@ var proto = Object.create(ANode.prototype, {
       this.initComponentDependencies(componentName);
 
       // If component name has an id we check component type multiplic
-      if (componentId && !components[componentName].multiple) {
+      if (componentId && !COMPONENTS[componentName].multiple) {
         throw new Error('Trying to initialize multiple ' +
                         'components of type `' + componentName +
                         '`. There can only be one component of this type per entity.');
       }
-      component = this.components[attrName] = new components[componentName].Component(
+      component = this.components[attrName] = new COMPONENTS[componentName].Component(
         this, data, componentId);
       if (this.isPlaying) { component.play(); }
 
@@ -60958,10 +60430,10 @@ var proto = Object.create(ANode.prototype, {
   initComponentDependencies: {
     value: function (name) {
       var self = this;
-      var component = components[name];
+      var component = COMPONENTS[name];
       var dependencies;
       if (!component) { return; }
-      dependencies = components[name].dependencies;
+      dependencies = COMPONENTS[name].dependencies;
       if (!dependencies) { return; }
       dependencies.forEach(function (component) {
         self.initComponent(component, undefined, true);
@@ -60971,15 +60443,23 @@ var proto = Object.create(ANode.prototype, {
 
   removeComponent: {
     value: function (name) {
-      var component = this.components[name];
-      var isDefault = name in this.defaultComponents;
-      var isMixedIn = isComponentMixedIn(name, this.mixinEls);
-      // Don't remove default or mixed in components
+      var component;
+      var isDefault;
+      var isMixedIn;
+
+      // Don't remove default or mixed-in components.
+      isDefault = name in this.defaultComponents;
+      isMixedIn = isComponentMixedIn(name, this.mixinEls);
       if (isDefault || isMixedIn) { return; }
+
+      component = this.components[name];
       component.pause();
       component.remove();
       delete this.components[name];
-      this.emit('componentremoved', { name: name });
+      this.emit('componentremoved', {
+        id: component.id,
+        name: name
+      });
     }
   },
 
@@ -61015,7 +60495,7 @@ var proto = Object.create(ANode.prototype, {
        */
       function addComponent (key) {
         var name = key.split(MULTIPLE_COMPONENT_DELIMITER)[0];
-        if (!components[name]) { return; }
+        if (!COMPONENTS[name]) { return; }
         elComponents[key] = true;
       }
 
@@ -61023,7 +60503,7 @@ var proto = Object.create(ANode.prototype, {
        * Update component with given name.
        */
       function updateComponent (name) {
-        var attrValue = self.getAttribute(name);
+        var attrValue = self.getDOMAttribute(name);
         delete elComponents[name];
         self.updateComponent(name, attrValue);
       }
@@ -61157,7 +60637,7 @@ var proto = Object.create(ANode.prototype, {
    */
   setEntityAttribute: {
     value: function (attr, oldVal, newVal) {
-      if (components[attr] || this.components[attr]) {
+      if (COMPONENTS[attr] || this.components[attr]) {
         this.updateComponent(attr, newVal);
         return;
       }
@@ -61197,7 +60677,7 @@ var proto = Object.create(ANode.prototype, {
     value: function (attr, value, componentPropValue) {
       var isDebugMode = this.sceneEl && this.sceneEl.getAttribute('debug');
       var componentName = attr.split(MULTIPLE_COMPONENT_DELIMITER)[0];
-      if (components[componentName]) {
+      if (COMPONENTS[componentName]) {
         // Just update one of the component properties
         if (typeof value === 'string' && componentPropValue !== undefined) {
           this.updateComponentProperty(attr, value, componentPropValue);
@@ -61238,6 +60718,39 @@ var proto = Object.create(ANode.prototype, {
   },
 
   /**
+   * If `attr` is a component, returns ALL component data including applied mixins and
+   * defaults.
+   *
+   * If `attr` is not a component, fall back to HTML getAttribute.
+   *
+   * @param {string} attr
+   * @returns {object|string} Object if component, else string.
+   */
+  getAttribute: {
+    value: function (attr) {
+      // If component, return component data.
+      var component = this.components[attr];
+      if (component) { return component.getData(); }
+      return HTMLElement.prototype.getAttribute.call(this, attr);
+    },
+    writable: window.debug
+  },
+
+  /**
+   * `getAttribute` used to be `getDOMAttribute` and `getComputedAttribute` used to be
+   * what `getAttribute` is now. Now legacy code.
+   *
+   * @param {string} attr
+   * @returns {object|string} Object if component, else string.
+   */
+  getComputedAttribute: {
+    value: function (attr) {
+      warn('`getComputedAttribute` is deprecated. Use `getAttribute` instead.');
+      return this.getAttribute(attr);
+    }
+  },
+
+  /**
    * If `attr` is a component, returns JUST the component data defined on the entity.
    * Like a partial version of `getComputedAttribute` as returned component data
    * does not include applied mixins or defaults.
@@ -61247,7 +60760,7 @@ var proto = Object.create(ANode.prototype, {
    * @param {string} attr
    * @returns {object|string} Object if component, else string.
    */
-  getAttribute: {
+  getDOMAttribute: {
     value: function (attr) {
       // If cached value exists, return partial component data.
       var component = this.components[attr];
@@ -61257,29 +60770,11 @@ var proto = Object.create(ANode.prototype, {
     writable: window.debug
   },
 
-  /**
-   * If `attr` is a component, returns ALL component data including applied mixins and
-   * defaults.
-   *
-   * If `attr` is not a component, fall back to HTML getAttribute.
-   *
-   * @param {string} attr
-   * @returns {object|string} Object if component, else string.
-   */
-  getComputedAttribute: {
-    value: function (attr) {
-      // If component, return component data.
-      var component = this.components[attr];
-      if (component) { return component.getData(); }
-      return HTMLElement.prototype.getAttribute.call(this, attr);
-    }
-  },
-
   addState: {
     value: function (state) {
       if (this.is(state)) { return; }
       this.states.push(state);
-      this.mapStateMixins(state, this.registerMixin.bind(this));
+      this.mapStateMixins(state, bind(this.registerMixin, this));
       this.emit('stateadded', {state: state});
     }
   },
@@ -61289,7 +60784,7 @@ var proto = Object.create(ANode.prototype, {
       var stateIndex = this.states.indexOf(state);
       if (stateIndex === -1) { return; }
       this.states.splice(stateIndex, 1);
-      this.mapStateMixins(state, this.unregisterMixin.bind(this));
+      this.mapStateMixins(state, bind(this.unregisterMixin, this));
       this.emit('stateremoved', {state: state});
     }
   },
@@ -61355,7 +60850,7 @@ AEntity = registerElement('a-entity', {
 });
 module.exports = AEntity;
 
-},{"../lib/three":103,"../utils/":120,"./a-node":57,"./a-register-element":58,"./component":59}],56:[function(_dereq_,module,exports){
+},{"../lib/three":103,"../utils/":121,"./a-node":58,"./a-register-element":59,"./component":60}],57:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var ANode = _dereq_('./a-node');
 var registerElement = _dereq_('./a-register-element').registerElement;
@@ -61382,7 +60877,7 @@ module.exports = registerElement('a-mixin', {
 
     attachedCallback: {
       value: function () {
-        this.sceneEl = this.closest('a-scene');
+        this.sceneEl = this.closestScene();
         this.cacheAttributes();
         this.updateEntities();
         this.load();
@@ -61460,10 +60955,11 @@ module.exports = registerElement('a-mixin', {
   })
 });
 
-},{"./a-node":57,"./a-register-element":58,"./component":59}],57:[function(_dereq_,module,exports){
+},{"./a-node":58,"./a-register-element":59,"./component":60}],58:[function(_dereq_,module,exports){
 /* global HTMLElement, MutationObserver */
 var registerElement = _dereq_('./a-register-element').registerElement;
 var utils = _dereq_('../utils/');
+var bind = utils.bind;
 
 /**
  * Base class for A-Frame that manages loading of objects.
@@ -61485,9 +60981,13 @@ module.exports = registerElement('a-node', {
 
     attachedCallback: {
       value: function () {
-        var mixins = this.getAttribute('mixin');
+        var mixins;
+
+        this.hasLoaded = false;
         this.sceneEl = this.closestScene();
         this.emit('nodeready', {}, false);
+
+        mixins = this.getAttribute('mixin');
         if (mixins) { this.updateMixins(mixins); }
       },
       writable: window.debug
@@ -61534,7 +61034,9 @@ module.exports = registerElement('a-node', {
     },
 
     detachedCallback: {
-      value: function () { /* no-op */ }
+      value: function () {
+        this.hasLoaded = false;
+      }
     },
 
     /**
@@ -61583,8 +61085,8 @@ module.exports = registerElement('a-node', {
         // To determine what listeners will be removed
         var diff = oldMixinsIds.filter(function (i) { return newMixinsIds.indexOf(i) < 0; });
         this.mixinEls = [];
-        diff.forEach(this.unregisterMixin.bind(this));
-        newMixinsIds.forEach(this.registerMixin.bind(this));
+        diff.forEach(bind(this.unregisterMixin, this));
+        newMixinsIds.forEach(bind(this.registerMixin, this));
       }
     },
 
@@ -61695,7 +61197,7 @@ module.exports = registerElement('a-node', {
   })
 });
 
-},{"../utils/":120,"./a-register-element":58}],58:[function(_dereq_,module,exports){
+},{"../utils/":121,"./a-register-element":59}],59:[function(_dereq_,module,exports){
 /*
   ------------------------------------------------------------
   ------------- WARNING WARNING WARNING WARNING --------------
@@ -61872,7 +61374,7 @@ function copyProperties (source, destination) {
 ANode = _dereq_('./a-node');
 AEntity = _dereq_('./a-entity');
 
-},{"./a-entity":55,"./a-node":57,"document-register-element":8}],59:[function(_dereq_,module,exports){
+},{"./a-entity":56,"./a-node":58,"document-register-element":8}],60:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var schema = _dereq_('./schema');
 var systems = _dereq_('./system');
@@ -61912,7 +61414,7 @@ Component.prototype = {
    * Contains the type schema and defaults for the data values.
    * Data is coerced into the types of the values of the defaults.
    */
-  schema: { },
+  schema: {},
 
   /**
    * Init handler. Similar to attachedCallback.
@@ -62076,16 +61578,20 @@ Component.prototype = {
       // Play the component if the entity is playing.
       this.update(oldData);
       if (el.isPlaying) { this.play(); }
+      el.emit('componentinitialized', {
+        id: this.id,
+        name: this.name,
+        data: this.getData()
+      }, false);
     } else {
       this.update(oldData);
+      el.emit('componentchanged', {
+        id: this.id,
+        name: this.name,
+        newData: this.getData(),
+        oldData: oldData
+      }, false);
     }
-
-    el.emit('componentchanged', {
-      id: this.id,
-      name: this.name,
-      newData: this.getData(),
-      oldData: oldData
-    }, false);
   },
 
   /**
@@ -62103,7 +61609,7 @@ Component.prototype = {
     // Extend base schema with new schema chunk.
     utils.extend(extendedSchema, schemaAddon);
     this.schema = processSchema(extendedSchema);
-    this.el.emit('schemachanged', { component: this.name });
+    this.el.emit('schemachanged', {component: this.name});
   }
 };
 
@@ -62272,7 +61778,7 @@ function wrapPlay (playMethod) {
   };
 }
 
-},{"../utils/":120,"./schema":66,"./system":68}],60:[function(_dereq_,module,exports){
+},{"../utils/":121,"./schema":67,"./system":69}],61:[function(_dereq_,module,exports){
 var schema = _dereq_('./schema');
 
 var processSchema = schema.process;
@@ -62346,11 +61852,12 @@ module.exports.registerGeometry = function (name, definition) {
   return NewGeometry;
 };
 
-},{"../lib/three":103,"./schema":66}],61:[function(_dereq_,module,exports){
+},{"../lib/three":103,"./schema":67}],62:[function(_dereq_,module,exports){
 var coordinates = _dereq_('../utils/coordinates');
 var debug = _dereq_('debug');
 
 var error = debug('core:propertyTypes:warn');
+var warn = debug('core:propertyTypes:warn');
 
 var propertyTypes = module.exports.propertyTypes = {};
 
@@ -62365,9 +61872,9 @@ registerPropertyType('selectorAll', '', selectorAllParse, selectorAllStringify);
 registerPropertyType('src', '', srcParse);
 registerPropertyType('string', '', defaultParse, defaultStringify);
 registerPropertyType('time', 0, intParse);
-registerPropertyType('vec2', { x: 0, y: 0 }, vecParse, coordinates.stringify);
-registerPropertyType('vec3', { x: 0, y: 0, z: 0 }, vecParse, coordinates.stringify);
-registerPropertyType('vec4', { x: 0, y: 0, z: 0, w: 0 }, vecParse, coordinates.stringify);
+registerPropertyType('vec2', {x: 0, y: 0}, vecParse, coordinates.stringify);
+registerPropertyType('vec3', {x: 0, y: 0, z: 0}, vecParse, coordinates.stringify);
+registerPropertyType('vec4', {x: 0, y: 0, z: 0, w: 0}, vecParse, coordinates.stringify);
 
 /**
  * Register a parser for re-use such that when someone uses `type` in the schema,
@@ -62466,6 +61973,11 @@ function srcParse (value) {
   var el = selectorParse(value);
   if (el) { return el.getAttribute('src'); }
 
+  if (value.charAt(0) !== '#') {
+    warn('"' + value + '" is not a valid `src` attribute. ' +
+         'Value must be an ID selector (i.e. "#someElement") or wrapped in `url()`.');
+  }
+
   return '';
 }
 
@@ -62473,7 +61985,7 @@ function vecParse (value) {
   return coordinates.parse(value, this.default);
 }
 
-},{"../utils/coordinates":116,"debug":3}],62:[function(_dereq_,module,exports){
+},{"../utils/coordinates":117,"debug":3}],63:[function(_dereq_,module,exports){
 /* global Promise, screen */
 var initMetaTags = _dereq_('./metaTags').inject;
 var initWakelock = _dereq_('./wakelock');
@@ -62487,10 +61999,12 @@ var AEntity = _dereq_('../a-entity');
 var ANode = _dereq_('../a-node');
 var initPostMessageAPI = _dereq_('./postMessage');
 
+var bind = utils.bind;
 var checkHeadsetConnected = utils.checkHeadsetConnected;
 var registerElement = re.registerElement;
 var isIOS = utils.isIOS();
 var isMobile = utils.isMobile();
+var warn = utils.debug('core:a-scene:warn');
 
 /**
  * Scene element, holds all entities.
@@ -62526,7 +62040,7 @@ module.exports = registerElement('a-scene', {
         this.isMobile = isMobile;
         this.isScene = true;
         this.object3D = new THREE.Scene();
-        this.render = this.render.bind(this);
+        this.render = bind(this.render, this);
         this.systems = {};
         this.time = 0;
 
@@ -62570,7 +62084,7 @@ module.exports = registerElement('a-scene', {
 
     attachedCallback: {
       value: function () {
-        var resize = this.resize.bind(this);
+        var resize = bind(this.resize, this);
         initMetaTags(this);
         initWakelock(this);
         this.initSystems();
@@ -62584,7 +62098,7 @@ module.exports = registerElement('a-scene', {
 
     initSystems: {
       value: function () {
-        Object.keys(systems).forEach(this.initSystem.bind(this));
+        Object.keys(systems).forEach(bind(this.initSystem, this));
       }
     },
 
@@ -62700,14 +62214,25 @@ module.exports = registerElement('a-scene', {
     },
 
     /**
-     * Wraps Entity.getComputedAttribute to take into account for systems.
-     * If system exists, then return system data rather than possible component data.
+     * `getAttribute` used to be `getDOMAttribute` and `getComputedAttribute` used to be
+     * what `getAttribute` is now. Now legacy code.
      */
     getComputedAttribute: {
       value: function (attr) {
+        warn('`getComputedAttribute` is deprecated. Use `getAttribute` instead.');
+        this.getAttribute(attr);
+      }
+    },
+
+    /**
+     * Wraps Entity.getDOMAttribute to take into account for systems.
+     * If system exists, then return system data rather than possible component data.
+     */
+    getDOMAttribute: {
+      value: function (attr) {
         var system = this.systems[attr];
         if (system) { return system.data; }
-        return AEntity.prototype.getComputedAttribute.call(this, attr);
+        return AEntity.prototype.getDOMAttribute.call(this, attr);
       }
     },
 
@@ -62877,13 +62402,14 @@ module.exports = registerElement('a-scene', {
      */
     render: {
       value: function (time) {
+        var effect = this.effect;
         var timeDelta = time - this.time;
 
         if (this.isPlaying) { this.tick(time, timeDelta); }
-        this.effect.render(this.object3D, this.camera);
 
+        this.animationFrameID = effect.requestAnimationFrame(this.render);
+        effect.render(this.object3D, this.camera);
         this.time = time;
-        this.animationFrameID = window.requestAnimationFrame(this.render);
       },
       writable: true
     }
@@ -62913,13 +62439,14 @@ function getCanvasSize (canvasEl, embedded) {
 
 function requestFullscreen (canvas) {
   var requestFullscreen =
-    canvas.requestFullScreen ||
-    canvas.webkitRequestFullScreen ||
-    canvas.mozRequestFullScreen;
+    canvas.requestFullscreen ||
+    canvas.webkitRequestFullscreen ||
+    canvas.mozRequestFullScreen ||  // The capitalized `S` is not a typo.
+    canvas.msRequestFullscreen;
   requestFullscreen.apply(canvas);
 }
 
-},{"../../lib/three":103,"../../utils/":120,"../a-entity":55,"../a-node":57,"../a-register-element":58,"../system":68,"./metaTags":63,"./postMessage":64,"./wakelock":65,"tween.js":18}],63:[function(_dereq_,module,exports){
+},{"../../lib/three":103,"../../utils/":121,"../a-entity":56,"../a-node":58,"../a-register-element":59,"../system":69,"./metaTags":64,"./postMessage":65,"./wakelock":66,"tween.js":18}],64:[function(_dereq_,module,exports){
 var constants = _dereq_('../../constants/');
 var extend = _dereq_('../../utils').extend;
 
@@ -63000,7 +62527,8 @@ function createTag (tagObj) {
   return extend(meta, tagObj.attributes);
 }
 
-},{"../../constants/":51,"../../utils":120}],64:[function(_dereq_,module,exports){
+},{"../../constants/":51,"../../utils":121}],65:[function(_dereq_,module,exports){
+var bind = _dereq_('../../utils/bind');
 var isIframed = _dereq_('../../utils/').isIframed;
 
 /**
@@ -63011,7 +62539,7 @@ module.exports = function initPostMessageAPI (scene) {
   // Handles fullscreen behavior when inside an iframe.
   if (!isIframed()) { return; }
   // postMessage API handler
-  window.addEventListener('message', postMessageAPIHandler.bind(scene));
+  window.addEventListener('message', bind(postMessageAPIHandler, scene));
 };
 
 function postMessageAPIHandler (event) {
@@ -63032,7 +62560,7 @@ function postMessageAPIHandler (event) {
   }
 }
 
-},{"../../utils/":120}],65:[function(_dereq_,module,exports){
+},{"../../utils/":121,"../../utils/bind":115}],66:[function(_dereq_,module,exports){
 var Wakelock = _dereq_('../../../vendor/wakelock/wakelock');
 
 module.exports = function initWakelock (scene) {
@@ -63043,7 +62571,7 @@ module.exports = function initWakelock (scene) {
   scene.addEventListener('exit-vr', function () { wakelock.release(); });
 };
 
-},{"../../../vendor/wakelock/wakelock":129}],66:[function(_dereq_,module,exports){
+},{"../../../vendor/wakelock/wakelock":130}],67:[function(_dereq_,module,exports){
 var debug = _dereq_('../utils/debug');
 var propertyTypes = _dereq_('./propertyTypes').propertyTypes;
 var warn = debug('core:schema:warn');
@@ -63199,7 +62727,7 @@ function stringifyProperty (value, propDefinition) {
 }
 module.exports.stringifyProperty = stringifyProperty;
 
-},{"../utils/debug":117,"./propertyTypes":61}],67:[function(_dereq_,module,exports){
+},{"../utils/debug":118,"./propertyTypes":62}],68:[function(_dereq_,module,exports){
 var schema = _dereq_('./schema');
 
 var processSchema = schema.process;
@@ -63230,7 +62758,7 @@ Shader.prototype = {
    * Contains the type schema and defaults for the data values.
    * Data is coerced into the types of the values of the defaults.
    */
-  schema: { },
+  schema: {},
 
   vertexShader:
     'void main() {' +
@@ -63358,7 +62886,7 @@ module.exports.registerShader = function (name, definition) {
   return NewShader;
 };
 
-},{"../lib/three":103,"./schema":66}],68:[function(_dereq_,module,exports){
+},{"../lib/three":103,"./schema":67}],69:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var components = _dereq_('./component');
 var schema = _dereq_('./schema');
@@ -63475,10 +63003,10 @@ module.exports.registerSystem = function (name, definition) {
   for (i = 0; i < scenes.length; i++) { scenes[i].initSystem(name); }
 };
 
-},{"../utils/":120,"./component":59,"./schema":66}],69:[function(_dereq_,module,exports){
+},{"../utils/":121,"./component":60,"./schema":67}],70:[function(_dereq_,module,exports){
 _dereq_('./pivot');
 
-},{"./pivot":70}],70:[function(_dereq_,module,exports){
+},{"./pivot":71}],71:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var THREE = _dereq_('../../lib/three');
 
@@ -63527,119 +63055,14 @@ registerComponent('pivot', {
   }
 });
 
-},{"../../core/component":59,"../../lib/three":103}],71:[function(_dereq_,module,exports){
-var ANode = _dereq_('../../core/a-node');
-var registerElement = _dereq_('../../core/a-register-element').registerElement;
-var utils = _dereq_('../../utils/');
-
-var setComponentProperty = utils.entity.setComponentProperty;
-
-/**
- * Declarative events to help register event listeners that set attributes on other entities.
- * A convenience layer and helper for those that might not know Javascript.
- *
- * Note that the event that <a-event> registers is not delegated as this helper is mainly
- * for those that do not know Javascript and writing raw markup. In which case, delegated
- * events are not needed. Also helps reduce scope of this helper and encourages people to
- * learn to register their own event handlers.
- *
- * @member {string} name - Event name.
- * @member {array} targetEls - Elements to modify on event. Defaults to parent element.
- */
-module.exports = registerElement('a-event', {
-  prototype: Object.create(ANode.prototype, {
-    createdCallback: {
-      value: function () {
-        this.el = null;
-        this.isAEvent = true;
-        this.name = '';
-        this.targetEls = [];
-      }
-    },
-
-    attachedCallback: {
-      value: function () {
-        var targetSelector = this.getAttribute('target');
-        this.el = this.parentNode;
-        this.name = this.getAttribute('name') || this.getAttribute('type');
-
-        console.log(
-          '<a-event> has been DEPRECATED. ' +
-          'Use https://github.com/ngokevin/aframe-event-set-component instead.');
-
-        if (targetSelector) {
-          this.targetEls = this.el.sceneEl.querySelectorAll(targetSelector);
-        } else {
-          this.targetEls = [this.el];
-        }
-
-        if (this.deprecated) {
-          console.warn(
-            '<' + this.tagName.toLowerCase() + '>' +
-            ' has been DEPRECATED. Use <a-event name="' + this.name + '">' +
-            ' instead.'
-          );
-        }
-
-        // Deprecate `type` for `name`.
-        if (this.hasAttribute('type')) {
-          console.log(
-            '<a-event type> has been DEPRECATED. Use <a-event name> instead.'
-          );
-        }
-
-        this.listener = this.attachEventListener();
-        this.load();
-      }
-    },
-
-    detachedCallback: {
-      value: function () {
-        var listener = this.listener;
-        if (!listener) { return; }
-        this.removeEventListener(this.name, listener);
-      }
-    },
-
-    attachEventListener: {
-      value: function () {
-        var attributes = this.attributes;
-        var el = this.el;
-        var name = this.name;
-        var targetEls = this.targetEls;
-
-        return el.addEventListener(name, function () {
-          var attribute;
-          var attributeName;
-          var attributeValue;
-          var targetEl;
-
-          for (var i = 0; i < targetEls.length; i++) {
-            for (var j = 0; j < attributes.length; j++) {
-              attribute = attributes[j];
-              attributeName = attribute.name;
-              attributeValue = attribute.value;
-              targetEl = targetEls[i];
-
-              // target is a keyword for <a-event>.
-              if (attributeName === 'target') { continue; }
-              setComponentProperty(targetEl, attributeName, attributeValue);
-            }
-          }
-        });
-      }
-    }
-  })
-});
-
-},{"../../core/a-node":57,"../../core/a-register-element":58,"../../utils/":120}],72:[function(_dereq_,module,exports){
+},{"../../core/component":60,"../../lib/three":103}],72:[function(_dereq_,module,exports){
 /**
  * Common mesh defaults, mappings, and transforms.
  */
 module.exports = function getMeshMixin () {
   return {
     defaultComponents: {
-      material: { }
+      material: {}
     },
 
     mappings: {
@@ -63685,6 +63108,7 @@ var components = _dereq_('../../core/component').components;
 var registerElement = _dereq_('../../core/a-register-element').registerElement;
 var utils = _dereq_('../../utils/');
 
+var bind = utils.bind;
 var debug = utils.debug;
 var setComponentProperty = utils.entity.setComponentProperty;
 var log = debug('extras:primitives:debug');
@@ -63765,7 +63189,7 @@ module.exports.registerPrimitive = function registerPrimitive (name, definition)
             // Set component properties individually to not overwrite user-defined components.
             if (componentData instanceof Object) {
               var component = components[componentName];
-              var attrValues = self.getAttribute(componentName) || {};
+              var attrValues = self.getDOMAttribute(componentName) || {};
               var data = component.parse(attrValues);
 
               // Check if component property already defined.
@@ -63810,7 +63234,7 @@ module.exports.registerPrimitive = function registerPrimitive (name, definition)
       getTransformedValue: {
         value: function (attr, value) {
           if (!this.transforms || !this.transforms[attr]) { return value; }
-          return this.transforms[attr].bind(this)(value);
+          return bind(this.transforms[attr], this)(value);
         }
       }
     })
@@ -63821,13 +63245,14 @@ module.exports.registerPrimitive = function registerPrimitive (name, definition)
   return primitive;
 };
 
-},{"../../core/a-entity":55,"../../core/a-register-element":58,"../../core/component":59,"../../utils/":120}],75:[function(_dereq_,module,exports){
+},{"../../core/a-entity":56,"../../core/a-register-element":59,"../../core/component":60,"../../utils/":121}],75:[function(_dereq_,module,exports){
+var DEFAULT_CAMERA_HEIGHT = _dereq_('../../../constants/').DEFAULT_CAMERA_HEIGHT;
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
 registerPrimitive('a-camera', {
   defaultComponents: {
     camera: {
-      userHeight: 1.6
+      userHeight: DEFAULT_CAMERA_HEIGHT
     },
     'look-controls': {},
     'wasd-controls': {}
@@ -63854,7 +63279,7 @@ registerPrimitive('a-camera', {
   }
 });
 
-},{"../primitives":74}],76:[function(_dereq_,module,exports){
+},{"../../../constants/":51,"../primitives":74}],76:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -63865,7 +63290,7 @@ registerPrimitive('a-collada-model', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],77:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],77:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -63903,7 +63328,7 @@ registerPrimitive('a-cursor', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],78:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],78:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -63940,7 +63365,7 @@ registerPrimitive('a-curvedimage', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],79:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],79:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -63964,7 +63389,7 @@ registerPrimitive('a-image', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],80:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],80:[function(_dereq_,module,exports){
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
 registerPrimitive('a-light', {
@@ -64001,7 +63426,7 @@ registerPrimitive('a-obj-model', utils.extendDeep({}, meshMixin, {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],82:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],82:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -64028,7 +63453,7 @@ registerPrimitive('a-sky', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],83:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],83:[function(_dereq_,module,exports){
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
 registerPrimitive('a-sound', {
@@ -64069,7 +63494,7 @@ registerPrimitive('a-video', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],85:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],85:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -64096,7 +63521,7 @@ registerPrimitive('a-videosphere', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],86:[function(_dereq_,module,exports){
+},{"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],86:[function(_dereq_,module,exports){
 /**
  * Automated mesh primitive registration.
  */
@@ -64136,7 +63561,7 @@ function unCamelCase (str) {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-},{"../../../core/geometry":60,"../../../utils/":120,"../getMeshMixin":72,"../primitives":74}],87:[function(_dereq_,module,exports){
+},{"../../../core/geometry":61,"../../../utils/":121,"../getMeshMixin":72,"../primitives":74}],87:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64155,7 +63580,7 @@ registerGeometry('box', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],88:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],88:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64175,7 +63600,7 @@ registerGeometry('circle', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],89:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],89:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64201,7 +63626,7 @@ registerGeometry('cone', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],90:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],90:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64225,7 +63650,7 @@ registerGeometry('cylinder', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],91:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],91:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64240,7 +63665,7 @@ registerGeometry('dodecahedron', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],92:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],92:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64255,7 +63680,7 @@ registerGeometry('icosahedron', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],93:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],93:[function(_dereq_,module,exports){
 _dereq_('./box.js');
 _dereq_('./circle.js');
 _dereq_('./cone.js');
@@ -64285,7 +63710,7 @@ registerGeometry('octahedron', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],95:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],95:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64302,7 +63727,7 @@ registerGeometry('plane', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],96:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],96:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64312,7 +63737,7 @@ registerGeometry('ring', {
   schema: {
     radiusInner: {default: 0.8, min: 0},
     radiusOuter: {default: 1.2, min: 0},
-    segmentsPhi: { default: 10, min: 1, type: 'int' },
+    segmentsPhi: {default: 10, min: 1, type: 'int'},
     segmentsTheta: {default: 32, min: 3, type: 'int'},
     thetaLength: {default: 360, min: 0},
     thetaStart: {default: 0}
@@ -64325,7 +63750,7 @@ registerGeometry('ring', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],97:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],97:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64349,7 +63774,7 @@ registerGeometry('sphere', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],98:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],98:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64364,7 +63789,7 @@ registerGeometry('tetrahedron', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],99:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],99:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64386,7 +63811,7 @@ registerGeometry('torus', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],100:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],100:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -64407,7 +63832,7 @@ registerGeometry('torusKnot', {
   }
 });
 
-},{"../core/geometry":60,"../lib/three":103}],101:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../lib/three":103}],101:[function(_dereq_,module,exports){
 // Polyfill `Promise`.
 window.Promise = window.Promise || _dereq_('promise-polyfill');
 
@@ -64467,7 +63892,6 @@ _dereq_('./core/a-mixin');
 
 // Extras.
 _dereq_('./extras/components/');
-_dereq_('./extras/declarative-events/');
 _dereq_('./extras/primitives/');
 
 console.log('A-Frame Version:', pkg.version);
@@ -64499,7 +63923,7 @@ module.exports = window.AFRAME = {
   version: pkg.version
 };
 
-},{"../package":20,"./components/index":27,"./core/a-animation":52,"./core/a-assets":53,"./core/a-cubemap":54,"./core/a-entity":55,"./core/a-mixin":56,"./core/a-node":57,"./core/a-register-element":58,"./core/component":59,"./core/geometry":60,"./core/scene/a-scene":62,"./core/schema":66,"./core/shader":67,"./core/system":68,"./extras/components/":69,"./extras/declarative-events/":71,"./extras/primitives/":73,"./extras/primitives/getMeshMixin":72,"./extras/primitives/primitives":74,"./geometries/index":93,"./lib/three":103,"./shaders/index":105,"./style/aframe.css":107,"./style/rStats.css":108,"./systems/index":111,"./utils/":120,"present":10,"promise-polyfill":11,"tween.js":18,"webvr-polyfill":19}],102:[function(_dereq_,module,exports){
+},{"../package":20,"./components/index":27,"./core/a-animation":53,"./core/a-assets":54,"./core/a-cubemap":55,"./core/a-entity":56,"./core/a-mixin":57,"./core/a-node":58,"./core/a-register-element":59,"./core/component":60,"./core/geometry":61,"./core/scene/a-scene":63,"./core/schema":67,"./core/shader":68,"./core/system":69,"./extras/components/":70,"./extras/primitives/":73,"./extras/primitives/getMeshMixin":72,"./extras/primitives/primitives":74,"./geometries/index":93,"./lib/three":103,"./shaders/index":105,"./style/aframe.css":107,"./style/rStats.css":108,"./systems/index":111,"./utils/":121,"present":10,"promise-polyfill":11,"tween.js":18,"webvr-polyfill":19}],102:[function(_dereq_,module,exports){
 window.aframeStats = function (scene) {
   var _rS = null;
   var _scene = scene;
@@ -64518,7 +63942,9 @@ window.aframeStats = function (scene) {
 
   function _update () {
     _rS('te').set(getEntityCount());
-    _rS('lt').set(window.performance.getEntriesByName('render-started')[0].startTime.toFixed(0));
+    if (window.performance.getEntriesByName) {
+      _rS('lt').set(window.performance.getEntriesByName('render-started')[0].startTime.toFixed(0));
+    }
   }
 
   function getEntityCount () {
@@ -64592,7 +64018,7 @@ module.exports = THREE;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../../vendor/VRControls":124,"../../vendor/VREffect":125,"three":17,"three/examples/js/BlendCharacter":13,"three/examples/js/loaders/ColladaLoader":14,"three/examples/js/loaders/MTLLoader":15,"three/examples/js/loaders/OBJLoader":16}],104:[function(_dereq_,module,exports){
+},{"../../vendor/VRControls":125,"../../vendor/VREffect":126,"three":17,"three/examples/js/BlendCharacter":13,"three/examples/js/loaders/ColladaLoader":14,"three/examples/js/loaders/MTLLoader":15,"three/examples/js/loaders/OBJLoader":16}],104:[function(_dereq_,module,exports){
 var registerShader = _dereq_('../core/shader').registerShader;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
@@ -64602,12 +64028,14 @@ var utils = _dereq_('../utils/');
  */
 module.exports.Component = registerShader('flat', {
   schema: {
-    color: { type: 'color' },
-    fog: { default: true },
-    height: { default: 256 },
-    repeat: { default: '' },
-    src: { default: '' },
-    width: { default: 512 }
+    color: {type: 'color'},
+    fog: {default: true},
+    height: {default: 256},
+    repeat: {default: ''},
+    src: {default: ''},
+    width: {default: 512},
+    wireframe: {default: false},
+    wireframeLinewidth: {default: 2}
   },
 
   /**
@@ -64648,11 +64076,13 @@ module.exports.Component = registerShader('flat', {
 function getMaterialData (data) {
   return {
     fog: data.fog,
-    color: new THREE.Color(data.color)
+    color: new THREE.Color(data.color),
+    wireframe: data.wireframe,
+    wireframeLinewidth: data.wireframeLinewidth
   };
 }
 
-},{"../core/shader":67,"../lib/three":103,"../utils/":120}],105:[function(_dereq_,module,exports){
+},{"../core/shader":68,"../lib/three":103,"../utils/":121}],105:[function(_dereq_,module,exports){
 _dereq_('./flat');
 _dereq_('./standard');
 
@@ -64669,16 +64099,38 @@ var texturePromises = {};
  */
 module.exports.Component = registerShader('standard', {
   schema: {
+    ambientOcclusionMap: {default: ''},
+    ambientOcclusionMapIntensity: {default: 1},
+    ambientOcclusionTextureOffset: {default: ''},
+    ambientOcclusionTextureRepeat: {default: ''},
+
     color: {type: 'color'},
+
+    displacementMap: {default: ''},
+    displacementScale: {default: 1},
+    displacementBias: {default: 0.5},
+    displacementTextureOffset: {default: ''},
+    displacementTextureRepeat: {default: ''},
     envMap: {default: ''},
+
     fog: {default: true},
     height: {default: 256},
     metalness: {default: 0.0, min: 0.0, max: 1.0},
+
+    normalMap: {default: ''},
+    normalScale: {type: 'vec2', default: '1 1'},
+    normalTextureOffset: {default: ''},
+    normalTextureRepeat: {default: ''},
+
     repeat: {default: ''},
     roughness: {default: 0.5, min: 0.0, max: 1.0},
+    sphericalEnvMap: {default: ''},
     src: {default: ''},
-    width: {default: 512}
+    width: {default: 512},
+    wireframe: {default: false},
+    wireframeLinewidth: {default: 2}
   },
+
   /**
    * Initializes the shader.
    * Adds a reference from the scene to this entity as the camera.
@@ -64686,12 +64138,18 @@ module.exports.Component = registerShader('standard', {
   init: function (data) {
     this.material = new THREE.MeshStandardMaterial(getMaterialData(data));
     utils.material.updateMap(this, data);
+    if (data.normalMap) { utils.material.updateDistortionMap('normal', this, data); }
+    if (data.displacementMap) { utils.material.updateDistortionMap('displacement', this, data); }
+    if (data.ambientOcclusionMap) { utils.material.updateDistortionMap('ambientOcclusion', this, data); }
     this.updateEnvMap(data);
   },
 
   update: function (data) {
     this.updateMaterial(data);
     utils.material.updateMap(this, data);
+    if (data.normalMap) { utils.material.updateDistortionMap('normal', this, data); }
+    if (data.displacementMap) { utils.material.updateDistortionMap('displacement', this, data); }
+    if (data.ambientOcclusionMap) { utils.material.updateDistortionMap('ambientOcclusion', this, data); }
     this.updateEnvMap(data);
   },
 
@@ -64716,20 +64174,34 @@ module.exports.Component = registerShader('standard', {
     var self = this;
     var material = this.material;
     var envMap = data.envMap;
+    var sphericalEnvMap = data.sphericalEnvMap;
 
     // No envMap defined or already loading.
-    if (!envMap || this.isLoadingEnvMap) {
+    if ((!envMap && !sphericalEnvMap) || this.isLoadingEnvMap) {
       material.envMap = null;
       material.needsUpdate = true;
       return;
     }
     this.isLoadingEnvMap = true;
 
+    // if a spherical env map is defined then use it.
+    if (sphericalEnvMap) {
+      this.el.sceneEl.systems.material.loadTexture(sphericalEnvMap, { src: sphericalEnvMap }, function textureLoaded (texture) {
+        self.isLoadingEnvMap = false;
+        texture.mapping = THREE.SphericalReflectionMapping;
+        material.envMap = texture;
+        utils.material.handleTextureEvents(self.el, texture);
+        material.needsUpdate = true;
+      });
+      return;
+    }
+
     // Another material is already loading this texture. Wait on promise.
     if (texturePromises[envMap]) {
       texturePromises[envMap].then(function (cube) {
         self.isLoadingEnvMap = false;
         material.envMap = cube;
+        utils.material.handleTextureEvents(self.el, cube);
         material.needsUpdate = true;
       });
       return;
@@ -64742,6 +64214,7 @@ module.exports.Component = registerShader('standard', {
           // Texture loaded.
           self.isLoadingEnvMap = false;
           material.envMap = cube;
+          utils.material.handleTextureEvents(self.el, cube);
           resolve(cube);
         });
       });
@@ -64756,24 +64229,37 @@ module.exports.Component = registerShader('standard', {
  * @returns {object} data - Processed material data.
  */
 function getMaterialData (data) {
-  return {
+  var newData = {
     color: new THREE.Color(data.color),
     fog: data.fog,
     metalness: data.metalness,
-    roughness: data.roughness
+    roughness: data.roughness,
+    wireframe: data.wireframe,
+    wireframeLinewidth: data.wireframeLinewidth
   };
+
+  if (data.normalMap) { newData.normalScale = data.normalScale; }
+
+  if (data.ambientOcclusionMap) { newData.aoMapIntensity = data.ambientOcclusionMapIntensity; }
+
+  if (data.displacementMap) {
+    newData.displacementScale = data.displacementScale;
+    newData.displacementBias = data.displacementBias;
+  }
+
+  return newData;
 }
 
-},{"../core/shader":67,"../lib/three":103,"../utils/":120}],107:[function(_dereq_,module,exports){
+},{"../core/shader":68,"../lib/three":103,"../utils/":121}],107:[function(_dereq_,module,exports){
 var css = ".a-html{bottom:0;left:0;position:fixed;right:0;top:0}.a-body{height:100%;margin:0;overflow:hidden;padding:0;width:100%}:-webkit-full-screen{background-color:transparent}.a-hidden{display:none!important}.a-canvas{height:100%;left:0;position:absolute;top:0;width:100%}.a-canvas.a-grab-cursor:hover{cursor:grab;cursor:-moz-grabbing;cursor:-webkit-grab}.a-canvas.a-grab-cursor:active,.a-grabbing{cursor:grabbing;cursor:-moz-grabbing;cursor:-webkit-grabbing}// Class is removed when doing <a-scene embedded>. .a-canvas.fullscreen{width:100%!important;height:100%!important;top:0!important;left:0!important;right:0!important;bottom:0!important;z-index:999999!important;position:fixed!important}a-scene{display:block;position:relative;height:100%;width:100%}a-assets,a-scene audio,a-scene img,a-scene video{display:none}.a-enter-vr-modal,.a-orientation-modal{font-family:Consolas,Andale Mono,Courier New,monospace}.a-enter-vr-modal a{border-bottom:1px solid #fff;padding:2px 0;text-decoration:none;transition:.1s color ease-in}.a-enter-vr-modal a:hover{background-color:#fff;color:#111;padding:2px 4px;position:relative;left:-4px}.a-enter-vr{font-family:sans-serif,monospace;font-size:13px;width:100%;font-weight:200;line-height:16px;height:10%;position:absolute;right:20px;bottom:20px}.a-enter-vr.embedded{right:5px;bottom:5px}.a-enter-vr-button,.a-enter-vr-modal,.a-enter-vr-modal a{color:#fff}.a-enter-vr-button{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20245.82%20141.73%22%3E%3Cdefs%3E%3Cstyle%3E.a%7Bfill%3A%23fff%3Bfill-rule%3Aevenodd%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Ctitle%3Emask%3C%2Ftitle%3E%3Cpath%20class%3D%22a%22%20d%3D%22M175.56%2C111.37c-22.52%2C0-40.77-18.84-40.77-42.07S153%2C27.24%2C175.56%2C27.24s40.77%2C18.84%2C40.77%2C42.07S198.08%2C111.37%2C175.56%2C111.37ZM26.84%2C69.31c0-23.23%2C18.25-42.07%2C40.77-42.07s40.77%2C18.84%2C40.77%2C42.07-18.26%2C42.07-40.77%2C42.07S26.84%2C92.54%2C26.84%2C69.31ZM27.27%2C0C11.54%2C0%2C0%2C12.34%2C0%2C28.58V110.9c0%2C16.24%2C11.54%2C30.83%2C27.27%2C30.83H99.57c2.17%2C0%2C4.19-1.83%2C5.4-3.7L116.47%2C118a8%2C8%2C0%2C0%2C1%2C12.52-.18l11.51%2C20.34c1.2%2C1.86%2C3.22%2C3.61%2C5.39%2C3.61h72.29c15.74%2C0%2C27.63-14.6%2C27.63-30.83V28.58C245.82%2C12.34%2C233.93%2C0%2C218.19%2C0H27.27Z%22%2F%3E%3C%2Fsvg%3E) 50% 50%/70% 70% no-repeat rgba(0,0,0,.35);border:0;bottom:0;cursor:pointer;min-width:50px;min-height:30px;padding-right:5%;padding-top:4%;position:absolute;right:0;transition:background-color .05s ease;-webkit-transition:background-color .05s ease;z-index:9999}.a-enter-vr-button:active,.a-enter-vr-button:hover{background-color:#666}[data-a-enter-vr-no-webvr] .a-enter-vr-button{border-color:#666;opacity:.65}[data-a-enter-vr-no-webvr] .a-enter-vr-button:active,[data-a-enter-vr-no-webvr] .a-enter-vr-button:hover{background-color:rgba(0,0,0,.35);cursor:not-allowed}.a-enter-vr-modal{background-color:#666;border-radius:0;display:none;min-height:32px;margin-right:70px;padding:9px;width:280px;right:2%;position:absolute}.a-enter-vr-modal:after{border-bottom:10px solid transparent;border-left:10px solid #666;border-top:10px solid transparent;display:inline-block;content:'';position:absolute;right:-5px;top:5px;width:0;height:0}.a-enter-vr-modal a,.a-enter-vr-modal p{display:inline}.a-enter-vr-modal p{margin:0}.a-enter-vr-modal p:after{content:' '}[data-a-enter-vr-no-headset].a-enter-vr:hover .a-enter-vr-modal,[data-a-enter-vr-no-webvr].a-enter-vr:hover .a-enter-vr-modal{display:block}.a-orientation-modal{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20version%3D%221.1%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2090%2090%22%20enable-background%3D%22new%200%200%2090%2090%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20points%3D%220%2C0%200%2C0%200%2C0%20%22%3E%3C/polygon%3E%3Cg%3E%3Cpath%20d%3D%22M71.545%2C48.145h-31.98V20.743c0-2.627-2.138-4.765-4.765-4.765H18.456c-2.628%2C0-4.767%2C2.138-4.767%2C4.765v42.789%20%20%20c0%2C2.628%2C2.138%2C4.766%2C4.767%2C4.766h5.535v0.959c0%2C2.628%2C2.138%2C4.765%2C4.766%2C4.765h42.788c2.628%2C0%2C4.766-2.137%2C4.766-4.765V52.914%20%20%20C76.311%2C50.284%2C74.173%2C48.145%2C71.545%2C48.145z%20M18.455%2C16.935h16.344c2.1%2C0%2C3.808%2C1.708%2C3.808%2C3.808v27.401H37.25V22.636%20%20%20c0-0.264-0.215-0.478-0.479-0.478H16.482c-0.264%2C0-0.479%2C0.214-0.479%2C0.478v36.585c0%2C0.264%2C0.215%2C0.478%2C0.479%2C0.478h7.507v7.644%20%20%20h-5.534c-2.101%2C0-3.81-1.709-3.81-3.81V20.743C14.645%2C18.643%2C16.354%2C16.935%2C18.455%2C16.935z%20M16.96%2C23.116h19.331v25.031h-7.535%20%20%20c-2.628%2C0-4.766%2C2.139-4.766%2C4.768v5.828h-7.03V23.116z%20M71.545%2C73.064H28.757c-2.101%2C0-3.81-1.708-3.81-3.808V52.914%20%20%20c0-2.102%2C1.709-3.812%2C3.81-3.812h42.788c2.1%2C0%2C3.809%2C1.71%2C3.809%2C3.812v16.343C75.354%2C71.356%2C73.645%2C73.064%2C71.545%2C73.064z%22%3E%3C/path%3E%3Cpath%20d%3D%22M28.919%2C58.424c-1.466%2C0-2.659%2C1.193-2.659%2C2.66c0%2C1.466%2C1.193%2C2.658%2C2.659%2C2.658c1.468%2C0%2C2.662-1.192%2C2.662-2.658%20%20%20C31.581%2C59.617%2C30.387%2C58.424%2C28.919%2C58.424z%20M28.919%2C62.786c-0.939%2C0-1.703-0.764-1.703-1.702c0-0.939%2C0.764-1.704%2C1.703-1.704%20%20%20c0.94%2C0%2C1.705%2C0.765%2C1.705%2C1.704C30.623%2C62.022%2C29.858%2C62.786%2C28.919%2C62.786z%22%3E%3C/path%3E%3Cpath%20d%3D%22M69.654%2C50.461H33.069c-0.264%2C0-0.479%2C0.215-0.479%2C0.479v20.288c0%2C0.264%2C0.215%2C0.478%2C0.479%2C0.478h36.585%20%20%20c0.263%2C0%2C0.477-0.214%2C0.477-0.478V50.939C70.131%2C50.676%2C69.917%2C50.461%2C69.654%2C50.461z%20M69.174%2C51.417V70.75H33.548V51.417H69.174z%22%3E%3C/path%3E%3Cpath%20d%3D%22M45.201%2C30.296c6.651%2C0%2C12.233%2C5.351%2C12.551%2C11.977l-3.033-2.638c-0.193-0.165-0.507-0.142-0.675%2C0.048%20%20%20c-0.174%2C0.198-0.153%2C0.501%2C0.045%2C0.676l3.883%2C3.375c0.09%2C0.075%2C0.198%2C0.115%2C0.312%2C0.115c0.141%2C0%2C0.273-0.061%2C0.362-0.166%20%20%20l3.371-3.877c0.173-0.2%2C0.151-0.502-0.047-0.675c-0.194-0.166-0.508-0.144-0.676%2C0.048l-2.592%2C2.979%20%20%20c-0.18-3.417-1.629-6.605-4.099-9.001c-2.538-2.461-5.877-3.817-9.404-3.817c-0.264%2C0-0.479%2C0.215-0.479%2C0.479%20%20%20C44.72%2C30.083%2C44.936%2C30.296%2C45.201%2C30.296z%22%3E%3C/path%3E%3C/g%3E%3C/svg%3E) center/50% 50% no-repeat rgba(244,244,244,1);bottom:0;font-size:14px;font-weight:600;left:0;line-height:20px;right:0;position:fixed;top:0;z-index:9999999}.a-orientation-modal:after{color:#666;content:\"Insert phone into Cardboard holder.\";display:block;position:absolute;text-align:center;top:70%;transform:translateY(-70%);width:100%}.a-orientation-modal button{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20version%3D%221.1%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20100%20100%22%20enable-background%3D%22new%200%200%20100%20100%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M55.209%2C50l17.803-17.803c1.416-1.416%2C1.416-3.713%2C0-5.129c-1.416-1.417-3.713-1.417-5.129%2C0L50.08%2C44.872%20%20L32.278%2C27.069c-1.416-1.417-3.714-1.417-5.129%2C0c-1.417%2C1.416-1.417%2C3.713%2C0%2C5.129L44.951%2C50L27.149%2C67.803%20%20c-1.417%2C1.416-1.417%2C3.713%2C0%2C5.129c0.708%2C0.708%2C1.636%2C1.062%2C2.564%2C1.062c0.928%2C0%2C1.856-0.354%2C2.564-1.062L50.08%2C55.13l17.803%2C17.802%20%20c0.708%2C0.708%2C1.637%2C1.062%2C2.564%2C1.062s1.856-0.354%2C2.564-1.062c1.416-1.416%2C1.416-3.713%2C0-5.129L55.209%2C50z%22%3E%3C/path%3E%3C/svg%3E) no-repeat;border:none;height:50px;text-indent:-9999px;width:50px}"; (_dereq_("browserify-css").createStyle(css, { "href": "src/style/aframe.css"})); module.exports = css;
 },{"browserify-css":1}],108:[function(_dereq_,module,exports){
-var css = ".rs-base{background-color:#333;border-radius:0;font:10px monospace;left:5px;line-height:1em;opacity:.85;overflow:hidden;padding:10px;position:fixed;top:5px;width:300px;z-index:10000}.rs-base div.hidden{display:none}.rs-base h1{color:#fff;cursor:pointer;font-size:1.4em;font-weight:300;margin:0 0 5px;padding:0}.rs-group{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-direction:column-reverse;flex-direction:column-reverse;margin-bottom:5px}.rs-group:last-child{margin-bottom:0}.rs-counter-base{align-items:center;display:-webkit-box;display:-webkit-flex;display:flex;height:10px;-webkit-justify-content:space-between;justify-content:space-between;margin:2px 0}.rs-counter-id{font-weight:300;-webkit-box-ordinal-group:0;-webkit-order:0;order:0;width:54px}.rs-counter-value{font-weight:300;-webkit-box-ordinal-group:1;-webkit-order:1;order:1;text-align:right;width:35px}.rs-canvas{-webkit-box-ordinal-group:2;-webkit-order:2;order:2}@media (min-width:480px){.rs-base{left:20px;top:20px}}"; (_dereq_("browserify-css").createStyle(css, { "href": "src/style/rStats.css"})); module.exports = css;
+var css = ".rs-base{background-color:#333;border-radius:0;font:10px monospace;left:5px;line-height:1em;opacity:.85;overflow:hidden;padding:10px;position:fixed;top:5px;width:300px;z-index:10000}.rs-base div.hidden{display:none}.rs-base h1{color:#fff;cursor:pointer;font-size:1.4em;font-weight:300;margin:0 0 5px;padding:0}.rs-group{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-direction:column-reverse;flex-direction:column-reverse;margin-bottom:5px}.rs-group:last-child{margin-bottom:0}.rs-counter-base{align-items:center;display:-webkit-box;display:-webkit-flex;display:flex;height:10px;-webkit-justify-content:space-between;justify-content:space-between;margin:2px 0}.rs-counter-base.alarm{color:#b70000;text-shadow:0 0 0 #b70000,0 0 1px #fff,0 0 1px #fff,0 0 2px #fff,0 0 2px #fff,0 0 3px #fff,0 0 3px #fff,0 0 4px #fff,0 0 4px #fff}.rs-counter-id{font-weight:300;-webkit-box-ordinal-group:0;-webkit-order:0;order:0;width:54px}.rs-counter-value{font-weight:300;-webkit-box-ordinal-group:1;-webkit-order:1;order:1;text-align:right;width:35px}.rs-canvas{-webkit-box-ordinal-group:2;-webkit-order:2;order:2}@media (min-width:480px){.rs-base{left:20px;top:20px}}"; (_dereq_("browserify-css").createStyle(css, { "href": "src/style/rStats.css"})); module.exports = css;
 },{"browserify-css":1}],109:[function(_dereq_,module,exports){
+var bind = _dereq_('../utils/bind');
 var constants = _dereq_('../constants/');
 var registerSystem = _dereq_('../core/system').registerSystem;
 
 var DEFAULT_CAMERA_ATTR = 'data-aframe-default-camera';
-var DEFAULT_USER_HEIGHT = 1.6;
 
 /**
  * Camera system. Manages which camera is active among multiple cameras in scene.
@@ -64786,7 +64272,7 @@ module.exports.System = registerSystem('camera', {
     // Wait for all entities to fully load before checking for existence of camera.
     // Since entities wait for <a-assets> to load, any cameras attaching to the scene
     // will do so asynchronously.
-    this.sceneEl.addEventListener('loaded', this.setupDefaultCamera.bind(this));
+    this.sceneEl.addEventListener('loaded', bind(this.setupDefaultCamera, this));
   },
 
   /**
@@ -64808,7 +64294,7 @@ module.exports.System = registerSystem('camera', {
     defaultCameraEl = document.createElement('a-entity');
     defaultCameraEl.setAttribute('position', '0 0 0');
     defaultCameraEl.setAttribute(DEFAULT_CAMERA_ATTR, '');
-    defaultCameraEl.setAttribute('camera', {active: true, userHeight: DEFAULT_USER_HEIGHT});
+    defaultCameraEl.setAttribute('camera', {active: true, userHeight: constants.DEFAULT_CAMERA_HEIGHT});
     defaultCameraEl.setAttribute('wasd-controls', '');
     defaultCameraEl.setAttribute('look-controls', '');
     defaultCameraEl.setAttribute(constants.AFRAME_INJECTED, '');
@@ -64895,7 +64381,7 @@ function removeDefaultCamera (sceneEl) {
   sceneEl.removeChild(defaultCamera);
 }
 
-},{"../constants/":51,"../core/system":68}],110:[function(_dereq_,module,exports){
+},{"../constants/":51,"../core/system":69,"../utils/bind":115}],110:[function(_dereq_,module,exports){
 var geometries = _dereq_('../core/geometry').geometries;
 var registerSystem = _dereq_('../core/system').registerSystem;
 var THREE = _dereq_('../lib/three');
@@ -65035,7 +64521,7 @@ function toBufferGeometry (geometry, doBuffer) {
   return bufferGeometry;
 }
 
-},{"../core/geometry":60,"../core/system":68,"../lib/three":103}],111:[function(_dereq_,module,exports){
+},{"../core/geometry":61,"../core/system":69,"../lib/three":103}],111:[function(_dereq_,module,exports){
 _dereq_('./camera');
 _dereq_('./geometry');
 _dereq_('./light');
@@ -65045,6 +64531,7 @@ _dereq_('./tracked-controls');
 
 },{"./camera":109,"./geometry":110,"./light":112,"./material":113,"./tracked-controls":114}],112:[function(_dereq_,module,exports){
 var registerSystem = _dereq_('../core/system').registerSystem;
+var bind = _dereq_('../utils/bind');
 var constants = _dereq_('../constants/');
 
 var DEFAULT_LIGHT_ATTR = 'data-aframe-default-light';
@@ -65065,7 +64552,7 @@ module.exports.System = registerSystem('light', {
     // Wait for all entities to fully load before checking for existence of lights.
     // Since entities wait for <a-assets> to load, any lights attaching to the scene
     // will do so asynchronously.
-    this.sceneEl.addEventListener('loaded', this.setupDefaultLights.bind(this));
+    this.sceneEl.addEventListener('loaded', bind(this.setupDefaultLights, this));
   },
 
   /**
@@ -65121,7 +64608,7 @@ module.exports.System = registerSystem('light', {
   }
 });
 
-},{"../constants/":51,"../core/system":68}],113:[function(_dereq_,module,exports){
+},{"../constants/":51,"../core/system":69,"../utils/bind":115}],113:[function(_dereq_,module,exports){
 var registerSystem = _dereq_('../core/system').registerSystem;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
@@ -65381,6 +64868,14 @@ function setTextureProperties (texture, data) {
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(parseFloat(repeatXY[0]), parseFloat(repeatXY[1]));
+
+  // Handle UV offset.
+  var offset = data.offset || '0 0';
+  var offsetXY = offset.split(' ');
+
+  // Don't bother setting offset if it is 0/0.
+  if (offset === '0 0' || offsetXY.length !== 2) { return; }
+  texture.offset.set(parseFloat(offsetXY[0]), parseFloat(offsetXY[1]));
 }
 
 /**
@@ -65434,7 +64929,7 @@ function fixVideoAttributes (videoEl) {
   return videoEl;
 }
 
-},{"../core/system":68,"../lib/three":103,"../utils/":120}],114:[function(_dereq_,module,exports){
+},{"../core/system":69,"../lib/three":103,"../utils/":121}],114:[function(_dereq_,module,exports){
 var registerSystem = _dereq_('../core/system').registerSystem;
 
 /**
@@ -65466,7 +64961,24 @@ module.exports.System = registerSystem('tracked-controls', {
   }
 });
 
-},{"../core/system":68}],115:[function(_dereq_,module,exports){
+},{"../core/system":69}],115:[function(_dereq_,module,exports){
+/**
+ * Faster version of Function.prototype.bind
+ * @param {Function} fn - Function to wrap.
+ * @param {Object} ctx - What to bind as context.
+ * @param {...*} arguments - Arguments to pass through.
+ */
+module.exports = function bind (fn, ctx/* , arg1, arg2 */) {
+  return (function (prependedArgs) {
+    return function bound () {
+      // Concat the bound function arguments with those passed to original bind
+      var args = prependedArgs.concat(Array.prototype.slice.call(arguments, 0));
+      return fn.apply(ctx, args);
+    };
+  })(Array.prototype.slice.call(arguments, 2));
+};
+
+},{}],116:[function(_dereq_,module,exports){
 var THREE = _dereq_('../lib/three');
 var dummyDolly = new THREE.Object3D();
 var controls = new THREE.VRControls(dummyDolly);
@@ -65484,7 +64996,7 @@ module.exports = function checkHeadsetConnected () {
   }
 };
 
-},{"../lib/three":103}],116:[function(_dereq_,module,exports){
+},{"../lib/three":103}],117:[function(_dereq_,module,exports){
 /* global THREE */
 
 // Coordinate string regex. Handles negative, positive, and decimals.
@@ -65558,7 +65070,7 @@ module.exports.toVector3 = function (vec3) {
   return new THREE.Vector3(vec3.x, vec3.y, vec3.z);
 };
 
-},{}],117:[function(_dereq_,module,exports){
+},{}],118:[function(_dereq_,module,exports){
 (function (process){
 var debugLib = _dereq_('debug');
 var extend = _dereq_('object-assign');
@@ -65655,7 +65167,7 @@ module.exports = debug;
 
 }).call(this,_dereq_('_process'))
 
-},{"_process":2,"debug":3,"object-assign":9}],118:[function(_dereq_,module,exports){
+},{"_process":2,"debug":3,"object-assign":9}],119:[function(_dereq_,module,exports){
 /**
  * Get component property using encoded component name + component property name with a
  * delimiter.
@@ -65665,9 +65177,9 @@ module.exports.getComponentProperty = function (el, name, delimiter) {
   delimiter = delimiter || '.';
   if (name.indexOf(delimiter) !== -1) {
     splitName = name.split(delimiter);
-    return el.getComputedAttribute(splitName[0])[splitName[1]];
+    return el.getAttribute(splitName[0])[splitName[1]];
   }
-  return el.getComputedAttribute(name);
+  return el.getAttribute(name);
 };
 
 /**
@@ -65685,7 +65197,7 @@ module.exports.setComponentProperty = function (el, name, value, delimiter) {
   el.setAttribute(name, value);
 };
 
-},{}],119:[function(_dereq_,module,exports){
+},{}],120:[function(_dereq_,module,exports){
 module.exports = function forceCanvasResizeSafariMobile (canvasEl) {
   var width = canvasEl.style.width;
   var height = canvasEl.style.height;
@@ -65701,13 +65213,14 @@ module.exports = function forceCanvasResizeSafariMobile (canvasEl) {
   }, 200);
 };
 
-},{}],120:[function(_dereq_,module,exports){
+},{}],121:[function(_dereq_,module,exports){
 /* global CustomEvent, location */
 /* Centralized place to reference utilities since utils is exposed to the user. */
 
 var deepAssign = _dereq_('deep-assign');
 var objectAssign = _dereq_('object-assign');
 
+module.exports.bind = _dereq_('./bind');
 module.exports.coordinates = _dereq_('./coordinates');
 module.exports.checkHeadsetConnected = _dereq_('./checkHeadsetConnected');
 module.exports.debug = _dereq_('./debug');
@@ -65913,7 +65426,7 @@ module.exports.findAllScenes = function (el) {
 // Must be at bottom to avoid circular dependency.
 module.exports.srcLoader = _dereq_('./src-loader');
 
-},{"./checkHeadsetConnected":115,"./coordinates":116,"./debug":117,"./entity":118,"./forceCanvasResizeSafariMobile":119,"./material":121,"./src-loader":122,"./styleParser":123,"deep-assign":6,"object-assign":9}],121:[function(_dereq_,module,exports){
+},{"./bind":115,"./checkHeadsetConnected":116,"./coordinates":117,"./debug":118,"./entity":119,"./forceCanvasResizeSafariMobile":120,"./material":122,"./src-loader":123,"./styleParser":124,"deep-assign":6,"object-assign":9}],122:[function(_dereq_,module,exports){
 /**
  * Update `material.map` given `data.src`. For standard and flat shaders.
  *
@@ -65945,6 +65458,47 @@ module.exports.updateMap = function (shader, data) {
 };
 
 /**
+ * Updates the material's maps which give the illusion of extra geometry.
+ *
+ * @param {string} longType - The friendly name of the map from the component e.g. ambientOcclusionMap becomes aoMap in THREE.js
+ * @param {object} shader - A-Frame shader instance
+ * @param {object} data
+ */
+module.exports.updateDistortionMap = function (longType, shader, data) {
+  var shortType = longType;
+  if (longType === 'ambientOcclusion') { shortType = 'ao'; }
+  var el = shader.el;
+  var material = shader.material;
+  var src = data[longType + 'Map'];
+  var info = {};
+  info.src = src;
+
+  // Pass through the repeat and offset to be handled by the material loader.
+  info.offset = data[longType + 'TextureOffset'];
+  info.repeat = data[longType + 'TextureRepeat'];
+  info.wrap = data[longType + 'TextureWrap'];
+
+  if (src) {
+    if (src === shader[longType + 'TextureSrc']) { return; }
+
+    // Texture added or changed.
+    shader[longType + 'TextureSrc'] = src;
+    el.sceneEl.systems.material.loadTexture(src, info, setMap);
+    return;
+  }
+
+  // Texture removed.
+  if (!material.map) { return; }
+  setMap(null);
+
+  function setMap (texture) {
+    material[shortType + 'Map'] = texture;
+    material.needsUpdate = true;
+    handleTextureEvents(el, texture);
+  }
+};
+
+/**
  * Emit event on entities on texture-related events.
  *
  * @param {Element} el - Entity.
@@ -65967,7 +65521,7 @@ function handleTextureEvents (el, texture) {
 }
 module.exports.handleTextureEvents = handleTextureEvents;
 
-},{}],122:[function(_dereq_,module,exports){
+},{}],123:[function(_dereq_,module,exports){
 /* global Image */
 var debug = _dereq_('./debug');
 
@@ -66034,10 +65588,11 @@ function validateCubemapSrc (src, cb) {
   var urls;
   var validatedUrls = [];
 
-  for (i = 0; i < 6; i++) {
-    cubemapSrcRegex += 'url\((.+)\)\s*,\s*';
+  for (i = 0; i < 5; i++) {
+    cubemapSrcRegex += '(url\\((?:[^\\)]+)\\),\\s*)';
   }
-  urls = src.match(cubemapSrcRegex);
+  cubemapSrcRegex += '(url\\((?:[^\\)]+)\\)\\s*)';
+  urls = src.match(new RegExp(cubemapSrcRegex));
 
   // `src` is a comma-separated list of URLs.
   // In this case, re-use validateSrc for each side of the cube.
@@ -66116,7 +65671,7 @@ module.exports = {
   validateCubemapSrc: validateCubemapSrc
 };
 
-},{"./debug":117}],123:[function(_dereq_,module,exports){
+},{"./debug":118}],124:[function(_dereq_,module,exports){
 /* Utils for parsing style-like strings (e.g., "primitive: box; width: 5; height: 4.5"). */
 var styleParser = _dereq_('style-attr');
 
@@ -66176,7 +65731,7 @@ function transformKeysToCamelCase (obj) {
 }
 module.exports.transformKeysToCamelCase = transformKeysToCamelCase;
 
-},{"style-attr":12}],124:[function(_dereq_,module,exports){
+},{"style-attr":12}],125:[function(_dereq_,module,exports){
 /**
  * @author dmarcos / https://github.com/dmarcos
  * @author mrdoob / http://mrdoob.com
@@ -66353,7 +65908,7 @@ THREE.VRControls = function ( object, onError ) {
 
 };
 
-},{}],125:[function(_dereq_,module,exports){
+},{}],126:[function(_dereq_,module,exports){
 /**
  * @author dmarcos / https://github.com/dmarcos
  * @author mrdoob / http://mrdoob.com
@@ -66361,43 +65916,33 @@ THREE.VRControls = function ( object, onError ) {
  * WebVR Spec: http://mozvr.github.io/webvr-spec/webvr.html
  *
  * Firefox: http://mozvr.com/downloads/
- * Chromium: https://drive.google.com/folderview?id=0BzudLt22BqGRbW9WTHMtOWMzNjQ&usp=sharing#list
+ * Chromium: https://webvr.info/get-chrome
  *
  */
 
 THREE.VREffect = function ( renderer, onError ) {
 
-	var isWebVR1 = true;
-
 	var vrDisplay, vrDisplays;
 	var eyeTranslationL = new THREE.Vector3();
 	var eyeTranslationR = new THREE.Vector3();
 	var renderRectL, renderRectR;
-	var eyeFOVL, eyeFOVR;
+
+	var frameData = null;
+	if ( 'VRFrameData' in window ) {
+
+		frameData = new VRFrameData();
+
+	}
 
 	function gotVRDisplays( displays ) {
 
 		vrDisplays = displays;
 
-		for ( var i = 0; i < displays.length; i ++ ) {
+		if ( displays.length > 0 ) {
 
-			if ( 'VRDisplay' in window && displays[ i ] instanceof VRDisplay ) {
+			vrDisplay = displays[ 0 ];
 
-				vrDisplay = displays[ i ];
-				isWebVR1 = true;
-				break; // We keep the first we encounter
-
-			} else if ( 'HMDVRDevice' in window && displays[ i ] instanceof HMDVRDevice ) {
-
-				vrDisplay = displays[ i ];
-				isWebVR1 = false;
-				break; // We keep the first we encounter
-
-			}
-
-		}
-
-		if ( vrDisplay === undefined ) {
+		} else {
 
 			if ( onError ) onError( 'HMD not available' );
 
@@ -66409,11 +65954,6 @@ THREE.VREffect = function ( renderer, onError ) {
 
 		navigator.getVRDisplays().then( gotVRDisplays );
 
-	} else if ( navigator.getVRDevices ) {
-
-		// Deprecated API.
-		navigator.getVRDevices().then( gotVRDisplays );
-
 	}
 
 	//
@@ -66424,6 +65964,7 @@ THREE.VREffect = function ( renderer, onError ) {
 	var scope = this;
 
 	var rendererSize = renderer.getSize();
+	var rendererUpdateStyle = false;
 	var rendererPixelRatio = renderer.getPixelRatio();
 
 	this.getVRDisplay = function () {
@@ -66438,29 +65979,21 @@ THREE.VREffect = function ( renderer, onError ) {
 
 	};
 
-	this.setSize = function ( width, height ) {
+	this.setSize = function ( width, height, updateStyle ) {
 
 		rendererSize = { width: width, height: height };
+		rendererUpdateStyle = updateStyle;
 
 		if ( scope.isPresenting ) {
 
 			var eyeParamsL = vrDisplay.getEyeParameters( 'left' );
 			renderer.setPixelRatio( 1 );
-
-			if ( isWebVR1 ) {
-
-				renderer.setSize( eyeParamsL.renderWidth * 2, eyeParamsL.renderHeight, false );
-
-			} else {
-
-				renderer.setSize( eyeParamsL.renderRect.width * 2, eyeParamsL.renderRect.height, false );
-
-			}
+			renderer.setSize( eyeParamsL.renderWidth * 2, eyeParamsL.renderHeight, false );
 
 		} else {
 
 			renderer.setPixelRatio( rendererPixelRatio );
-			renderer.setSize( width, height );
+			renderer.setSize( width, height, updateStyle );
 
 		}
 
@@ -66478,34 +66011,21 @@ THREE.VREffect = function ( renderer, onError ) {
 	function onFullscreenChange() {
 
 		var wasPresenting = scope.isPresenting;
-		scope.isPresenting = vrDisplay !== undefined && ( vrDisplay.isPresenting || ( ! isWebVR1 && document[ fullscreenElement ] instanceof window.HTMLElement ) );
+		scope.isPresenting = vrDisplay !== undefined && vrDisplay.isPresenting;
 
 		if ( scope.isPresenting ) {
 
 			var eyeParamsL = vrDisplay.getEyeParameters( 'left' );
-			var eyeWidth, eyeHeight;
+			var eyeWidth = eyeParamsL.renderWidth;
+			var eyeHeight = eyeParamsL.renderHeight;
 
-			if ( isWebVR1 ) {
+			var layers = vrDisplay.getLayers();
+			if ( layers.length ) {
 
-				eyeWidth = eyeParamsL.renderWidth;
-				eyeHeight = eyeParamsL.renderHeight;
+				var layer = layers[0];
 
-				if ( vrDisplay.getLayers ) {
-
-					var layers = vrDisplay.getLayers();
-					if ( layers.length ) {
-
-						leftBounds = layers[0].leftBounds || [ 0.0, 0.0, 0.5, 1.0 ];
-						rightBounds = layers[0].rightBounds || [ 0.5, 0.0, 0.5, 1.0 ];
-
-					}
-
-				}
-
-			} else {
-
-				eyeWidth = eyeParamsL.renderRect.width;
-				eyeHeight = eyeParamsL.renderRect.height;
+				leftBounds = layer.leftBounds !== null && layer.leftBounds.length === 4 ? layer.leftBounds : [ 0.0, 0.0, 0.5, 1.0 ];
+				rightBounds = layer.rightBounds !== null && layer.rightBounds.length === 4 ? layer.rightBounds : [ 0.5, 0.0, 0.5, 1.0 ];
 
 			}
 
@@ -66522,32 +66042,9 @@ THREE.VREffect = function ( renderer, onError ) {
 		} else if ( wasPresenting ) {
 
 			renderer.setPixelRatio( rendererPixelRatio );
-			renderer.setSize( rendererSize.width, rendererSize.height );
+			renderer.setSize( rendererSize.width, rendererSize.height, rendererUpdateStyle );
 
 		}
-
-	}
-
-	if ( canvas.requestFullscreen ) {
-
-		requestFullscreen = 'requestFullscreen';
-		fullscreenElement = 'fullscreenElement';
-		exitFullscreen = 'exitFullscreen';
-		document.addEventListener( 'fullscreenchange', onFullscreenChange, false );
-
-	} else if ( canvas.mozRequestFullScreen ) {
-
-		requestFullscreen = 'mozRequestFullScreen';
-		fullscreenElement = 'mozFullScreenElement';
-		exitFullscreen = 'mozCancelFullScreen';
-		document.addEventListener( 'mozfullscreenchange', onFullscreenChange, false );
-
-	} else {
-
-		requestFullscreen = 'webkitRequestFullscreen';
-		fullscreenElement = 'webkitFullscreenElement';
-		exitFullscreen = 'webkitExitFullscreen';
-		document.addEventListener( 'webkitfullscreenchange', onFullscreenChange, false );
 
 	}
 
@@ -66571,31 +66068,13 @@ THREE.VREffect = function ( renderer, onError ) {
 
 			}
 
-			if ( isWebVR1 ) {
+			if ( boolean ) {
 
-				if ( boolean ) {
-
-					resolve( vrDisplay.requestPresent( [ { source: canvas } ] ) );
-
-				} else {
-
-					resolve( vrDisplay.exitPresent() );
-
-				}
+				resolve( vrDisplay.requestPresent( [ { source: canvas } ] ) );
 
 			} else {
 
-				if ( canvas[ requestFullscreen ] ) {
-
-					canvas[ boolean ? requestFullscreen : exitFullscreen ]( { vrDisplay: vrDisplay } );
-					resolve();
-
-				} else {
-
-					console.error( 'No compatible requestFullscreen method found.' );
-					reject( new Error( 'No compatible requestFullscreen method found.' ) );
-
-				}
+				resolve( vrDisplay.exitPresent() );
 
 			}
 
@@ -66617,7 +66096,7 @@ THREE.VREffect = function ( renderer, onError ) {
 
 	this.requestAnimationFrame = function ( f ) {
 
-		if ( isWebVR1 && vrDisplay !== undefined ) {
+		if ( vrDisplay !== undefined ) {
 
 			return vrDisplay.requestAnimationFrame( f );
 
@@ -66631,7 +66110,7 @@ THREE.VREffect = function ( renderer, onError ) {
 
 	this.cancelAnimationFrame = function ( h ) {
 
-		if ( isWebVR1 && vrDisplay !== undefined ) {
+		if ( vrDisplay !== undefined ) {
 
 			vrDisplay.cancelAnimationFrame( h );
 
@@ -66645,7 +66124,7 @@ THREE.VREffect = function ( renderer, onError ) {
 
 	this.submitFrame = function () {
 
-		if ( isWebVR1 && vrDisplay !== undefined && scope.isPresenting ) {
+		if ( vrDisplay !== undefined && scope.isPresenting ) {
 
 			vrDisplay.submitFrame();
 
@@ -66679,21 +66158,8 @@ THREE.VREffect = function ( renderer, onError ) {
 			var eyeParamsL = vrDisplay.getEyeParameters( 'left' );
 			var eyeParamsR = vrDisplay.getEyeParameters( 'right' );
 
-			if ( isWebVR1 ) {
-
-				eyeTranslationL.fromArray( eyeParamsL.offset );
-				eyeTranslationR.fromArray( eyeParamsR.offset );
-				eyeFOVL = eyeParamsL.fieldOfView;
-				eyeFOVR = eyeParamsR.fieldOfView;
-
-			} else {
-
-				eyeTranslationL.copy( eyeParamsL.eyeTranslation );
-				eyeTranslationR.copy( eyeParamsR.eyeTranslation );
-				eyeFOVL = eyeParamsL.recommendedFieldOfView;
-				eyeFOVR = eyeParamsR.recommendedFieldOfView;
-
-			}
+			eyeTranslationL.fromArray( eyeParamsL.offset );
+			eyeTranslationR.fromArray( eyeParamsR.offset );
 
 			if ( Array.isArray( scene ) ) {
 
@@ -66725,16 +66191,14 @@ THREE.VREffect = function ( renderer, onError ) {
 
 			} else  {
 
+				renderer.setRenderTarget( null );
 				renderer.setScissorTest( true );
-			
+
 			}
 
 			if ( renderer.autoClear || forceClear ) renderer.clear();
 
 			if ( camera.parent === null ) camera.updateMatrixWorld();
-
-			cameraL.projectionMatrix = fovToProjection( eyeFOVL, true, camera.near, camera.far );
-			cameraR.projectionMatrix = fovToProjection( eyeFOVR, true, camera.near, camera.far );
 
 			camera.matrixWorld.decompose( cameraL.position, cameraL.quaternion, cameraL.scale );
 			camera.matrixWorld.decompose( cameraR.position, cameraR.quaternion, cameraR.scale );
@@ -66743,6 +66207,23 @@ THREE.VREffect = function ( renderer, onError ) {
 			cameraL.translateOnAxis( eyeTranslationL, scale );
 			cameraR.translateOnAxis( eyeTranslationR, scale );
 
+			if ( vrDisplay.getFrameData ) {
+
+				vrDisplay.depthNear = camera.near;
+				vrDisplay.depthFar = camera.far;
+
+				vrDisplay.getFrameData( frameData );
+
+				cameraL.projectionMatrix.elements = frameData.leftProjectionMatrix;
+				cameraR.projectionMatrix.elements = frameData.rightProjectionMatrix;
+
+			} else {
+
+				cameraL.projectionMatrix = fovToProjection( eyeParamsL.fieldOfView, true, camera.near, camera.far );
+				cameraR.projectionMatrix = fovToProjection( eyeParamsR.fieldOfView, true, camera.near, camera.far );
+
+
+			}
 
 			// render left eye
 			if ( renderTarget ) {
@@ -66780,11 +66261,11 @@ THREE.VREffect = function ( renderer, onError ) {
 				renderer.setRenderTarget( null );
 
 			} else {
-				
+
 				renderer.setScissorTest( false );
 
 			}
-			
+
 			if ( autoUpdate ) {
 
 				scene.autoUpdate = true;
@@ -66882,7 +66363,8 @@ THREE.VREffect = function ( renderer, onError ) {
 	}
 
 };
-},{}],126:[function(_dereq_,module,exports){
+
+},{}],127:[function(_dereq_,module,exports){
 window.glStats = function () {
 
     var _rS = null;
@@ -67147,7 +66629,7 @@ if (typeof module === 'object') {
   };
 }
 
-},{}],127:[function(_dereq_,module,exports){
+},{}],128:[function(_dereq_,module,exports){
 // performance.now() polyfill from https://gist.github.com/paulirish/5438650
 'use strict';
 
@@ -67344,8 +66826,6 @@ window.rStats = function rStats ( settings ) {
             _graph = new Graph( _dom, _id, _def ),
             _started = false;
 
-        _dom.className = 'rs-counter-base';
-
         _spanId.className = 'rs-counter-id';
         _spanId.textContent = ( _def && _def.caption ) ? _def.caption : _id;
 
@@ -67400,7 +66880,8 @@ window.rStats = function rStats ( settings ) {
             _spanValueText.nodeValue = Math.round( v * 100 ) / 100;
             var a = ( _def && ( ( _def.below && _value < _def.below ) || ( _def.over && _value > _def.over ) ) );
             _graph.draw( _value, a );
-            _dom.style.color = a ? '#b70000' : '#ffffff';
+            _dom.className = a ? 'rs-counter-base alarm' : 'rs-counter-base';
+
         }
 
         function _frame () {
@@ -67602,7 +67083,7 @@ if (typeof module === 'object') {
   module.exports = window.rStats;
 }
 
-},{}],128:[function(_dereq_,module,exports){
+},{}],129:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -67664,7 +67145,7 @@ Util.isLandscapeMode = function() {
 
 module.exports = Util;
 
-},{}],129:[function(_dereq_,module,exports){
+},{}],130:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -67740,6 +67221,6 @@ function getWakeLock() {
 
 module.exports = getWakeLock();
 
-},{"./util.js":128}]},{},[101])(101)
+},{"./util.js":129}]},{},[101])(101)
 });
 //# sourceMappingURL=aframe.js.map
