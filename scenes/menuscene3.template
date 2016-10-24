@@ -1,9 +1,9 @@
-<a-entity look-at=[camera] geometry="primitive: plane; width:2; height:0.4" material="color: #F15A24" position="4.5 3.6 0">
+<a-entity class="fadewhenvid" look-at=[camera] geometry="primitive: plane; width:2; height:0.4" material="color: #F15A24" position="4.5 3.6 0">
      <a-entity material="color:white", text="text: MenuItem3; size:0.17", position="-0.6 -0.1 -0.04" >
      </a-entity>
 </a-entity>
 
-<a-entity look-at=[camera] geometry="primitive: plane; width:2; height:2" material="color: #2D2D2D" position="4.5 2.3 0">
+<a-entity class="fadewhenvid" look-at=[camera] geometry="primitive: plane; width:2; height:2" material="color: #2D2D2D" position="4.5 2.3 0">
      <a-entity material="color:white", text="text: Text in menu; size:0.13", position="-0.8 0.7 -0.04" >
      </a-entity>
 </a-entity>

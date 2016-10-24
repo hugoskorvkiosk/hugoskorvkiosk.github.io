@@ -33,17 +33,6 @@ AFRAME.registerComponent('fade-channelmenu', {
             }
 
 
-            //        data.target.emit(data.emit);
-
-
-            //        document.querySelector('#thescene').setAttribute('material', 'opacity', '0.99');
-
-
-            //         document.querySelector('#thechanneltemplatescene').emit('animationover');
-
-            //      data.target.emit(data.emit);
-
-
         });
     }
 });
