@@ -114,46 +114,37 @@
         </a-entity>
 -->
 
-        <a-entity class="fadewhenvid" position="-1.20 2.7 2.09" rotation="" scale="" visible="">
-            <a-entity id="scrollup" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.28 -0.21 0.01" geometry="primitive:plane; width: 0.13; height:0.15" material="color:#2D2D2D" rotation="" scale="" visible="" eventset__1="_event: click; _target: #scrolldown; visible: true">
+        <a-entity look-at="[camera]" class="fadewhenvid" position="-1.30 2.7 2.09" rotation="" scale="" visible="">
+            <a-entity id="scrollup" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.37 -0.21 0.01" geometry="primitive:plane; width: 0.1; height:0.15" material="color:#2D2D2D" rotation="" scale="" visible="" eventset__1="_event: click; _target: #scrolldown; visible: true">
                 <a-animation mixin="fadewhenvidclicked"></a-animation>
                   <a-animation mixin="unfadewhenvidclicked"></a-animation>
 
             </a-entity>
-            <a-entity id="scrolldown" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.28 -0.39 0.01" geometry="primitive:plane;width: 0.13; height:0.15" material="color:#2D2D2D" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" >
+            <a-entity id="scrolldown" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.37 -0.39 0.01" geometry="primitive:plane;width: 0.1; height:0.15" material="color:#2D2D2D" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" >
 
                 <a-animation mixin="fadewhenvidclicked"></a-animation>
                  <a-animation mixin="unfadewhenvidclicked"></a-animation>
 
             </a-entity>
 
-            <a-entity unfade-channelmenu-clicked class="scrollbuttons" position="1.2 -0.88 0.01" geometry="primitive:plane;width: 0.43; height:0.10" material="color:#F15F15; opacity:0.4" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" >
-            </a-entity>
+            
 
-
-
-            <!--
-         <a-entity position="0 -0.23 0" geometry="primitive:plane;width:0.6;height:0.01" material="color:#F15A24" rotation="" scale="" visible="">
-        </a-entity>
-          <a-entity position="0 -0.38 0" geometry="primitive:plane;width:0.6;height:0.01" material="color:#F15A24" rotation="" scale="" visible="">
-        </a-entity>
-        -->
-            <a-entity class="fadewhenvid" id="channelselectedindication" position="-0.10 -0.30 -0.1" geometry="primitive:plane;width:0.48;height:0.17" material="color:#F15A24" rotation="" scale="" visible="">
+            
+            <a-entity class="fadewhenvid" id="channelselectedindication" position="0.05 -0.32 -0.10" geometry="primitive:plane;width:0.53;height:0.18" material="color:#F15A24" rotation="" scale="" visible="">
 
                 <a-animation mixin="fadewhenvidclicked"></a-animation>
                   <a-animation mixin="unfadewhenvidclicked"></a-animation>
-                <!--
-                
-                <a-animation attribute="material.opacity" , begin="fade" , to="0" , dur="2000"></a-animation>
-                <a-animation attribute="material.opacity" , begin="unfade" , to="1" , dur="500"></a-animation>
--->
+
             </a-entity>
 
         </a-entity>
 
+        <a-entity unfade-channelmenu-clicked class="scrollbuttons" position="0 1.8 2" geometry="primitive:plane;width: 0.43; height:0.10" material="color:#F15F15; opacity:0.4" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" >
+            </a-entity>
+        
 
-        <a-entity id="thescene" animation="property:position; startEvents: menuitemselect; to:-1 0 1.5; dur:400"> </a-entity>
-        <a-entity id="menuscene" > 
+        <a-entity id="channelscene" > </a-entity>
+        <a-entity id="menuscene" animation="property:position; startEvents: menuitemselect; to:-1 0 1.5; dur:400"> 
         </a-entity>
 
 

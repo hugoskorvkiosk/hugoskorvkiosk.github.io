@@ -18,7 +18,7 @@ AFRAME.registerComponent('channelselection', {
     update: function (oldData) {
 
 
-        var thescene;
+    
         var channelsplane;
 
 
@@ -26,8 +26,9 @@ AFRAME.registerComponent('channelselection', {
 
         channelsplane = document.querySelectorAll(".channelplane");
         //    thetemplatescene = document.querySelector("#thetemplatescene");
-        //    menuscene = document.querySelector("#menuscene");
-        thescene = document.querySelector("#thescene");
+        var menuscene = document.querySelector("#menuscene");
+      
+        var channelscene = document.querySelector("#channelscene");
         var channelimage = document.querySelector("#channelbox");
         var vidbox = document.querySelector('#vidbox');
 
@@ -49,22 +50,22 @@ AFRAME.registerComponent('channelselection', {
 
             switch (this.getAttribute('id')) {
             case 'menuplane1':
-                thescene.setAttribute('template', 'src', 'scenes/menuscene1.template');
+                menuscene.setAttribute('template', 'src', 'scenes/menuscene1.template');
                 break;
             case 'menuplane2':
-                thescene.setAttribute('template', 'src', 'scenes/menuscene2.template');
+                menuscene.setAttribute('template', 'src', 'scenes/menuscene2.template');
                 break;
             case 'menuplane3':
-                thescene.setAttribute('template', 'src', 'scenes/menuscene3.template');
+                menuscene.setAttribute('template', 'src', 'scenes/menuscene3.template');
                 break;
             case 'menuplane4':
-                thescene.setAttribute('template', 'src', 'scenes/menuscene4.template');
+                menuscene.setAttribute('template', 'src', 'scenes/menuscene4.template');
                 break;
             case 'menuplane5':
-                thescene.setAttribute('template', 'src', 'scenes/menuscene5.template');
+                menuscene.setAttribute('template', 'src', 'scenes/menuscene5.template');
                 break;
             case 'menuplane6':
-                thescene.setAttribute('template', 'src', 'scenes/menuscene6.template');
+                menuscene.setAttribute('template', 'src', 'scenes/menuscene6.template');
                 break;
             case 'channelplane1':
                 channelimage.setAttribute('src', '#tv1');
