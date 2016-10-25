@@ -105,7 +105,7 @@
 
 
         <a-entity material="opacity:1" id="themenutemplatescene" template="src: scenes/menuplanes.template">
-            <a-animation mixin="menuitemselect"></a-animation>
+           
         </a-entity>
 
         <!--
@@ -152,8 +152,9 @@
         </a-entity>
 
 
-        <a-entity id="thescene"> </a-entity>
-        <a-entity id="menuscene"> </a-entity>
+        <a-entity id="thescene" animation="property:position; startEvents: menuitemselect; to:-1 0 1.5; dur:400"> </a-entity>
+        <a-entity id="menuscene" > 
+        </a-entity>
 
 
 
