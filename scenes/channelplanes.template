@@ -2,8 +2,8 @@
 
         
         - for (var y=0 ; y < 10; y++) { 
-            a-entity(channelselection="", look-at="[camera]", movechannelclicked="target:#thechanneltemplatescene", class='channelplane fadewhenvid', id='channelplane'+(10-y), geometry="primitive:plane;width: 0.5; height:0.15" material="color:#2D2D2D" , position="#{-1.3} #{y/5+1.2} #{2}")
-                a-entity(class="channelplane fadewhenvid" material="color:white", text="text: Channel#{'plane'+(-y+10)}; size:0.04; font: Open Sans;", position="-0.2 0 -0.04" )
+            a-entity(channelselection="", look-at="[camera]", movechannelclicked="target:#thechanneltemplatescene", class='channelplane fadewhenvid', id='channelplane'+(10-y), geometry="primitive:plane;width: 0.35; height:0.10" material="color:#2D2D2D" , position="#{-1} #{y/8+1.8} #{2.5}")
+                a-entity(class="channelplane fadewhenvid" material="color:white", text="text: Channel#{'plane'+(-y+10)}; size:0.03; font: Open Sans;", position="-0.15 0 -0.04" )
                     a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
                     a-animation( attribute="material.opacity", begin="unfade", to="1", dur="500")
                 a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
