@@ -25,7 +25,7 @@ AFRAME.registerComponent('unfade-channelmenu-clicked', {
                             
                             console.log("unfade");
 
-                    document.querySelectorAll('.fadewhenvid')[i].emit('unfade');
+                    document.querySelectorAll('.fadewhenvid')[i].setAttribute('material', 'opacity', '1');
                   
                             
                 }

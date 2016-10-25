@@ -21,21 +21,25 @@ AFRAME.registerComponent('unfade-channelmenu', {
             
             console.log("before if opacity");
 
-                if (document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '0') {
-                    
-                    console.log("opacity is not 1");
-                    
-                        for (var i = 0; i < fadewhenvidobjects.length; i++) {
-                            
-                            console.log("unfade");
-
-                    document.querySelectorAll('.fadewhenvid')[i].emit('unfade');
-                  
-                            
-                }
-                    
-                    
-                }
+            
+            
+//            
+//            
+//                if (document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '0') {
+//                    
+//                    console.log("opacity is not 1");
+//                    
+//                        for (var i = 0; i < fadewhenvidobjects.length; i++) {
+//                            
+//                            console.log("unfade");
+//
+//                    document.querySelectorAll('.fadewhenvid')[i].emit('unfade');
+//                  
+//                            
+//                }
+//                    
+//                    
+//                }
 
             
 

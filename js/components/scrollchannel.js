@@ -54,6 +54,12 @@ AFRAME.registerComponent('scrollchannel', {
 
 
             var firstchannelposy = thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y;
+            var secondchannelposy = thechanneltemplatescene.children[1].childNodes[1].getAttribute("position").y;
+
+         
+            var distancetoscroll = parseFloat(secondchannelposy-firstchannelposy).toFixed(9);
+            console.log("distancetoscroll " + distancetoscroll);
+            
             var lastchannelposy = thechanneltemplatescene.children[1].childNodes[channelcount - 1].getAttribute("position").y;
 
 
@@ -71,31 +77,35 @@ AFRAME.registerComponent('scrollchannel', {
             // TODO: Om toppen av thechanneltemplateposition är nära channelselectedposy - return; 
 
             var topoftemplateposy = templateposy + heightoftemplate;
-            console.log(topoftemplateposy);
+  
 
             var distancefromselected = parseFloat(channelselectedposy - templateposy).toFixed(3);
             var distancefromtopselected = parseFloat(channelselectedposy - topoftemplateposy).toFixed(3);
 
 
+            console.log(templateposy);
 
-            console.log(event);
 
             position = document.querySelector('#thechanneltemplatescene').getAttribute('position');
 
             var addordecrease;
 
 
-            if (this.getAttribute("id") == "scrolldown" && templateposy < 1.1) {
-                newpositiony = parseFloat(position.y) + 0.2;
+            if (this.getAttribute("id") == "scrolldown" ) {
+                
+              
+                
+                newpositiony = parseFloat(position.y) + parseFloat(distancetoscroll);
                 newpositiony = parseFloat(newpositiony).toPrecision(5);
+                  console.log("scrolldown " + newpositiony);
                 addordecrease = "1";
 
 
 
-            } else if (this.getAttribute("id") == "scrollup" && templateposy > -0.5) {
-                newpositiony = parseFloat(position.y) - 0.2;
+            } else if (this.getAttribute("id") == "scrollup" ) {
+                newpositiony = parseFloat(position.y - distancetoscroll);
                 newpositiony = parseFloat(newpositiony).toPrecision(5);
-                console.log("clicked scrollup");
+                console.log("clicked scrollup " + newpositiony);
                 addordecrease = "-1";
 
             } else {
@@ -117,34 +127,32 @@ AFRAME.registerComponent('scrollchannel', {
             data.target.emit(data.emit);
 
             var previouschannelselected = document.querySelector(".previousentityselected").getAttribute("id");
-            
+
             console.log(previouschannelselected);
 
             var lastChannelNumber = previouschannelselected[previouschannelselected.length - 1];
 
-            
-            var newtv = parseInt(lastChannelNumber) + parseInt(addordecrease);
-            
-            
+
+            var newtv = parseInt(parseInt(lastChannelNumber)+parseInt(addordecrease));
+
+
             var newvidbox = parseInt(lastChannelNumber) + parseInt(addordecrease);
-            
+
             console.log('#tv' + newtv);
-            
-            if(newtv % 3 == 1){
-                    document.querySelector("#vidbox").setAttribute('src', '#vidbox3');
-            }
-            else if(newtv % 3 == 2){
-                    document.querySelector("#vidbox").setAttribute('src', '#vidbox2');
-            }
-            else {
-                 document.querySelector("#vidbox").setAttribute('src', '#vidbox1');
+
+            if (newtv % 3 == 1) {
+                document.querySelector("#vidbox").setAttribute('src', '#vidbox3');
+            } else if (newtv % 3 == 2) {
+                document.querySelector("#vidbox").setAttribute('src', '#vidbox2');
+            } else {
+                document.querySelector("#vidbox").setAttribute('src', '#vidbox1');
             }
 
             document.querySelector("#channelbox").setAttribute('src', '#tv' + newtv);
-                       
-            
-           console.log( document.querySelector("#channelbox").getAttribute('src'));
-            
+
+
+            console.log(document.querySelector("#channelbox").getAttribute('src'));
+
             document.querySelector(".previousentityselected").setAttribute("id", "channel" + newtv);
 
             //            position = document.querySelector('#thechanneltemplatescene').getAttribute('animation', 'from');

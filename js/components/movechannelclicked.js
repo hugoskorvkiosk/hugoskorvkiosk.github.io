@@ -51,8 +51,10 @@ AFRAME.registerComponent('movechannelclicked', {
             var realchannelposy = channelposition.y + position.y;
 
             console.log(channelposition);
+            
+            var channelindicatorpos = document.querySelector('#channelselectedindication').getAttribute('position').y;
 
-            var movement = 2.4 - realchannelposy;
+            var movement = channelindicatorpos - realchannelposy;
 
 
             var posy = position.y;

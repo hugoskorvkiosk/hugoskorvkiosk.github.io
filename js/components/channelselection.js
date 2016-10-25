@@ -18,7 +18,7 @@ AFRAME.registerComponent('channelselection', {
     update: function (oldData) {
 
 
-    
+
         var channelsplane;
 
 
@@ -27,7 +27,7 @@ AFRAME.registerComponent('channelselection', {
         channelsplane = document.querySelectorAll(".channelplane");
         //    thetemplatescene = document.querySelector("#thetemplatescene");
         var menuscene = document.querySelector("#menuscene");
-      
+
         var channelscene = document.querySelector("#channelscene");
         var channelimage = document.querySelector("#channelbox");
         var vidbox = document.querySelector('#vidbox');
@@ -36,13 +36,34 @@ AFRAME.registerComponent('channelselection', {
 
         this.el.addEventListener('click', function () {
 
+            
+            
+            var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
+                  
+
+            if (document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity != '1') {
+
+                console.log("opacity is not 1");
+
+                for (var i = 0; i < fadewhenvidobjects.length; i++) {
+
+                    console.log("unfade");
+
+                    document.querySelectorAll('.fadewhenvid')[i].emit('unfade');
+
+
+                }
+
+
+            }
+
 
 
             console.log(this);
-            
-            
+
+
             // should be added
-            
+
             // if(this.getAttribute('material').opacity != "1"){
             // return;
             // }

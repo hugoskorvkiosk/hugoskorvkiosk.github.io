@@ -127,24 +127,22 @@
 
             </a-entity>
 
-            
 
-            
-            <a-entity class="fadewhenvid" id="channelselectedindication" position="0.05 -0.32 -0.10" geometry="primitive:plane;width:0.53;height:0.18" material="color:#F15A24" rotation="" scale="" visible="">
+        </a-entity>
+        
+         <a-entity class="fadewhenvid" id="channelselectedindication" scale="0.7 0.7 0.7" rotation="0 33.64 0" position="-1.02 2.42 2.46" geometry="primitive:plane;width:0.53;height:0.18" material="color:#F15A24" rotation="" visible="">
 
                 <a-animation mixin="fadewhenvidclicked"></a-animation>
                   <a-animation mixin="unfadewhenvidclicked"></a-animation>
 
             </a-entity>
 
-        </a-entity>
-
         <a-entity unfade-channelmenu-clicked class="scrollbuttons" position="0 1.8 2" geometry="primitive:plane;width: 0.43; height:0.10" material="color:#F15F15; opacity:0.4" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" >
             </a-entity>
         
 
         <a-entity id="channelscene" > </a-entity>
-        <a-entity id="menuscene" animation="property:position; startEvents: menuitemselect; to:-1 0 1.5; dur:400"> 
+        <a-entity id="menuscene" animation="property:position; startEvents: menuitemselect; to:-1 0 1.5; dur:800"> 
         </a-entity>
 
 
