@@ -60,17 +60,21 @@
 
             <a-mixin id="fontplane" geometry="primitive:plane;width: 0.5; height:0.15" material="color:#2D2D2D"></a-mixin>
 
+            <a-mixin id="darkorange" material="color:#D94E1C"></a-mixin>
 
-            <img id="tv1" src="images/Resurs1.png">
-            <img id="tv2" src="images/Resurs2.png">
-            <img id="tv3" src="images/Resurs3.png">
-            <img id="tv4" src="images/Resurs4.png">
-            <img id="tv5" src="images/Resurs5.png">
-            <img id="tv6" src="images/Resurs6.png">
-            <img id="tv7" src="images/Resurs7.png">
-            <img id="tv8" src="images/Resurs8.png">
-            <img id="tv9" src="images/Resurs9.png">
-            <img id="tv10" src="images/Resurs10.png">
+            <img id="tv1" src="images/ikontv1.png">
+            <img id="tv2" src="images/ikontv2.png">
+            <img id="tv3" src="images/ikontv3.png">
+            <img id="tv4" src="images/ikontv4.png">
+            <img id="tv5" src="images/ikontv5.png">
+            <img id="tv6" src="images/ikontv6.png">
+            <img id="tv7" src="images/ikontv7.png">
+            <img id="tv8" src="images/ikontv8.png">
+            <img id="tv9" src="images/ikontv9.png">
+            
+            <img id="iconup" src="images/iconup.png">
+            <img id="icondown" src="images/icondown.png">
+            
             <img id="sky" src="images/skybox.jpg">
             <img id="rentalbox" src="images/hyrfilm.png">
 
@@ -114,6 +118,8 @@
         </a-entity>
 -->
 
+         <a-entity look-at="[camera]"  position="-1.30 2.7 2" material="src: #iconup" rotation="" scale="" visible=""></a-entity>
+        
         <a-entity look-at="[camera]" class="fadewhenvid" position="-1.30 2.7 2.09" rotation="" scale="" visible="">
             <a-entity id="scrollup" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.37 -0.21 -0.05" geometry="primitive:plane; width: 0.1; height:0.15" material="color:#2D2D2D" rotation="" scale="" visible="" eventset__1="_event: click; _target: #scrolldown; visible: true">
                 <a-animation mixin="fadewhenvidclicked"></a-animation>
@@ -130,7 +136,7 @@
 
         </a-entity>
         
-         <a-entity class="fadewhenvid" id="channelselectedindication" scale="0.7 0.7 0.7" rotation="0 33.64 0" position="-1.02 2.42 2.46" geometry="primitive:plane;width:0.53;height:0.18" material="color:#F15A24" rotation="" visible="">
+         <a-entity class="fadewhenvid" id="channelselectedindication" scale="0.7 0.7 0.7" rotation="0 33.64 0" position="-1.02 2.42 2.46" geometry="primitive:plane;width:0.53;height:0.18" material="color:#F15A24"  visible="">
 
                 <a-animation mixin="fadewhenvidclicked"></a-animation>
                   <a-animation mixin="unfadewhenvidclicked"></a-animation>
@@ -157,7 +163,7 @@
         <a-image fade-channelmenu unfade-channelmenu id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1" eventset__8="_event: mouseleave; _target: .fadewhenvid; material.color: #FFFFFF"></a-image>
 
 
-        <a-image id="channelbox" width="0.6" height="0.2" src="#tv4" position="1.3 3.4 0.1"></a-image>
+        <a-entity scale="0.3 0.3 0.3"  geometry="primitive: plane" id="channelbox" color="#2D2D2D" material="src: #tv1" position="1.3 3.4 0.1"></a-entity>
 
 
 

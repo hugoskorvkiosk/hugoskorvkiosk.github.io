@@ -1,9 +1,9 @@
 <script id="channelplanes" type="text/x-jade-template">
 
         
-        - for (var y=0 ; y < 10; y++) { 
-            a-entity(channelselection="", look-at="[camera]", movechannelclicked="target:#thechanneltemplatescene", class='channelplane fadewhenvid', id='channelplane'+(10-y), geometry="primitive:plane;width: 0.35; height:0.10" material="color:#2D2D2D" , position="#{-1} #{y/8+1.8} #{2.5}")
-                a-entity(class="channelplane fadewhenvid" material="color:white", text="text: Channel#{'plane'+(-y+10)}; size:0.03; font: Open Sans;", position="-0.15 0 -0.04" )
+        - for (var y=0 ; y < 9; y++) { 
+            a-entity(channelselection="", look-at="[camera]", movechannelclicked="target:#thechanneltemplatescene", class='channelplane fadewhenvid', id='channelplane'+(9-y), geometry="primitive:plane;width: 0.35; height:0.10" material="color:#2D2D2D" , position="#{-1} #{y/8+1.8} #{2.5}")
+                a-entity(class="channelplane fadewhenvid" material="color:white", text="text: Channel#{(-y+9)}; size:0.03; font: Open Sans;", position="-0.15 0 -0.04" )
                     a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
                     a-animation( attribute="material.opacity", begin="unfade", to="1", dur="500")
                 a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
