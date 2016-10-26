@@ -1,0 +1,6 @@
+<a-entity channelselection="", look-at="[camera]", movechannelclicked="target:#thechanneltemplatescene", class='channelplane fadewhenvid', id='channelplane'{{planeid}}, geometry="primitive:plane;width: 0.35; height:0.10" material="color:#2D2D2D" , position="-1 {{planeposy}} 2.5", animation__fade="property:material.opacity; startEvents: fade; to:0; dur:10" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:10">
+    <a-entity class="channelplane fadewhenvid" material="color:white", text="text: Channel{{name}}; size:0.03; font: Open Sans;", position="-0.15 0 -0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:10" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:10">
+    </a-entity>
+</a-entity>
+<a-image class="fadewhenvid" , position="-0.89 {{imgposy}} 2.45", rotation="0 32.64 0" ,src="#bigtv"{{imgsrc}}, scale="0.04 0.04 0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:10" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:10">
+</a-image>

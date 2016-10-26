@@ -9,7 +9,9 @@
                 a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
                 a-animation( attribute="material.opacity", begin="unfade", to="1", dur="500")
                 a-animation( id="scrolldownanimation2", dur="1000", begin="scroll", attribute="position", from="0 0 0", to="0 0 0")
-
+            a-image(  class="fadewhenvid" , position="#{-0.89} #{y/8+1.8} #{2.45}", rotation="0 32.64 0" ,src="#bigtv"+(9-y), scale="0.04 0.04 0.04")
+                a-animation( attribute="material.opacity", begin="fade", to="0", dur="3000")
+                a-animation( attribute="material.opacity", begin="unfade", to="1", dur="500")
         - } 
 </script>
 <a-entity id="thechanneltemplate" template="src: #channelplanes" material="opacity:0.5" position="0 0 0" >

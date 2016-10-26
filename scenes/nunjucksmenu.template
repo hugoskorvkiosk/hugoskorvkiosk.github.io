@@ -1,0 +1,4 @@
+<a-entity look-at="[camera]", channelselection="",  menuselected="",class='menuplane fadewhenvid', id='menuplane{{whatid}}', geometry="primitive:plane;width: 0.5; height:0.15", material="color:#2D2D2D" , position="{{ypos}}" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
+    <a-entity class="channelplane fadewhenvid" material="color:white", text="text: Menuplane{{name}}; size:0.04; font: Open Sans", position="-0.2 0 -0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
+    </a-entity>
+</a-entity>

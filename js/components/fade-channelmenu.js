@@ -18,20 +18,20 @@ AFRAME.registerComponent('fade-channelmenu', {
             console.log("mouseenter");
 
 
-            if(document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '1')
-            {
-
-                var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
-
-
-                console.log("fade");
-                
-                for (var i = 0; i < fadewhenvidobjects.length; i++) {
-
-                    document.querySelectorAll('.fadewhenvid')[i].emit('fade');
-                }
-
-            }
+//            if(document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '1')
+//            {
+//
+//                var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
+//
+//
+//                console.log("fade");
+//                
+//                for (var i = 0; i < fadewhenvidobjects.length; i++) {
+//
+//                    document.querySelectorAll('.fadewhenvid')[i].emit('fade');
+//                }
+//
+//            }
 
 
         });

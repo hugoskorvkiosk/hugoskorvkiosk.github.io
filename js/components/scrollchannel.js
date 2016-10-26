@@ -52,14 +52,19 @@ AFRAME.registerComponent('scrollchannel', {
 
             console.log(channelcount);
 
+            
+            
 
             var firstchannelposy = thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y;
             var secondchannelposy = thechanneltemplatescene.children[1].childNodes[1].getAttribute("position").y;
-
-         
-            var distancetoscroll = parseFloat(secondchannelposy-firstchannelposy).toFixed(9);
-            console.log("distancetoscroll " + distancetoscroll);
             
+            console.log("is this stillworking?");
+            console.log( thechanneltemplatescene.children[1].childNodes[0]);
+
+
+            var distancetoscroll = parseFloat(secondchannelposy - firstchannelposy).toFixed(9);
+            console.log("distancetoscroll " + distancetoscroll);
+
             var lastchannelposy = thechanneltemplatescene.children[1].childNodes[channelcount - 1].getAttribute("position").y;
 
 
@@ -77,8 +82,8 @@ AFRAME.registerComponent('scrollchannel', {
             // TODO: Om toppen av thechanneltemplateposition är nära channelselectedposy - return; 
 
             var topoftemplateposy = templateposy + heightoftemplate;
-  
 
+            var vidbox = document.querySelector('#vidbox');
             var distancefromselected = parseFloat(channelselectedposy - templateposy).toFixed(3);
             var distancefromtopselected = parseFloat(channelselectedposy - topoftemplateposy).toFixed(3);
 
@@ -91,18 +96,18 @@ AFRAME.registerComponent('scrollchannel', {
             var addordecrease;
 
 
-            if (this.getAttribute("id") == "scrolldown" ) {
-                
-              
-                
+            if (this.getAttribute("id") == "scrolldown") {
+
+
+
                 newpositiony = parseFloat(position.y) + parseFloat(distancetoscroll);
                 newpositiony = parseFloat(newpositiony).toPrecision(5);
-                  console.log("scrolldown " + newpositiony);
+                console.log("scrolldown " + newpositiony);
                 addordecrease = "1";
 
 
 
-            } else if (this.getAttribute("id") == "scrollup" ) {
+            } else if (this.getAttribute("id") == "scrollup") {
                 newpositiony = parseFloat(position.y - distancetoscroll);
                 newpositiony = parseFloat(newpositiony).toPrecision(5);
                 console.log("clicked scrollup " + newpositiony);
@@ -133,22 +138,30 @@ AFRAME.registerComponent('scrollchannel', {
             var lastChannelNumber = previouschannelselected[previouschannelselected.length - 1];
 
 
-            var newtv = parseInt(parseInt(lastChannelNumber)+parseInt(addordecrease));
+            var newtv = parseInt(parseInt(lastChannelNumber) + parseInt(addordecrease));
 
 
             var newvidbox = parseInt(lastChannelNumber) + parseInt(addordecrease);
 
             console.log('#tv' + newtv);
 
-            if (newtv % 3 == 1) {
-                document.querySelector("#vidbox").setAttribute('src', '#vidbox3');
-            } else if (newtv % 3 == 2) {
-                document.querySelector("#vidbox").setAttribute('src', '#vidbox2');
-            } else {
-                document.querySelector("#vidbox").setAttribute('src', '#vidbox1');
-            }
+            var whichvidbox = newtv % 3;
 
-            document.querySelector("#channelbox").setAttribute('src', '#tv' + newtv);
+            vidbox.setAttribute('src', '#vidbox' + whichvidbox);
+
+
+            //            if (newtv % 3 == 1) {
+            //                document.querySelector("#vidbox").setAttribute('src', '#vidbox3');
+            //            } else if (newtv % 3 == 2) {
+            //                document.querySelector("#vidbox").setAttribute('src', '#vidbox2');
+            //            } else {
+            //                document.querySelector("#vidbox").setAttribute('src', '#vidbox1');
+            //            }
+
+
+
+
+            document.querySelector("#channelbox").setAttribute('src', '#bigtv' + newtv);
 
 
             console.log(document.querySelector("#channelbox").getAttribute('src'));
