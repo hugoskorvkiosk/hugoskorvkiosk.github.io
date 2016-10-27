@@ -71,9 +71,9 @@ AFRAME.registerComponent('movechannelclicked', {
 
 
 
-            document.querySelector('#thechanneltemplatescene').setAttribute('animation', 'to', newpos);
+            document.querySelector('#thechanneltemplatescene').setAttribute('animation__scroll', 'to', newpos);
 
-            document.querySelector('#thechanneltemplatescene').setAttribute('animation', 'from', position);
+            document.querySelector('#thechanneltemplatescene').setAttribute('animation__scroll', 'from', position);
 
 
             data.target.emit(data.emit);

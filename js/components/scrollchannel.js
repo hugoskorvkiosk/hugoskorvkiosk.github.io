@@ -44,28 +44,28 @@ AFRAME.registerComponent('scrollchannel', {
 
             console.log(thechanneltemplatescene);
 
-            var channelplanes = thechanneltemplatescene.children[1].childNodes;
+            var channelplanes = thechanneltemplatescene.children;
 
             console.log(channelplanes);
 
-            var channelcount = thechanneltemplatescene.children[1].childElementCount;
+            var channelcount = thechanneltemplatescene.children.length;
 
             console.log(channelcount);
 
             
             
 
-            var firstchannelposy = thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y;
-            var secondchannelposy = thechanneltemplatescene.children[1].childNodes[1].getAttribute("position").y;
+            var firstchannelposy = thechanneltemplatescene.children[0].childNodes[0].getAttribute("position").y;
+            var secondchannelposy = thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y;
             
             console.log("is this stillworking?");
-            console.log( thechanneltemplatescene.children[1].childNodes[0]);
+            console.log( thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y);
 
 
             var distancetoscroll = parseFloat(secondchannelposy - firstchannelposy).toFixed(9);
             console.log("distancetoscroll " + distancetoscroll);
 
-            var lastchannelposy = thechanneltemplatescene.children[1].childNodes[channelcount - 1].getAttribute("position").y;
+            var lastchannelposy = thechanneltemplatescene.children[channelcount - 1].childNodes[0].getAttribute("position").y;
 
 
 
@@ -74,7 +74,7 @@ AFRAME.registerComponent('scrollchannel', {
 
 
 
-            var heightofplane = thechanneltemplatescene.children[1].childNodes[1].getAttribute("geometry").height;
+            var heightofplane = thechanneltemplatescene.children[1].childNodes[0].getAttribute("geometry").height;
 
             var heightoftemplate = parseFloat(lastchannelposy - firstchannelposy);
 
@@ -127,8 +127,8 @@ AFRAME.registerComponent('scrollchannel', {
             console.log(newpos);
             console.log(position);
 
-            document.querySelector('#thechanneltemplatescene').setAttribute('animation', 'to', newpos);
-            document.querySelector('#thechanneltemplatescene').setAttribute('animation', 'from', position);
+            document.querySelector('#thechanneltemplatescene').setAttribute('animation__scroll', 'to', newpos);
+            document.querySelector('#thechanneltemplatescene').setAttribute('animation__scroll', 'from', position);
             data.target.emit(data.emit);
 
             var previouschannelselected = document.querySelector(".previousentityselected").getAttribute("id");

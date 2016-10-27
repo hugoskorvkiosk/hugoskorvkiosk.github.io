@@ -1,32 +1,22 @@
 <a-entity id="menuscene1" position="0 0 0">
 
-    <a-entity class="fadewhenvid" look-at=[camera] geometry="primitive: plane; width:2; height:0.4" material="color: #F15A24" position="4.5 3.8 0">
+    <a-entity class="fadewhenvid" look-at=[camera] geometry="primitive: plane; width:2; height:0.4" material="color: #F15A24" position="4.5 3.8 0" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
 
-        <a-animation mixin="fadewhenvidclicked"></a-animation>
-        <a-animation mixin="unfadewhenvidclicked"></a-animation>
+        <a-entity class="fadewhenvid" material="color:white", text="text: MenuItem1; size:0.17", position="-0.6 -0.1 -0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
 
-        <a-entity class="fadewhenvid" material="color:white", text="text: MenuItem1; size:0.17", position="-0.6 -0.1 -0.04" >
-            <a-animation mixin="fadewhenvidclicked"></a-animation>
-            <a-animation mixin="unfadewhenvidclicked"></a-animation>
         </a-entity>
 
     </a-entity>
 
-    <a-entity class="fadewhenvid" look-at=[camera] geometry="primitive: plane; width:2; height:0.6" material="color: #2D2D2D" position="4.5 3.25 0">
+    <a-entity class="fadewhenvid" look-at=[camera] geometry="primitive: plane; width:2; height:0.6" material="color: #2D2D2D" position="4.5 3.25 0" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
 
-        <a-animation mixin="fadewhenvidclicked"></a-animation>
-        <a-animation mixin="unfadewhenvidclicked"></a-animation>
-
-         <a-entity class="fadewhenvid" material="color:white", text="text: Text in menu; size:0.13", position="-0.8 0 -0.04" >
-            <a-animation mixin="fadewhenvidclicked"></a-animation>
-            <a-animation mixin="unfadewhenvidclicked"></a-animation>
+         <a-entity class="fadewhenvid" material="color:white", text="text: Hyr film; size:0.13", position="-0.8 0 -0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
+        
          </a-entity>
 
-    </a-entity>
+    </a-entity>   
     
-    
-        <a-image class="fadewhenvid" src="images/hyrfilm.png" scale="2"  look-at=[camera] position="4.5 2.5 0">
-        <a-animation mixin="fadewhenvidclicked"></a-animation>
-            <a-animation mixin="unfadewhenvidclicked"></a-animation></a-image>
+        <a-image class="fadewhenvid" src="images/hyrfilm.png" scale="2"  look-at=[camera] position="4.5 2.5 0" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
+        </a-image>
 
 </a-entity>
