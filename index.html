@@ -51,6 +51,8 @@
     <script src="js/components/menuselected.js"></script>
 
     <script src="js/components/animationdone.js"></script>
+    
+    <script src="js/components/changemovie.js"></script>
 
 
 
@@ -99,9 +101,23 @@
             <img id="bigtv7" src="images/storikontv7.png">
             <img id="bigtv8" src="images/storikontv8.png">
             <img id="bigtv9" src="images/storikontv9.png">
+            
+            <img id="film1" src="images/film1.png">
+            <img id="film2" src="images/film2.png">
+            <img id="film3" src="images/film3.png">
+             <img id="film4" src="images/film4.png">
+             <img id="film5" src="images/film5.png">
+             <img id="film6" src="images/film6.png">
+             <img id="film7" src="images/film7.png">
+             <img id="film8" src="images/film8.png">
+             <img id="film9" src="images/film9.png">
+          
 
             <img id="iconup" src="images/iconup.png">
             <img id="icondown" src="images/icondown.png">
+            
+            <img id="iconright" src="images/iconplay.png">
+            <img id="iconleft" src="images/iconplayreverse.png">
 
             <img id="sky" src="images/skybox.jpg">
             <img id="rentalbox" src="images/hyrfilm.png">
@@ -192,11 +208,11 @@
         <a-entity look-at="[camera]" position="-1.30 2.7 2" material="src: #iconup" rotation="" scale="" visible=""></a-entity>
 
         <a-entity look-at="[camera]" class="fadewhenvid" position="-1.30 2.7 2.09" rotation="" scale="" visible="">
-            <a-image id="scrollup" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.35 -0.21 -0.05" geometry="primitive:plane; width: 0.1; height:0.15" material="color:#2D2D2D; src: #iconup" rotation="" scale="" visible="" eventset__1="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
+            <a-image id="scrollup" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.33 -0.21 0.05" geometry="primitive:plane; width: 0.1; height:0.15" material="color:#2D2D2D; src: #iconup" rotation="" scale="" visible="" eventset__1="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
 
 
             </a-image>
-            <a-image animationdone id="scrolldown" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.35 -0.39 -0.05" geometry="primitive:plane;width: 0.1; height:0.15" material="color:#2D2D2D; src: #icondown" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
+            <a-image animationdone id="scrolldown" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.33 -0.39 0.05" geometry="primitive:plane;width: 0.1; height:0.15" material="color:#2D2D2D; src: #icondown" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
 
                 <!--
                 <a-animation mixin="fadewhenvidclicked"></a-animation>
@@ -230,7 +246,7 @@
 
 
         <a-image unfade-channelmenu id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1"></a-image>
-        <a-entity geometry="primitive:plane" material="color:black" width="9" height="5" scale="3.8 2.6 3" position="0 2.5 -0.2"></a-entity>
+        <a-entity geometry="primitive:plane" material="color:#2D2D2D" width="9" height="5" scale="3.8 2.6 3" position="0 2.5 -0.2"></a-entity>
 
 
 
