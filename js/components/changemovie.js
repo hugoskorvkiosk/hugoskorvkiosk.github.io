@@ -41,7 +41,7 @@ AFRAME.registerComponent('changemovie', {
             var newfirstfilm;
 
 
-            if (this.getAttribute('id') == "scrollright") {
+            if (this.getAttribute('id') == "scrollright" || this.getAttribute('id') == "imgfilm0") {
 
                 console.log("scrollright");
                 console.log(filenumber);

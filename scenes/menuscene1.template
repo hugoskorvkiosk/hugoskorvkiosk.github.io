@@ -9,7 +9,7 @@
 
     <a-entity class="fadewhenvid" look-at="[camera]" geometry="primitive: plane; width:2; height:0.6" material="color: #2D2D2D" position="4.5 3.25 0" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
 
-        <a-entity class="fadewhenvid" material="color:white" , text="text: Filmer att hyra; size:0.13" , position="-0.8 0 -0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
+        <a-entity class="fadewhenvid" material="color:white" , text="text: Dina filmer; size:0.13" , position="-0.8 0 -0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
         </a-entity>
 
     </a-entity>
@@ -19,13 +19,13 @@
 
 
 
-        <a-image id="imgfilm0" class="fadewhenvid" src="#film0" scale="0.4 0.4 0.4" position="0.55 1 -0.5" material="opacity:0.8" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
+        <a-image changemovie id="imgfilm0" class="fadewhenvid" src="#film0" scale="0.4 0.4 0.4" position="0.55 1 -0.5"  animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
         </a-image>
 
         <a-image id="imgfilm1" class="fadewhenvid" src="#film1" scale="0.7 0.7 0.7" position="0 0.9 0.1" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
         </a-image>
 
-        <a-image id="imgfilm2" class="fadewhenvid" src="#film2" scale="0.4 0.4 0.4" position="-0.45 1 -0.5" material="opacity:0.8" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
+        <a-image changemovie id="imgfilm2" class="fadewhenvid" src="#film2" scale="0.4 0.4 0.4" position="-0.45 1 -0.5"  animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
         </a-image>
 
         <a-entity id="textfilmtitle" class="fadewhenvid" material="color:white" , text="text: Zootropolis;size:0.1", position="-0.7 0.3 -0.04" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1500">
