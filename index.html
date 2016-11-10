@@ -44,7 +44,7 @@
 
     <script src="js/components/unfade-channelmenu.js"></script>
 
-    <script src="js/components/aframe-event-set-component.js"></script>
+<!--    <script src="js/components/aframe-event-set-component.js"></script>-->
 
     <script src="js/components/movechannelclicked.js"></script>
 
@@ -133,6 +133,10 @@
             <img id="vidbox0" src="images/vidbox1.png">
             <img id="vidbox1" src="images/vidbox2.png">
             <img id="vidbox2" src="images/vidbox3.png">
+            
+            
+            
+            
 
             <a-mixin id="fadewhenvidclicked" attribute="material.opacity" begin="fade" to="0" dur="10"></a-mixin>
             <a-mixin id="unfadewhenvidclicked" attribute="material.opacity" begin="unfade" to="1" dur="10"></a-mixin>
@@ -143,7 +147,7 @@
 
 
 
-            <script id="templateforchannel" type="text/x-jade-template" src="scenes/channelplanes.template"></script>
+<!--            <script id="templateforchannel" type="text/x-jade-template" src="scenes/channelplanes.template"></script>-->
 
 
 
@@ -163,6 +167,30 @@
             </script>
             
             
+            <script id="menuscene1" type="text/x-nunjucks-template">
+            <a-entity material="opacity:1" , template="src: scenes/menuscene1.template; type: handlebars">
+            </a-entity>
+            </script>
+             <script id="menuscene2" type="text/x-nunjucks-template">
+            <a-entity material="opacity:1" , template="src: scenes/menuscene2.template; type: handlebars">
+            </a-entity>
+            </script>
+             <script id="menuscene3" type="text/x-nunjucks-template">
+            <a-entity material="opacity:1" , template="src: scenes/menuscene3.template; type: handlebars">
+            </a-entity>
+            </script>
+             <script id="menuscene4" type="text/x-nunjucks-template">
+            <a-entity material="opacity:1" , template="src: scenes/menuscene4.template; type: handlebars">
+            </a-entity>
+            </script>
+             <script id="menuscene5" type="text/x-nunjucks-template">
+            <a-entity material="opacity:1" , template="src: scenes/menuscene5.template; type: handlebars">
+            </a-entity>
+            </script>
+             <script id="menuscene6" type="text/x-nunjucks-template">
+            <a-entity material="opacity:1" , template="src: scenes/menuscene6.template; type: handlebars">
+            </a-entity>
+            </script>
 <!--
 
             <script id="menuitemtemplate1" type="text/x-nunjucks-template">
@@ -200,11 +228,10 @@
 
 
         <a-entity id="channelscene"> </a-entity>
-        <a-entity id="menuscene" animation="property:position; startEvents: menuitemselect; from: 0.2 0 0; to:-1 0 1.5; dur:800">
+        <a-entity id="menuscene" scale="1.2 1.2 1.2" visible="false" animation="property:position; startEvents: menuitemselect; from: 0.2 0 0; to:-1 0 1.5; dur:800" template="src: #menuscene1" >
         </a-entity>
 
         <!--        <a-entity material="opacity:1" id="themenutemplatescene" template="src: scenes/menuplanes.template"></a-entity>-->
-
 
 
 
@@ -214,36 +241,7 @@
         </a-entity>
 -->
 
-        <a-entity look-at="[camera]" position="-1.30 2.7 2" material="src: #iconup" rotation="" scale="" visible=""></a-entity>
-
-        <a-entity look-at="[camera]" class="fadewhenvid" position="-1.30 2.7 2.09" rotation="" scale="" visible="">
-            <a-image id="scrollup" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.33 -0.21 0.05" geometry="primitive:plane; width: 0.1; height:0.15" material="color:#2D2D2D; src: #iconup" rotation="" scale="" visible="" eventset__1="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
-
-
-            </a-image>
-            <a-image animationdone id="scrolldown" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.33 -0.39 0.05" geometry="primitive:plane;width: 0.1; height:0.15" material="color:#2D2D2D; src: #icondown" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
-
-                <!--
-                <a-animation mixin="fadewhenvidclicked"></a-animation>
-                 <a-animation mixin="unfadewhenvidclicked"></a-animation>
--->
-
-            </a-image>
-
-
-        </a-entity>
-
-        <a-entity class="fadewhenvid" id="channelselectedindication" scale="0.7 0.7 0.7" rotation="0 33.64 0" position="-1.02 2.42 2.46" geometry="primitive:plane;width:0.53;height:0.18" material="color:#F15A24" visible="" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
-
-        </a-entity>
-
-        <a-entity unfade-channelmenu-clicked class="scrollbuttons" position="0 1.8 2" geometry="primitive:plane;width: 0.43; height:0.10" material="color:#F15F15; opacity:0.4" rotation="" scale="" visible="" eventset__4="_event: click; _target: #scrolldown; visible: true">
-        </a-entity>
-
-
-
-
-
+        <a-entity template="src: scenes/channelselection.template"></a-entity>
 
         <a-sky src="#sky"></a-sky>
 

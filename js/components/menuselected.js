@@ -19,7 +19,7 @@ AFRAME.registerComponent('menuselected', {
 //            thescene = document.querySelector("#thescene");
 //            thescene.setAttribute('template', 'src', 'scenes/menuscene3.template');
 
-            document.querySelector('#menuscene').emit('menuitemselect');
+//            document.querySelector('#menuscene').emit('menuitemselect');
 
 
 

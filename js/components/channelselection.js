@@ -92,8 +92,19 @@ AFRAME.registerComponent('channelselection', {
             } else {
 
 //                menuscene.setAttribute('template', 'src', '#menuitemtemplate' + planeindex);
-                menuscene.setAttribute('template', 'src', 'scenes/menuscene' + planeindex + '.template');
+            
+                
+                
+                menuscene.setAttribute('visible', 'true');
+                
+                
+//                menuscene.setAttribute('template', 'src', '#menuscene' + planeindex );
 
+                
+                
+                
+                
+                
             }
 
 
