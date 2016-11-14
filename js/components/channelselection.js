@@ -98,7 +98,7 @@ AFRAME.registerComponent('channelselection', {
                 menuscene.setAttribute('visible', 'true');
                 
                 
-//                menuscene.setAttribute('template', 'src', '#menuscene' + planeindex );
+                menuscene.setAttribute('template', 'src', '#menuscene' + planeindex );
 
                 
                 

@@ -23,7 +23,7 @@
 
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
 
-    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
+    <!--    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>-->
 
 
 
@@ -32,28 +32,29 @@
 
     <script src="js/components/channelselection.js"></script>
 
-    <script src="js/components/collide-check.js"></script>
+    <!--    <script src="js/components/collide-check.js"></script>-->
 
     <script src="js/components/scrollchannel.js"></script>
 
-    <script src="js/components/event-proxy.js"></script>
+    <!--    <script src="js/components/event-proxy.js"></script>-->
 
-    <script src="js/components/fade-channelmenu.js"></script>
+    <!--    <script src="js/components/fade-channelmenu.js"></script>-->
 
-    <script src="js/components/unfade-channelmenu-clicked.js"></script>
+    <!--    <script src="js/components/unfade-channelmenu-clicked.js"></script>-->
 
     <script src="js/components/unfade-channelmenu.js"></script>
 
-<!--    <script src="js/components/aframe-event-set-component.js"></script>-->
+    <!--    <script src="js/components/aframe-event-set-component.js"></script>-->
 
     <script src="js/components/movechannelclicked.js"></script>
 
     <script src="js/components/menuselected.js"></script>
 
-    <script src="js/components/animationdone.js"></script>
-    
+    <!--    <script src="js/components/animationdone.js"></script>-->
+
     <script src="js/components/changemovie.js"></script>
 
+    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
 
 
     <!--
@@ -101,29 +102,29 @@
             <img id="bigtv7" src="images/storikontv7.png">
             <img id="bigtv8" src="images/storikontv8.png">
             <img id="bigtv9" src="images/storikontv9.png">
-            
-              <img id="film0" src="images/film0.png">
+
+            <img id="film0" src="images/film0.png">
             <img id="film1" src="images/film1.png">
             <img id="film2" src="images/film2.png">
             <img id="film3" src="images/film3.png">
-             <img id="film4" src="images/film4.png">
-             <img id="film5" src="images/film5.png">
-             <img id="film6" src="images/film6.png">
-             <img id="film7" src="images/film7.png">
-             <img id="film8" src="images/film8.png">
-             <img id="film9" src="images/film9.png">
-            
+            <img id="film4" src="images/film4.png">
+            <img id="film5" src="images/film5.png">
+            <img id="film6" src="images/film6.png">
+            <img id="film7" src="images/film7.png">
+            <img id="film8" src="images/film8.png">
+            <img id="film9" src="images/film9.png">
+
             <img id="menulisticon1" src="images/iconmenu1.png">
             <img id="menulisticon2" src="images/iconmenu2.png">
             <img id="menulisticon3" src="images/iconmenu3.png">
             <img id="menulisticon4" src="images/iconmenu1.png">
             <img id="menulisticon5" src="images/iconmenu2.png">
             <img id="menulisticon6" src="images/iconmenu3.png">
-          
+
 
             <img id="iconup" src="images/iconup.png">
             <img id="icondown" src="images/icondown.png">
-            
+
             <img id="iconright" src="images/iconplay.png">
             <img id="iconleft" src="images/iconplayreverse.png">
 
@@ -133,10 +134,10 @@
             <img id="vidbox0" src="images/vidbox1.png">
             <img id="vidbox1" src="images/vidbox2.png">
             <img id="vidbox2" src="images/vidbox3.png">
-            
-            
-            
-            
+
+
+
+
 
             <a-mixin id="fadewhenvidclicked" attribute="material.opacity" begin="fade" to="0" dur="10"></a-mixin>
             <a-mixin id="unfadewhenvidclicked" attribute="material.opacity" begin="unfade" to="1" dur="10"></a-mixin>
@@ -147,14 +148,13 @@
 
 
 
-<!--            <script id="templateforchannel" type="text/x-jade-template" src="scenes/channelplanes.template"></script>-->
+            <!--            <script id="templateforchannel" type="text/x-jade-template" src="scenes/channelplanes.template"></script>-->
 
 
 
             <script id="nunjucksmenutemplate" type="text/x-nunjucks-template">
                 {% for x in range(0, 6) %}
-                <a-entity template="src: scenes/nunjucksmenu.template; type: handlebars" data-whatid="{{ -x+6 }}" data-pos="1.3 {{ x/5+2 }} 2" data-name="{{ -x +6}}" 
-                data-imgsrc="#menulisticon{{6-x}}" data-imgpos="0.88 {{ x/6.6+2.1}} 2.4">
+                <a-entity template="src: scenes/nunjucksmenu.template; type: handlebars" data-whatid="{{ -x+6 }}" data-pos="1.3 {{ x/5+2 }} 2" data-name="{{ -x +6}}" data-imgsrc="#menulisticon{{6-x}}" data-imgpos="0.88 {{ x/6.6+2.1}} 2.4">
                 </a-entity>
                 {% endfor %}
             </script>
@@ -165,33 +165,33 @@
                 </a-entity>
                 {% endfor %}
             </script>
-            
-            
+
+
             <script id="menuscene1" type="text/x-nunjucks-template">
-            <a-entity material="opacity:1" , template="src: scenes/menuscene1.template; type: handlebars">
-            </a-entity>
+                <a-entity material="opacity:1" , template="src: scenes/menuscene1.template; type: handlebars">
+                </a-entity>
             </script>
-             <script id="menuscene2" type="text/x-nunjucks-template">
-            <a-entity material="opacity:1" , template="src: scenes/menuscene2.template; type: handlebars">
-            </a-entity>
+            <script id="menuscene2" type="text/x-nunjucks-template">
+                <a-entity material="opacity:1" , template="src: scenes/menuscene2.template; type: handlebars">
+                </a-entity>
             </script>
-             <script id="menuscene3" type="text/x-nunjucks-template">
-            <a-entity material="opacity:1" , template="src: scenes/menuscene3.template; type: handlebars">
-            </a-entity>
+            <script id="menuscene3" type="text/x-nunjucks-template">
+                <a-entity material="opacity:1" , template="src: scenes/menuscene3.template; type: handlebars">
+                </a-entity>
             </script>
-             <script id="menuscene4" type="text/x-nunjucks-template">
-            <a-entity material="opacity:1" , template="src: scenes/menuscene4.template; type: handlebars">
-            </a-entity>
+            <script id="menuscene4" type="text/x-nunjucks-template">
+                <a-entity material="opacity:1" , template="src: scenes/menuscene4.template; type: handlebars">
+                </a-entity>
             </script>
-             <script id="menuscene5" type="text/x-nunjucks-template">
-            <a-entity material="opacity:1" , template="src: scenes/menuscene5.template; type: handlebars">
-            </a-entity>
+            <script id="menuscene5" type="text/x-nunjucks-template">
+                <a-entity material="opacity:1" , template="src: scenes/menuscene5.template; type: handlebars">
+                </a-entity>
             </script>
-             <script id="menuscene6" type="text/x-nunjucks-template">
-            <a-entity material="opacity:1" , template="src: scenes/menuscene6.template; type: handlebars">
-            </a-entity>
+            <script id="menuscene6" type="text/x-nunjucks-template">
+                <a-entity material="opacity:1" , template="src: scenes/menuscene6.template; type: handlebars">
+                </a-entity>
             </script>
-<!--
+            <!--
 
             <script id="menuitemtemplate1" type="text/x-nunjucks-template">
             {% for x in range(0, 6) %}
@@ -213,11 +213,44 @@
 
 
 
-        <a-sphere color="red" radius="0.25" position="0 0 0" alongpath="path:3,5,3 3,4,3 4,5,4; closed:false; dur:5000; delay:4000">
-        </a-sphere>
-
-
         <!--        <a-entity material="opacity:1" id="thechanneltemplatescene" position="0 0 0" template="src: scenes/channelplanes.template" animation="property:position; startEvents: beginscroll; from:0; to:0 0 0; dur:100"></a-entity>-->
+
+
+
+
+
+        <a-entity id="curvedbg" data-brackets-id="5365" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" geometry="height:5.68;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0" position="-0.24 2.43 3.72" rotation="0 73.34 0" scale="1 1 1" visible="true">
+
+            <!--
+            <a-entity data-brackets-id="5365" material="color:#bdbdbd;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" geometry="height:3.26;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:20;openEnded:true;thetaStart:20" position="0.02 0.33 -0.43" rotation="0 16.615776058793873 0" scale="1 1 1" visible="true" event-set__1="_event: click; _target: #curvedbg; rotation: 0 60 0">
+            
+
+            </a-entity>
+-->
+
+            <a-curvedimage data-brackets-id="1590" src="#film1" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film1" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.75 -1.14 2.84" rotation="0 52.71 0" scale="1 1 1" visible="true" event-set__1="_event: click; _target: #curvedbg; rotation: 0 30 0"></a-curvedimage>
+            <a-curvedimage data-brackets-id="1591" src="#film2" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film2" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.43 -1.14 3.41" rotation="0 52.71 0" scale="1 1 1" visible="true"></a-curvedimage>
+            <a-curvedimage data-brackets-id="1592" src="#film3" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film3" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.16 -1.14 3.8" rotation="0 46.9825392007275 0" scale="1 1 1" visible="true"></a-curvedimage>
+            <a-curvedimage data-brackets-id="1593" src="#film4" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film4" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="3.91 -1.14 4.07" rotation="0 38.38817227376516 0" scale="1 1 1" visible="true"></a-curvedimage>
+            <a-curvedimage data-brackets-id="1594" src="#film5" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film5" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="3.68 -1.14 4.29" rotation="0 28.07 0" scale="1 1 1" visible="true"></a-curvedimage>
+
+
+            <a-entity data-brackets-id="1803" bmfont-text="text:Flaskpost;color:#ffffff" position="5.48 1.75 4.76" rotation="0 -132.92620847035099 0" scale="1 1 1" visible="true"></a-entity>
+
+            <a-entity data-brackets-id="2111" bmfont-text="text:Film info;color:#ffffff" position="5.48 1 4.76" rotation="0 -132.93 0" scale="1 1 1" visible="true"></a-entity>
+
+
+            <a-curvedimage data-brackets-id="3473" changemovie="" id="scrollright" class="scrollbuttons fadewhenvid" position="4.87 -0.31 4.49" geometry="primitive:plane;height:1;radius:2;segmentsRadial:48;thetaLength:270;openEnded:true;thetaStart:0" material="color:#2D2D2D;src:#iconright;shader:flat;side:double;transparent:true;repeat:-1 1" rotation="0 50.99324376664327 0" scale="0.3 0.3 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+            </a-curvedimage>
+
+            <a-curvedimage data-brackets-id="3474" changemovie="" id="scrollleft" class="scrollbuttons fadewhenvid" position="5.32 -0.32 4.28" geometry="primitive:plane;height:1;radius:2;segmentsRadial:48;thetaLength:270;openEnded:true;thetaStart:0" material="color:#2D2D2D;src:#iconleft;shader:flat;side:double;transparent:true;repeat:-1 1" rotation="0 63.03 0" scale="0.3 0.3 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+            </a-curvedimage>
+
+            <a-curvedimage data-brackets-id="2215" src="#film3" material="color:#fff;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film3" geometry="height:2;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:40;openEnded:true;thetaStart:0" position="4.63 1 3.14" rotation="0 37.24225668350351 0" scale="1 1 1" visible="true" event-set__1="_event: click; _target: #curvedbg; rotation: 0 -30 0"></a-curvedimage>
+
+
+
+        </a-entity>
 
 
         <a-entity material="opacity:1" id="thechanneltemplatescene" position="0 0 0" template="src: #nunjuckschanneltemplate" animation__scroll="property:position; startEvents: beginscroll; from:0; to:0 0 0; dur:100">
@@ -228,23 +261,13 @@
 
 
         <a-entity id="channelscene"> </a-entity>
-        <a-entity id="menuscene" scale="1.2 1.2 1.2" visible="false" animation="property:position; startEvents: menuitemselect; from: 0.2 0 0; to:-1 0 1.5; dur:800" template="src: #menuscene1" >
+        <a-entity id="menuscene" scale="1.2 1.2 1.2" visible="false" animation="property:position; startEvents: menuitemselect; from: 0.2 0 0; to:-1 0 1.5; dur:800" template="src: #menuscene1">
         </a-entity>
 
-        <!--        <a-entity material="opacity:1" id="themenutemplatescene" template="src: scenes/menuplanes.template"></a-entity>-->
-
-
-
-        <!--
-        <a-entity material="opacity:1" id="testmenu" template="src: scenes/menuscene2.template">
-
-        </a-entity>
--->
 
         <a-entity template="src: scenes/channelselection.template"></a-entity>
 
         <a-sky src="#sky"></a-sky>
-
 
         <a-entity class="previousentityselected" id="channelplane4"></a-entity>
         <a-entity class="isanimationdone" id="true"></a-entity>
@@ -255,18 +278,9 @@
         <a-image unfade-channelmenu id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1"></a-image>
         <a-entity geometry="primitive:plane" material="color:#2D2D2D" width="9" height="5" scale="3.8 2.6 3" position="0 2.5 -0.2"></a-entity>
 
-
-
         <a-image id="channelbox" scale="0.25 0.25 0.25" src="#bigtv2" position="-1.3 3.2 0.2"></a-image>
 
-
-
-
-        <a-entity position="0 2.4 4" id="camera" camera look-controls wasd-controls touch-controls>
-
-
-
-            <a-entity></a-entity>
+        <a-entity position="0 2.4 4" id="camera" camera look-controls>
 
 
             <a-entity cursor="fuse: true; fuseTimeout: 600" position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.007; radiusInner: 0.001;" material="color: pink; shader: flat">
