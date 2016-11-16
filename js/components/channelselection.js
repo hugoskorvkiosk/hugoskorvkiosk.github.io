@@ -101,8 +101,11 @@ AFRAME.registerComponent('channelselection', {
                 
 //                menuscene.setAttribute('template', 'src', '#menuscene' + planeindex );
 
-                       
-                document.querySelector("#curvedbg").setAttribute("rotation","0 20 0");
+               
+                document.querySelector("#curvedbg").emit('rotatetofilms');
+                
+                
+//                document.querySelector("#curvedbg").setAttribute("rotation","0 -235 0");
                 
                 
                 
