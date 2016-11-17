@@ -101,8 +101,16 @@ AFRAME.registerComponent('channelselection', {
                 
 //                menuscene.setAttribute('template', 'src', '#menuscene' + planeindex );
 
-               
-                document.querySelector("#curvedbg").emit('rotatetofilms');
+                
+                
+                
+               if(planeindex == "1"){
+                               document.querySelector("#curvedbg").emit('rotatetofilms');
+               }
+                else if(planeindex == "2"){
+                                 document.querySelector("#curvedbg").emit('rotatetotvflow');   
+                }
+
                 
                 
 //                document.querySelector("#curvedbg").setAttribute("rotation","0 -235 0");
