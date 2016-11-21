@@ -38,6 +38,8 @@ AFRAME.registerComponent('changemovie', {
             var firstfilmboxnumber;
             var secondfilmboxnumber;
             var thirdfilmboxnumber;
+            var fourthfilmboxnumber;
+            var fifthfilmboxnumber;
             var newfirstfilm;
 
 
@@ -48,6 +50,8 @@ AFRAME.registerComponent('changemovie', {
                 firstfilmboxnumber = ((parseInt(filenumber) + 1) % 10);
                 secondfilmboxnumber = ((parseInt(filenumber) + 2) % 10);
                 thirdfilmboxnumber = ((parseInt(filenumber) + 3) % 10);
+                 fourthfilmboxnumber = ((parseInt(filenumber) + 4) % 10);
+                 fifthfilmboxnumber = ((parseInt(filenumber) + 5) % 10);
 
 
                 console.log(firstfilmboxnumber);
@@ -78,6 +82,8 @@ AFRAME.registerComponent('changemovie', {
             document.querySelector('#imgfilm0').setAttribute('src', '#film' + firstfilmboxnumber);
             document.querySelector('#imgfilm1').setAttribute('src', '#film' + secondfilmboxnumber);
             document.querySelector('#imgfilm2').setAttribute('src', '#film' + thirdfilmboxnumber);
+                        document.querySelector('#imgfilm3').setAttribute('src', '#film' + fourthfilmboxnumber);
+                        document.querySelector('#imgfilm4').setAttribute('src', '#film' + fifthfilmboxnumber);
 
    
 
