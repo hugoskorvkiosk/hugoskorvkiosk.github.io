@@ -27,11 +27,15 @@ AFRAME.registerComponent('changemovie', {
 
             var filenumber = document.querySelector('#imgfilm0').getAttribute('src').split('film')[1];
             var filenumber1 = document.querySelector('#imgfilm1').getAttribute('src').split('film')[1];
+            var filenumber2 = document.querySelector('#imgfilm2').getAttribute('src').split('film')[1];
+            var filenumber3 = document.querySelector('#imgfilm3').getAttribute('src').split('film')[1];
 
 
-            var filmtitleentity = document.querySelector('#textfilmtitle');
-            var filminfoentity = document.querySelector('#textfilminfo');
-          
+            var filmtitleentity = document.querySelector('#activefilmtitle');
+            var filminfoentity = document.querySelector('#activefilminfo');
+            var filmbox = document.querySelector('#largefilmbox');
+            var hoverfilminfo = document.querySelector('#hoverfilminfo');
+
             var filmtitle;
             var filminfo;
 
@@ -50,8 +54,8 @@ AFRAME.registerComponent('changemovie', {
                 firstfilmboxnumber = ((parseInt(filenumber) + 1) % 10);
                 secondfilmboxnumber = ((parseInt(filenumber) + 2) % 10);
                 thirdfilmboxnumber = ((parseInt(filenumber) + 3) % 10);
-                 fourthfilmboxnumber = ((parseInt(filenumber) + 4) % 10);
-                 fifthfilmboxnumber = ((parseInt(filenumber) + 5) % 10);
+                fourthfilmboxnumber = ((parseInt(filenumber) + 4) % 10);
+                fifthfilmboxnumber = ((parseInt(filenumber) + 5) % 10);
 
 
                 console.log(firstfilmboxnumber);
@@ -63,17 +67,10 @@ AFRAME.registerComponent('changemovie', {
 
 
                 firstfilmboxnumber = ((parseInt(filenumber) + 9) % 10);
-                console.log(firstfilmboxnumber);
                 secondfilmboxnumber = parseInt(filenumber);
                 thirdfilmboxnumber = parseInt(filenumber1);
-                //
-
-                //                
-                //                firstfilmboxnumber = ((parseInt(filenumber) + 1 % 10) +10 )%10;
-                //                secondfilmboxnumber = ((parseInt(filenumber1) + 1 % 10) +10 )%10;
-                //                thirdfilmboxnumber = ((parseInt(filenumber2) + 1 % 10) +10 )%10;
-                //                
-                //                
+                fourthfilmboxnumber = parseInt(filenumber2);
+                fifthfilmboxnumber = parseInt(filenumber3);         
 
 
             }
@@ -82,16 +79,14 @@ AFRAME.registerComponent('changemovie', {
             document.querySelector('#imgfilm0').setAttribute('src', '#film' + firstfilmboxnumber);
             document.querySelector('#imgfilm1').setAttribute('src', '#film' + secondfilmboxnumber);
             document.querySelector('#imgfilm2').setAttribute('src', '#film' + thirdfilmboxnumber);
-                        document.querySelector('#imgfilm3').setAttribute('src', '#film' + fourthfilmboxnumber);
-                        document.querySelector('#imgfilm4').setAttribute('src', '#film' + fifthfilmboxnumber);
+            document.querySelector('#imgfilm3').setAttribute('src', '#film' + fourthfilmboxnumber);
+            document.querySelector('#imgfilm4').setAttribute('src', '#film' + fifthfilmboxnumber);
 
-   
 
-            console.log(   document.querySelector('#imgfilm1').getAttribute('src'));
-            
-            console.log(secondfilmboxnumber);
-            
-            switch (secondfilmboxnumber) {
+
+            filmbox.setAttribute('src', '#film' + thirdfilmboxnumber);
+
+            switch (thirdfilmboxnumber) {
             case 0:
                 filmtitle = "En man som heter Ove";
                 filminfo = "Film about a man that is grumpy";
@@ -135,9 +130,10 @@ AFRAME.registerComponent('changemovie', {
 
             }
             console.log(filmtitle);
+
+            filmtitleentity.setAttribute('text', 'text', filmtitle);
+            filminfoentity.setAttribute('text', 'text', filminfo);
             
-            filmtitleentity.setAttribute('text', 'text' , filmtitle);
-            filminfoentity.setAttribute('text', 'text' , filminfo);
 
 
             // leftscroll: 0->9
@@ -200,8 +196,6 @@ AFRAME.registerComponent('changemovie', {
 
 
             this.setAttribute('material', 'color', '#F15A24');
-
-
 
 
 

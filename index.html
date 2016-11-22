@@ -8,7 +8,9 @@
 
     <!--    <script src="js/aframe.js"></script>-->
 
+<!--        <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.3.2.js"></script>-->
     <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.js"></script>
+    <!--       <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.js"></script>-->
 
 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
@@ -26,6 +28,7 @@
     <!--    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>-->
 
 
+    <script src="js/components/menuselectindication.js"></script>
 
 
     <script src="fonts/open_sans_regular.typeface.js"></script>
@@ -87,13 +90,13 @@
 
             <a-mixin id="darkorange" material="color:#D94E1C"></a-mixin>
 
-                    
+
             <img id="play1" src="images/playsvt.png">
             <img id="play2" src="images/playtv4.png">
             <img id="play3" src="images/playd.png">
             <img id="play4" src="images/playviafree.png">
-            
-            
+
+
             <img id="tv1" src="images/ikontv1.png">
             <img id="tv2" src="images/ikontv2.png">
             <img id="tv3" src="images/ikontv3.png">
@@ -226,10 +229,10 @@
 
 
 
-             <a-mixin id="plane" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8"></a-mixin>
-            
-            
-            
+            <a-mixin id="plane" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8"></a-mixin>
+
+
+
         </a-assets>
 
 
@@ -238,7 +241,7 @@
 
 
 
-        <a-entity data-brackets-id="10941" id="curvedbgbottom" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" geometry="height:0.5;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0" position="-0.24 -0.33999999999999997 3.72" rotation="0 73.34 0" scale="1 1 1" visible="true">
+        <a-entity data-brackets-id="10941" id="curvedbgbottom" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" geometry="height:0.5;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0" position="-0.24 -0.34 3.72" rotation="0 73.34 0" scale="1 1 1" visible="true">
 
 
 
@@ -249,39 +252,48 @@
 
 
         <a-entity id="curvedbgtitle" class="fadewhenvid" data-brackets-id="5365" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" geometry="height:0.7;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:310;openEnded:true;thetaStart:130" position="-0.24 5.38 3.72" rotation="0 73.34 0" scale="1 1 1" visible="true">
+        </a-entity>
+
+        <a-entity data-brackets-id="9746" id="topmenucontainer" position="-0.27 5.29 3.71" rotation="0 123.18592595312698 0" scale="1 1 1" visible="true">
 
 
-            <a-entity data-brackets-id="9746" id="topmenucontainer" position="0 -3.22 0" rotation="0 48.4 0" scale="1 1 1" visible="true">
 
-                <a-curvedimage data-brackets-id="9747" channelselection="" class="fadewhenvid" id="menuplane1" event-set__1="[object Object]" event-set__2="[object Object]" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
+            <a-curvedimage menuselectindication="target:#bgtitlemenuindication;emit:movetobutton1" data-brackets-id="9749" channelselection="" class="fadewhenvid" id="menuplane1" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:20.256" position="0 0 0" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
+                <a-entity data-brackets-id="9752" class="fadewhenvid" material="color:white" text="text:Screen;size:0.25" position="3.43 -0.11 6.87" rotation="0 -161 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+            </a-curvedimage>
 
-                    <a-entity data-brackets-id="10516" class="fadewhenvid" material="color:white" text="text:Tv Flow;size:0.25" position="1.06 -0.12 7.55" rotation="0 177.04 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                </a-curvedimage>
+            <a-curvedimage menuselectindication="target:#bgtitlemenuindication;emit:movetobutton2" data-brackets-id="9751" channelselection="" class="fadewhenvid" id="menuplane2" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.5" position="0 0 0" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
+                <a-entity data-brackets-id="9750" class="fadewhenvid" material="color:white" text="text:Film;size:0.25" position="2.12 -0.11 7.34" rotation="0 -163.87 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+            </a-curvedimage>
 
-                <a-curvedimage data-brackets-id="9749" channelselection="" class="fadewhenvid" id="menuplane2" event-set__1="[object Object]" event-set__2="[object Object]" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.19 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
-                    <a-entity data-brackets-id="9750" class="fadewhenvid" material="color:white" text="text:Film;size:0.25" position="2.12 -0.11 7.34" rotation="0 -163.87 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                </a-curvedimage>
+            <a-curvedimage menuselectindication="target:#bgtitlemenuindication;emit:movetobutton3" data-brackets-id="9747" channelselection="" class="fadewhenvid" id="menuplane3" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:0.75" position="0 0 0" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
+                <a-entity data-brackets-id="10516" class="fadewhenvid" material="color:white" text="text:Tv Flow;size:0.25" position="1.06 -0.12 7.55" rotation="0 177.04 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+            </a-curvedimage>
 
-                <a-curvedimage data-brackets-id="9751" channelselection="" class="fadewhenvid" id="menuplane3" event-set__1="[object Object]" event-set__2="[object Object]" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.04 3.2 -0.27" rotation="0 59.01 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
-                    <a-entity data-brackets-id="9752" class="fadewhenvid" material="color:white" text="text:Screen;size:0.25" position="2.21 -0.11 7.26" rotation="0 -161 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                </a-curvedimage>
+            <a-curvedimage menuselectindication="target:#bgtitlemenuindication;emit:movetobutton4" data-brackets-id="9755" channelselection="" class="fadewhenvid" id="menuplane4" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-9" position="0 0 0" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
+                <a-entity data-brackets-id="9754" class="fadewhenvid" material="color:white" text="text:Web TV;size:0.25" position="-0.24 -0.1 7.68" rotation="0 176.47 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
 
-                <a-curvedimage data-brackets-id="9753" channelselection="" class="fadewhenvid" id="menuplane4" event-set__1="[object Object]" event-set__2="[object Object]" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
-                    <a-entity data-brackets-id="9754" class="fadewhenvid" material="color:white" text="text:Web TV;size:0.25" position="-0.15 -0.1 7.67" rotation="0 176.47 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                </a-curvedimage>
+            </a-curvedimage>
 
-                <a-curvedimage data-brackets-id="9755" channelselection="" class="fadewhenvid" id="menuplane5" event-set__1="[object Object]" event-set__2="[object Object]" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.08 3.18 -0.26" rotation="0 40.11 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
-                    <a-entity data-brackets-id="9756" class="fadewhenvid" material="color:white" text="text:Settings;size:0.25" position="-0.13 -0.09 7.65" rotation="0 178.76 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                </a-curvedimage>
+            <a-curvedimage menuselectindication="target:#bgtitlemenuindication;emit:movetobutton5" data-brackets-id="9753" channelselection="" class="fadewhenvid" id="menuplane5" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-18.75" position="0 0 0" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
+                <a-entity data-brackets-id="9756" class="fadewhenvid" material="color:white" text="text:Settings;size:0.25" position="-1.47 -0.09 7.51" rotation="0 163.86592940741545 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+            </a-curvedimage>
 
-            </a-entity>
+
+            <a-curvedimage id="bgtitlemenuindication" data-brackets-id="9753" class="fadewhenvid" geometry="height:0.62;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9.5;openEnded:true;thetaStart:20.51" position="0.01 0.02 0.07" rotation="0 49.85 0" visible="true" material="color:white;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:20.51; dur:200" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:10.69; dur:200" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:0.93; dur:200" animation__movetobutton4="property:geometry.thetaStart; startEvents: movetobutton4; to:-8.89; dur:200" animation__movetobutton5="property:geometry.thetaStart; startEvents: movetobutton5; to:-18.67; dur:200">
+            </a-curvedimage>
 
         </a-entity>
 
 
 
 
-        <a-entity id="curvedbg" data-brackets-id="5365" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" geometry="height:5;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0" position="-0.24 2.43 3.72" rotation="0 73.34 0" scale="1 1 1" visible="true" animation__rotatetofilms="property:rotation; startEvents: rotatetofilms; to:0 160 0; dur:700" animation__rotatetotvflow="property:rotation; startEvents: rotatetotvflow; to:0 255 0; dur:700">
+        <a-entity id="curvedbg" data-brackets-id="5365" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" geometry="height:5;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0" position="-0.24 2.43 3.72" rotation="0 73 0" scale="1 1 1" visible="true" 
+                  animation__rotatetoscreen="property:rotation; startEvents: rotatetoscreen; to:0 73 0; dur:700" 
+                  animation__rotatetofilm="property:rotation; startEvents: rotatetofilm; to:0 160 0; dur:700" 
+                  animation__rotatetotvflow="property:rotation; startEvents: rotatetotvflow; to:0 230 0; dur:700" 
+                  animation__rotatetowebtv="property:rotation; startEvents: rotatetowebtv; to:0 315 0; dur:700" 
+                  animation__rotatetosettings="property:rotation; startEvents: rotatetosettings; to:0 350 0; dur:700">
 
 
 
@@ -322,16 +334,20 @@
 
                 <a-entity id="topfilmmenucontainer" position="0 -0.60 0">
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#topfilmbuttonindication;emit:movetobutton1" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#topfilmbuttonindication;emit:movetobutton2" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#topfilmbuttonindication;emit:movetobutton3" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+
+                    <a-curvedimage id="topfilmbuttonindication" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8.1" position="-0.63 3.18 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:-8.10; dur:400" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:-16.52; dur:400" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:-25.06; dur:400"></a-curvedimage>
+
+
                     <a-entity data-brackets-id="9979" material="color:white" text="text:New;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Top;size:0.25" position="6.37 3.1 3.95" rotation="0 -125 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Downloaded;size:0.25" position="5.76 3.07 4.68" rotation="0 -135.22 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
 
-                   <a-entity data-brackets-id="16938" material="color:#F15A24" text="text:Film;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33184154338863 0" scale="1 1 1" visible="true"></a-entity>
+                    <a-entity data-brackets-id="16938" material="color:#F15A24" text="text:Film;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33184154338863 0" scale="1 1 1" visible="true"></a-entity>
 
                 </a-entity>
 
@@ -344,13 +360,13 @@
 
                 <a-entity id="thumbnailfilms" data-brackets-id="10946" position="0 -0.63 0" rotation="0 6.54 0" scale="1 1 1" visible="true">
 
-                    <a-entity data-brackets-id="11086" material="color:#F15A24" text="text:Action;font:Open Sans;color:white" position="5.95 -1.74 4.45" rotation="0 -131.20733508495852 0" scale="0.4 0.4 0.4" visible="true"></a-entity>
+                    <a-entity data-brackets-id="11086" material="color:#F15A24" text="text:All;font:Open Sans;color:white" position="5.95 -1.74 4.45" rotation="0 -131.20733508495852 0" scale="0.4 0.4 0.4" visible="true"></a-entity>
 
-                    <a-curvedimage id="imgfilm0" data-brackets-id="10947" src="#film1" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film1" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.75 -1.14 2.84" rotation="0 52.71 0" scale="1 1 1" visible="true"  event-set__1="_event: click; _target: #curvedbg; rotation: 0 30 0"></a-curvedimage>
-                    <a-curvedimage id="imgfilm1" data-brackets-id="10948" src="#film2" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film2" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.43 -1.14 3.41" rotation="0 52.71 0" scale="1 1 1" visible="true"></a-curvedimage>
+                    <a-curvedimage id="imgfilm4" data-brackets-id="10947" src="#film5" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film1" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.75 -1.14 2.84" rotation="0 52.71 0" scale="1 1 1" visible="true" event-set__1="_event: click; _target: #curvedbg; rotation: 0 30 0"></a-curvedimage>
+                    <a-curvedimage id="imgfilm3" data-brackets-id="10948" src="#film4" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film2" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.43 -1.14 3.41" rotation="0 52.71 0" scale="1 1 1" visible="true"></a-curvedimage>
                     <a-curvedimage id="imgfilm2" data-brackets-id="10949" src="#film3" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film3" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="4.16 -1.14 3.8" rotation="0 46.9825392007275 0" scale="1 1 1" visible="true"></a-curvedimage>
-                    <a-curvedimage id="imgfilm3" data-brackets-id="10950" src="#film4" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film4" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="3.91 -1.14 4.07" rotation="0 38.38817227376516 0" scale="1 1 1" visible="true"></a-curvedimage>
-                    <a-curvedimage id="imgfilm4" data-brackets-id="10951" src="#film5" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film5" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="3.68 -1.14 4.29" rotation="0 28.07 0" scale="1 1 1" visible="true"></a-curvedimage>
+                    <a-curvedimage id="imgfilm1" data-brackets-id="10950" src="#film2" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film4" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="3.91 -1.14 4.07" rotation="0 38.38817227376516 0" scale="1 1 1" visible="true"></a-curvedimage>
+                    <a-curvedimage id="imgfilm0" data-brackets-id="10951" src="#film1" material="color:#FFF;shader:flat;side:double;transparent:true;repeat:-1 1;src:#film5" geometry="height:0.8;primitive:cylinder;radius:2;segmentsRadial:48;thetaLength:15;openEnded:true;thetaStart:0" position="3.68 -1.14 4.29" rotation="0 28.07 0" scale="1 1 1" visible="true"></a-curvedimage>
 
                 </a-entity>
 
@@ -360,7 +376,7 @@
                 <a-entity id="filmcatergorycontainer" position="0 0.25 0">
 
                     <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10665" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
-                        <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Action;font:Open Sans;color:white" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+                        <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:All;font:Open Sans;color:white" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
                     </a-curvedimage>
 
                     <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10665" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -3.41 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
@@ -380,11 +396,11 @@
                     </a-curvedimage>
 
                     <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10665" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-1.64" position="-0.06 -3.43 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
-                        <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Crime;font:Open Sans;color:white" position="0.45 -0.02 7.43" rotation="0 -175.3250853100319 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+                        <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Horror;font:Open Sans;color:white" position="0.45 -0.02 7.43" rotation="0 -175.3250853100319 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
                     </a-curvedimage>
 
                     <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10665" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-9.1" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
-                        <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Horror;font:Open Sans;color:white" position="-0.49 -0.02 7.44" rotation="0 173.60621192463944 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+                        <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Action;font:Open Sans;color:white" position="-0.49 -0.02 7.44" rotation="0 173.60621192463944 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
                     </a-curvedimage>
 
 
@@ -406,10 +422,13 @@
 
 
 
-                <a-entity data-brackets-id="4976" material="color:#F15A24" text="text:Flaskpost;color:#ffffff;size:0.4" position="6.13 1.85 4.24" rotation="0 -132.93 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+                <a-entity id="activefilmtitle" data-brackets-id="4976" material="color:#F15A24" text="text:Flaskpost;color:#ffffff;size:0.4" position="6.13 1.85 4.24" rotation="0 -132.93 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
 
 
-                <a-entity data-brackets-id="4977" material="color:white" text="text:Film info;color:#ffffff" position="6.22 1.34 4.31" rotation="0 -132.93 0" scale="0.25 0.25 0.25" visible="true"></a-entity>
+                <a-entity id="activefilminfo" data-brackets-id="4977" material="color:white" text="text:Film info;color:#ffffff" position="6.22 1.34 4.31" rotation="0 -132.93 0" scale="0.25 0.25 0.25" visible="true"></a-entity>
+
+                <a-entity id="hoverfilminfo" data-brackets-id="4977" material="color:white" text="text:Film info;color:#ffffff" position="6.22 -1.34 4.31" rotation="0 -132.93 0" scale="0.25 0.25 0.25" visible="true"></a-entity>
+
 
                 <!--
               <a-curvedimage data-brackets-id="8602" changemovie="" id="scrollright" class="scrollbuttons fadewhenvid" position="4.87 -0.19 4.49" geometry="primitive:plane;height:1;radius:2;segmentsRadial:48;thetaLength:270;openEnded:true;thetaStart:0" material="color:#2D2D2D;src:#iconright;shader:flat;side:double;transparent:true;repeat:-1 1" rotation="0 50.99 0" scale="0.3 0.3 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
@@ -429,7 +448,7 @@
             <a-entity id="tvprogramcontainer" rotation="0 -109 0" position="0 -0.48 0" scale="1 1 1" visible="true">
 
 
-                         <a-entity id="tvcatergorycontainer" position="0 0.25 0">
+                <a-entity id="tvcatergorycontainer" position="0 0.25 0">
 
                     <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10665" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1">
                         <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:All;font:Open Sans;color:white" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
@@ -469,7 +488,7 @@
 
                 <a-entity id="thumbnailtv" data-brackets-id="10946" position="0 -0.63 0" rotation="0 6.54 0" scale="1 1 1" visible="true">
 
-                    <a-entity data-brackets-id="11086" material="color:#F15A24" text="text:Entertainment;font:Open Sans;color:white" position="5.95 -1.74 4.45" rotation="0 -133 0" scale="0.4 0.4 0.4" visible="true"></a-entity>
+                    <a-entity data-brackets-id="11086" material="color:#F15A24" text="text:All;font:Open Sans;color:white" position="5.95 -1.74 4.45" rotation="0 -133 0" scale="0.4 0.4 0.4" visible="true"></a-entity>
 
 
 
@@ -478,16 +497,20 @@
 
                 <a-entity id="topmenutvcontainer" position="0 -0.65 0" rotation="0 0 0" scale="1 1 1" visible="true">
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#toptvbuttonindication;emit:movetobutton1" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#toptvbuttonindication;emit:movetobutton2" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#toptvbuttonindication;emit:movetobutton3" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+
+                    <a-curvedimage id="toptvbuttonindication" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8.1" position="-0.63 3.18 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:-8.10; dur:400" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:-16.52; dur:400" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:-25.06; dur:400"></a-curvedimage>
+
+
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Now;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Tomorrow;size:0.25" position="6.46 3.1 3.81" rotation="0 -125 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Calendar;size:0.25" position="5.76 3.07 4.68" rotation="0 -135.22 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
 
-             <a-entity data-brackets-id="16938" material="color:#F15A24" text="text:TV Flow;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33184154338863 0" scale="1 1 1" visible="true"></a-entity>
+                    <a-entity data-brackets-id="16938" material="color:#F15A24" text="text:TV Flow;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33184154338863 0" scale="1 1 1" visible="true"></a-entity>
 
                 </a-entity>
 
@@ -648,16 +671,19 @@
 
                 <a-entity id="topwebtvmenucontainer" position="0 -0.60 0">
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton1" id="topwebtvbutton1" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton2" id="topwebtvbutton2" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
 
-                    <a-curvedimage event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1 1 1"></a-curvedimage>
+                    <a-curvedimage menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton3" id="topwebtvbutton3" event-set__1="_event: mouseenter; material.color: #F15A24" event-set__2="_event: mouseleave; material.color: #242424" data-brackets-id="10116" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:1" scale="1 1 1"></a-curvedimage>
+
+                    <a-curvedimage id="topwebtvbuttonindication" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8.1" position="-0.63 3.18 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;repeat:-1 1;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:-8.10; dur:400" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:-16.52; dur:400" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:-25.06; dur:400"></a-curvedimage>
+
                     <a-entity data-brackets-id="9979" material="color:white" text="text:New;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Top;size:0.25" position="6.37 3.1 3.95" rotation="0 -125 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Watched;size:0.25" position="5.76 3.07 4.68" rotation="0 -135.22 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
 
-                   <a-entity data-brackets-id="16938" material="color:#F15A24" text="text:Web TV;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33184154338863 0" scale="1 1 1" visible="true"></a-entity>
+                    <a-entity data-brackets-id="16938" material="color:#F15A24" text="text:Web TV;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33 0" scale="1 1 1" visible="true"></a-entity>
 
 
                 </a-entity>
