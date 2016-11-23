@@ -11,6 +11,9 @@ AFRAME.registerComponent('menuselectindication', {
         },
         emit: {
             default: 'moveindication'
+        },
+        listentomouse:{
+            default: 'true'
         }
     },
 
@@ -37,15 +40,15 @@ AFRAME.registerComponent('menuselectindication', {
         this.el.addEventListener('mouseenter', function () {
 
 
-            this.setAttribute('material', 'color', '#F15A24');
-
-
+            if(data.listentomouse == 'true')
+                this.setAttribute('material', 'color', '#F15A24');
 
         });
 
         this.el.addEventListener('mouseleave', function () {
 
-            this.setAttribute('material', 'color', '#2D2D2D');
+            if(data.listentomouse == 'true')
+                this.setAttribute('material', 'color', '#2D2D2D');
 
         });
 

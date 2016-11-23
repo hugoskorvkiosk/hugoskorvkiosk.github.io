@@ -136,21 +136,6 @@ AFRAME.registerComponent('changemovie', {
             
 
 
-            // leftscroll: 0->9
-            // document.querySelector('#imgfilm0').setAttribute('src', '#film', '9');
-            // leftscroll: 1->0
-            // document.querySelector('#imgfilm1').setAttribute('src', '#film', '0');
-            // leftscroll: 2->1
-            // document.querySelector('#imgfilm1').setAttribute('src', '#film', '1');
-
-            // leftscroll: 9->8
-            // document.querySelector('#imgfilm0').setAttribute('src', '#film', '9');
-            // leftscroll: 1->9
-            // document.querySelector('#imgfilm0').setAttribute('src', '#film', '9');
-            // leftscroll: 2->1
-            // document.querySelector('#imgfilm0').setAttribute('src', '#film', '9');
-
-
             //
             //            if (this.getAttribute('id') == "scrollright") {
             //
