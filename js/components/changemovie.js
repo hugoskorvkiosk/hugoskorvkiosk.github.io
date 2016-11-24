@@ -70,7 +70,7 @@ AFRAME.registerComponent('changemovie', {
                 secondfilmboxnumber = parseInt(filenumber);
                 thirdfilmboxnumber = parseInt(filenumber1);
                 fourthfilmboxnumber = parseInt(filenumber2);
-                fifthfilmboxnumber = parseInt(filenumber3);         
+                fifthfilmboxnumber = parseInt(filenumber3);
 
 
             }
@@ -97,35 +97,35 @@ AFRAME.registerComponent('changemovie', {
                 break;
             case 2:
                 filmtitle = "Snow White";
-                filminfo = "Film om en man som ofta sur";
+                filminfo = "Film";
                 break;
             case 3:
                 filmtitle = "Flaskpost";
-                filminfo = "Film om t";
+                filminfo = "Film";
                 break;
             case 4:
                 filmtitle = "Superman and Batman";
-                filminfo = "Film om two superguys";
+                filminfo = "Film superguys";
                 break;
             case 5:
                 filmtitle = "Eye&Sky";
-                filminfo = "Film om två män och en kvinna";
+                filminfo = "Film o";
                 break;
             case 6:
                 filmtitle = "London has fallen";
-                filminfo = "Film om en man som är britt";
+                filminfo = "Film ";
                 break;
             case 7:
                 filmtitle = "Deadpool";
-                filminfo = "Film om en man som ofta är farlig";
+                filminfo = "Film ";
                 break;
             case 8:
                 filmtitle = "The revenant";
-                filminfo = "Film om en man som är DiCaprio";
+                filminfo = "Film  DiCaprio";
                 break;
             case 9:
                 filmtitle = "Tom Hanks the movie";
-                filminfo = "Film om en man som är ryss";
+                filminfo = "Film";
                 break;
 
             }
@@ -133,7 +133,7 @@ AFRAME.registerComponent('changemovie', {
 
             filmtitleentity.setAttribute('text', 'text', filmtitle);
             filminfoentity.setAttribute('text', 'text', filminfo);
-            
+
 
 
             //
@@ -177,20 +177,7 @@ AFRAME.registerComponent('changemovie', {
 
         });
 
-        this.el.addEventListener('mouseenter', function () {
-
-
-            this.setAttribute('material', 'color', '#F15A24');
-
-
-
-        });
-
-        this.el.addEventListener('mouseleave', function () {
-
-            this.setAttribute('material', 'color', '#2D2D2D');
-
-        });
+       
 
 
     },

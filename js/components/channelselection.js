@@ -151,17 +151,7 @@ AFRAME.registerComponent('channelselection', {
 
         });
 
-        this.el.addEventListener('mouseenter', function () {
-
-            this.setAttribute('material', 'color', '#F15A24');
-
-        });
-
-        this.el.addEventListener('mouseleave', function () {
-
-            this.setAttribute('material', 'color', '#2D2D2D');
-
-        });
+      
     },
 
 });

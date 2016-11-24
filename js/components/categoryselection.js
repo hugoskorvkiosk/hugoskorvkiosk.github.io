@@ -38,8 +38,11 @@ AFRAME.registerComponent('categoryselection', {
                 this.setAttribute('material', 'color', '#F15A24');
                 
                 for(var i = 0; i < 5; i++){
-                    document.querySelector('#imgfilm'+i).setAttribute('src', '#film' + data.category + (i+1));
+                    document.querySelector('#'+data.group+'thumb'+i).setAttribute('src', '#film' + data.category + (i+1));
                 }
+                document.querySelector('#large'+data.group+'box').setAttribute('src', '#film' + data.category + 3);
+                document.querySelector('#'+data.group+'title').setAttribute('text', 'text', data.category+3);
+                document.querySelector('#'+data.group+'info').setAttribute('text', 'text', data.category+3 + ' info');
                 
                    
        
