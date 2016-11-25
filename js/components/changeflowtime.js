@@ -10,7 +10,7 @@ AFRAME.registerComponent('changeflowtime', {
 
     update: function () {
         var data = this.data;
-
+        var el = this.el;
 
 
         this.el.addEventListener(data.listen, function () {
@@ -18,11 +18,11 @@ AFRAME.registerComponent('changeflowtime', {
          
 
 
-            if (this.getAttribute('id') == "scrollleftchannelflow") {
+            if (el.getAttribute('id') == "scrollleftchannelflow") {
 
            
 
-            } else if (this.getAttribute('id') == "scrollrightchannelflow") {
+            } else if (el.getAttribute('id') == "scrollrightchannelflow") {
             
 
             } else {

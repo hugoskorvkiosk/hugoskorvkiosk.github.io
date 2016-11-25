@@ -10,7 +10,7 @@ AFRAME.registerComponent('changeflowchannel', {
 
     update: function () {
         var data = this.data;
-
+        var el = this.el;
 
 
         this.el.addEventListener(data.listen, function () {
@@ -25,11 +25,11 @@ AFRAME.registerComponent('changeflowchannel', {
             var newflowchannel;
 
 
-            if (this.getAttribute('id') == "scrollupchannelflow" && currentflowchannel1 != 1) {
+            if (el.getAttribute('id') == "scrollupchannelflow" && currentflowchannel1 != 1) {
 
                 newflowchannel = (parseInt(currentflowchannel1) - 1);
 
-            } else if (this.getAttribute('id') == "scrolldownchannelflow" && currentflowchannel1 != 5) {
+            } else if (el.getAttribute('id') == "scrolldownchannelflow" && currentflowchannel1 != 5) {
                 newflowchannel = (parseInt(currentflowchannel1) + 1);
 
             } else {

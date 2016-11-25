@@ -13,14 +13,14 @@ AFRAME.registerComponent('categoryselection', {
             default: 'false'
         },
         category: {
-            default: 'all'   
+            default: 'all'
         }
     },
 
     update: function () {
         var data = this.data;
-        
-        
+        var el = this.el;
+
 
 
         this.el.addEventListener(data.listen, function () {
@@ -28,24 +28,27 @@ AFRAME.registerComponent('categoryselection', {
             console.log("category listen");
 
             if (data.selected == 'true') {
-             
-                this.setAttribute('categoryselection', 'selected', 'false');
-                this.setAttribute('material', 'color', '#2D2D2D');
+
+                el.setAttribute('categoryselection', 'selected', 'false');
+                el.setAttribute('material', 'color', '#2D2D2D');
 
             } else {
-              
-                this.setAttribute('categoryselection', 'selected', 'true');
-                this.setAttribute('material', 'color', '#F15A24');
-                
-                for(var i = 0; i < 5; i++){
-                    document.querySelector('#'+data.group+'thumb'+i).setAttribute('src', '#film' + data.category + (i+1));
+
+                el.setAttribute('categoryselection', 'selected', 'true');
+                el.setAttribute('material', 'color', '#F15A24');
+                document.querySelector('#' + data.group + 'scrollleft').setAttribute('scrollfilmandtv','category',data.category);
+                document.querySelector('#' + data.group + 'scrollright').setAttribute('scrollfilmandtv','category',data.category);
+
+
+                for (var i = 0; i < 5; i++) {
+                    document.querySelector('#' + data.group + 'thumb' + i).setAttribute('src', '#film' + data.category + (i + 1));
                 }
-                document.querySelector('#large'+data.group+'box').setAttribute('src', '#film' + data.category + 3);
-                document.querySelector('#'+data.group+'title').setAttribute('text', 'text', data.category+3);
-                document.querySelector('#'+data.group+'info').setAttribute('text', 'text', data.category+3 + ' info');
-                
-                   
-       
+                document.querySelector('#large' + data.group + 'box').setAttribute('src', '#film' + data.category + 3);
+                document.querySelector('#' + data.group + 'title').setAttribute('text', 'text', data.category + 3);
+                document.querySelector('#' + data.group + 'info').setAttribute('text', 'text', data.category + 3 + ' info');
+
+
+
             }
 
         });
@@ -54,11 +57,11 @@ AFRAME.registerComponent('categoryselection', {
 
 
             if (data.selected == 'true') {
-           
-                this.setAttribute('material', 'color', '#F14000');
+
+                el.setAttribute('material', 'color', '#F14000');
             } else {
-               
-                this.setAttribute('material', 'color', '#F15A24');
+
+                el.setAttribute('material', 'color', '#F15A24');
             }
 
         });
@@ -66,12 +69,12 @@ AFRAME.registerComponent('categoryselection', {
         this.el.addEventListener('mouseleave', function () {
 
             if (data.selected == 'true') {
-                this.setAttribute('material', 'color', '#F15A24');
-               
+                el.setAttribute('material', 'color', '#F15A24');
+
                 return;
             } else {
-                
-                this.setAttribute('material', 'color', '#2D2D2D');
+
+                el.setAttribute('material', 'color', '#2D2D2D');
             }
         });
 

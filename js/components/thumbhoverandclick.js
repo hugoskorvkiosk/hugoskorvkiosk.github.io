@@ -50,7 +50,7 @@ AFRAME.registerComponent('thumbhoverandclick', {
             //            document.querySelector('#hover' + data.group + 'info').setAttribute('text', 'text', hoversrc);
 
 
-            console.log('remove');
+            console.log('remove hovertext');
             document.querySelector('#hover' + data.group + 'info').setAttribute('text', 'text', '');
 
 
