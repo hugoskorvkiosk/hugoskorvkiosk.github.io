@@ -8,9 +8,9 @@
 
     <!--    <script src="js/aframe.js"></script>-->
 
-    <!--    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.3.2.js"></script>-->
-    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.js"></script>
-    <!--           <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.js"></script>-->
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.3.2.js"></script>
+<!--        <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.js"></script>-->
+    <!--               <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.js"></script>-->
 
 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.5.2/dist/aframe-extras.js"></script>
@@ -28,7 +28,6 @@
     <!--    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>-->
 
 
-    <script src="js/components/menuselectindication.js"></script>
 
 
     <script src="fonts/open_sans_regular.typeface.js"></script>
@@ -55,21 +54,27 @@
 
     <!--    <script src="js/components/animationdone.js"></script>-->
 
-<!--    <script src="js/components/changemovie.js"></script>-->
+    <!--    <script src="js/components/changemovie.js"></script>-->
 
     <script src="js/components/settext.js"></script>
 
     <script src="js/components/line.js"></script>
 
     <script src="js/components/categoryselection.js"></script>
-
+        <script src="js/components/scrollfilmandtv.js"></script>
     <script src="js/components/changeflowchannel.js"></script>
-    <script src="js/components/changeflowtime.js"></script>
+       <script src="js/components/changeflowtime.js"></script>
+      <script src="js/components/cursorover.js"></script>
+    
 
-    <script src="js/components/cursorover.js"></script>
+    
+ 
+
+    <script src="js/components/menuselectindication.js"></script>
+  
     <script src="js/components/thumbhoverandclick.js"></script>
 
-    <script src="js/components/scrollfilmandtv.js"></script>
+
 
     <!--    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>-->
 
@@ -142,7 +147,7 @@
             <img id="iconleft" src="images/iconplayreverse.png">
 
             <img id="sky" src="images/skybox2.jpg">
- 
+
 
             <img id="vidbox0" src="images/vidbox1.png">
             <img id="vidbox1" src="images/vidbox2.png">
@@ -156,7 +161,7 @@
             <img id="program5" src="images/programinfo5.jpg">
 
 
-            
+
             <img id="filmall1" src="images/filmbycategory/filmall1.jpg">
             <img id="filmall2" src="images/filmbycategory/filmall2.jpg">
             <img id="filmall3" src="images/filmbycategory/filmall3.jpg">
@@ -168,7 +173,7 @@
             <img id="filmall9" src="images/filmbycategory/filmall9.jpg">
             <img id="filmall10" src="images/filmbycategory/filmall10.jpg">
 
-            
+
             <img id="filmaction1" src="images/filmbycategory/filmaction1.jpg">
             <img id="filmaction2" src="images/filmbycategory/filmaction2.jpg">
             <img id="filmaction3" src="images/filmbycategory/filmaction3.jpg">
@@ -363,8 +368,14 @@
             </a-entity>
 
 
-            <a-entity id="bgtitlemenuindication" data-brackets-id="9753" class="fadewhenvid" geometry="height:0.62;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9.5;openEnded:true;thetaStart:20.51" position="0.01 0.02 0.07" rotation="0 49.85 0" visible="true" material="color:white;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:20.51; dur:200" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:10.69; dur:200" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:0.93; dur:200" animation__movetobutton4="property:geometry.thetaStart; startEvents: movetobutton4; to:-8.89; dur:200" animation__movetobutton5="property:geometry.thetaStart; startEvents: movetobutton5; to:-18.67; dur:200">
+            <a-entity id="bgtitlemenuindication" data-brackets-id="9753" class="fadewhenvid" geometry="height:0.09;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:20.73" position="0.01 -0.36 0.07" rotation="0 49.85 0" visible="true" material="color:white;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:20.73;dur:200" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:10.95;dur:200" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:1.13;dur:200" animation__movetobutton4="property:geometry.thetaStart;startEvents:movetobutton4;to:-8.65;dur:200" animation__movetobutton5="property:geometry.thetaStart;startEvents:movetobutton5;to:-18.48;dur:200">
             </a-entity>
+            
+            
+<!--
+           <a-entity id="bgtitlemenuindication" data-brackets-id="9753" class="fadewhenvid" geometry="height:0.59;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9.5;openEnded:true;thetaStart:10.69" position="0.01 0.02 0.07" rotation="0 49.85 0" visible="true" material="color:white;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:20.51;dur:200" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:10.69;dur:200" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:0.93;dur:200" animation__movetobutton4="property:geometry.thetaStart;startEvents:movetobutton4;to:-8.89;dur:200" animation__movetobutton5="property:geometry.thetaStart;startEvents:movetobutton5;to:-18.67;dur:200">
+            </a-entity>
+-->
 
         </a-entity>
 
@@ -415,8 +426,17 @@
 
                     <a-entity menuselectindication="target:#topfilmbuttonindication;emit:movetobutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1"></a-entity>
 
-                    <a-entity id="topfilmbuttonindication" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8.1" position="-0.63 3.18 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:-8.10; dur:400" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:-16.52; dur:400" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:-25.06; dur:400"></a-entity>
 
+                    <a-entity id="topfilmbuttonindication" geometry="height:0.5500000000000002;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.660000000000004;openEnded:true;thetaStart:-7.94" position="-0.63 3.19 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-7.94;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.36;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-24.76;dur:400"></a-entity>
+
+
+                    <!--
+                    <a-entity id="topfilmbuttonindication" geometry="height:0.07000000000000002;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.320000000000002;openEnded:true;thetaStart:-7.8" position="-0.63 2.87 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-8.10;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.52;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-25.06;dur:400"></a-entity>
+                    
+                    
+                    <a-entity id="topfilmbuttonindication" geometry="height:0.5500000000000002;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.200000000000003;openEnded:true;thetaStart:-7.7" position="-0.63 3.19 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-8.10;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.52;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-25.06;dur:400"></a-entity>
+                    
+-->
 
                     <a-entity data-brackets-id="9979" material="color:white" text="text:New;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Top;size:0.25" position="6.37 3.1 3.95" rotation="0 -125 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
@@ -581,8 +601,9 @@
                     <a-entity menuselectindication="target:#toptvbuttonindication;emit:movetobutton2" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1"></a-entity>
 
                     <a-entity menuselectindication="target:#toptvbuttonindication;emit:movetobutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1"></a-entity>
-
-                    <a-entity id="toptvbuttonindication" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8.1" position="-0.63 3.18 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:-8.10; dur:400" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:-16.52; dur:400" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:-25.06; dur:400"></a-entity>
+                    
+                    
+                    <a-entity id="toptvflowbuttonindication" geometry="height:0.5500000000000002;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.660000000000004;openEnded:true;thetaStart:-7.94" position="-0.63 3.19 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-7.94;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.36;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-24.76;dur:400"></a-entity>
 
 
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Today;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
@@ -765,7 +786,7 @@
 
                     <a-entity menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton3" id="topwebtvbutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.84732817638162 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true ;opacity:1" scale="1 1 1"></a-entity>
 
-                    <a-entity id="topwebtvbuttonindication" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8.1" position="-0.63 3.18 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart; startEvents: movetobutton1; to:-8.10; dur:400" animation__movetobutton2="property:geometry.thetaStart; startEvents: movetobutton2; to:-16.52; dur:400" animation__movetobutton3="property:geometry.thetaStart; startEvents: movetobutton3; to:-25.06; dur:400"></a-entity>
+                    <a-entity id="topwebtvbuttonindication" geometry="height:0.5500000000000002;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.660000000000004;openEnded:true;thetaStart:-7.94" position="-0.63 3.19 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-7.94;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.36;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-24.76;dur:400"></a-entity>
 
                     <a-entity data-brackets-id="9979" material="color:white" text="text:New;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity data-brackets-id="9979" material="color:white" text="text:Top;size:0.25" position="6.37 3.1 3.95" rotation="0 -125 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
@@ -779,9 +800,11 @@
 
 
 
-                <a-entity data-brackets-id="6742" id="webtvchannelscontainer" position="7.31 -0.91 1.1" rotation="0 179.91 0" scale="0.98 0.94 0.62" visible="true">
+                <a-entity data-brackets-id="6742" id="webtvchannelscontainer" position="7.31 -0.91 1.1" rotation="0 179.91 0" scale="0.98 0.94 0.62" visible="true" material="transparent:true ;opacity:1">
 
-                    <a-entity menuselectindication="target:#webtvchannelindication; emit:movetobutton1;listentomouse:false" id="webtvchannel1" geometry="height:0.53;primitive:plane" position="0.08 2.8 -0.69" rotation="0 80.41 0" visible="true" material="src:#play1;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1"></a-entity>
+
+
+                    <a-entity menuselectindication="target:#webtvchannelindication; emit:movetobutton1;listentomouse:false" id="webtvchannel1" geometry="height:0.53;primitive:plane" position="0.08 2.8 -0.69" rotation="0 80.41 0" visible="true" material="src:#play1;color:#fff;shader:flat;side:double;transparent:true ;opacity:1" scale="1 1 1"></a-entity>
 
                     <a-entity menuselectindication="target:#webtvchannelindication; emit:movetobutton2;listentomouse:false" id="webtvchannel2" geometry="height:0.53;primitive:plane" position="0.08 2 -0.69" rotation="0 80.41 0" visible="true" material="src:#play2;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1"></a-entity>
 
@@ -789,7 +812,15 @@
 
                     <a-entity menuselectindication="target:#webtvchannelindication; emit:movetobutton4;listentomouse:false" id="webtvchannel4" geometry="height:0.53;primitive:plane" position="0.08 0.4 -0.69" rotation="0 80.41 0" visible="true" material="src:#play4;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1"></a-entity>
 
-                    <a-entity id="webtvchannelindication" data-brackets-id="6744" geometry="height:0.53;primitive:plane" position="0.04 2 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1" animation__movetobutton1="property:position;startEvents:movetobutton1;to:0.04 2.80 -0.70;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:0.04 2 -0.70;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:0.04 1.2 -0.70;dur:400" animation__movetobutton4="property:position;startEvents:movetobutton4;to:0.04 0.4 -0.70;dur:400"></a-entity>
+                    <a-entity data-brackets-id="6744" geometry="height:0.53;primitive:plane" position="0.04 2.80 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
+                    <a-entity data-brackets-id="6744" geometry="height:0.53;primitive:plane" position="0.04 2 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
+                    <a-entity data-brackets-id="6744" geometry="height:0.53;primitive:plane" position="0.04 1.2 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
+                    <a-entity data-brackets-id="6744" geometry="height:0.53;primitive:plane" position="0.04 0.4 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
+
+
+                    <a-entity id="webtvchannelindication" data-brackets-id="6744" geometry="height:0.04;primitive:plane" position="0.04 1.65 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1" animation__movetobutton1="property:position;startEvents:movetobutton1;to:0.04 2.45 -0.70;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:0.04 1.65 -0.70;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:0.04 0.85 -0.70;dur:400" animation__movetobutton4="property:position;startEvents:movetobutton4;to:0.04 0.05 -0.70;dur:400"></a-entity>
+
+
 
                 </a-entity>
 
