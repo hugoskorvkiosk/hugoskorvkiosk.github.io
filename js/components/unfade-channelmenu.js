@@ -11,8 +11,6 @@ AFRAME.registerComponent('unfade-channelmenu', {
     update: function () {
        
 
-        var isanimationdone =   document.querySelector(".isanimationdone").getAttribute("id");
-        
 
         this.el.addEventListener('mouseleave', function () {
 
@@ -21,37 +19,14 @@ AFRAME.registerComponent('unfade-channelmenu', {
 
             var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
 
-          
-
-            console.log("before if opacity");
-
-
-
-
-            console.log("is animation done? " + isanimationdone);
-            
-            
-
-//            if (document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '0' ) {
 
                 console.log("opacity is not 1");
 
                 for (var i = 0; i < fadewhenvidobjects.length; i++) {
 
-                    console.log("unfade");
-
-//                    document.querySelectorAll('.fadewhenvid')[i].emit('unfade');
-                    
-//                    document.querySelectorAll('.fadewhenvid')[i].setAttribute('material','opacity','1');
-
                      document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'true');
 
                 }
-
-
-//            }
-            
-            
 
 
 
@@ -63,10 +38,6 @@ AFRAME.registerComponent('unfade-channelmenu', {
             console.log("mouseenter");
 
 
-//            if(document.querySelectorAll('.fadewhenvid')[1].getAttribute('material').opacity == '1' ){
-                
-                
-
                 var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
 
 
@@ -74,15 +45,10 @@ AFRAME.registerComponent('unfade-channelmenu', {
                 
                 for (var i = 0; i < fadewhenvidobjects.length; i++) {
 
-//                    document.querySelectorAll('.fadewhenvid')[i].emit('fade');
-             
-//                   document.querySelectorAll('.fadewhenvid')[i].setAttribute('material','opacity','0');
 
                   document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'false');
                 
                 }
-
-//            }
 
 
         });

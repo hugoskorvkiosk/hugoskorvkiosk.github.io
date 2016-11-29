@@ -20,8 +20,8 @@ AFRAME.registerComponent('changeflowchannel', {
             var currentflowchannel1 = document.querySelector('#flowchannelbox1').getAttribute('src').split('bigtv')[1];
 
 
-            console.log(flowchannelbox);
-            console.log(currentflowchannel1);
+//            console.log(flowchannelbox);
+//            console.log(currentflowchannel1);
             var newflowchannel;
 
 

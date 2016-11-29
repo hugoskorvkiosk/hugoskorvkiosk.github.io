@@ -40,24 +40,27 @@ AFRAME.registerComponent('scrollfilmandtv', {
             var nextnumber= parseInt(filenumbers[4]) + 1;
             var previousnumber= parseInt(filenumbers[0]) - 1;
 
-            console.log(filenumbers[4]);
-            console.log(filenumbers[0]);
+            
+//            console.log(filenumbers[4]);
+//            console.log(filenumbers[0]);
+
             
             var nextfilm = document.querySelector('#' + data.group + data.category + nextnumber);
             var previousfilm = document.querySelector('#' + data.group + data.category + previousnumber);
 
-            console.log('#' + data.group + data.category + previousnumber);
+//            console.log('#' + data.group + data.category + previousnumber);
+//            console.log(nextfilm);
+//            console.log(previousfilm);
             
-
-            console.log(nextfilm);
-            console.log(previousfilm);
+            
             var decreaseandincrease;
             
             
             
             if (el.getAttribute('id') == data.group+"scrollright" && nextfilm != null) {
                 
-                console.log('add');
+//                console.log('add');
+                
                 decreaseandincrease = parseInt(filenumbers[0])+1;
                 
                 
