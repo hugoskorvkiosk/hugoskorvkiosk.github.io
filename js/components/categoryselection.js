@@ -35,7 +35,11 @@ AFRAME.registerComponent('categoryselection', {
             } else {
 
                 el.setAttribute('categoryselection', 'selected', 'true');
+                
+                
                 el.setAttribute('material', 'color', '#F15A24');
+                
+                
                 document.querySelector('#' + data.group + 'scrollleft').setAttribute('scrollfilmandtv','category',data.category);
                 document.querySelector('#' + data.group + 'scrollright').setAttribute('scrollfilmandtv','category',data.category);
 

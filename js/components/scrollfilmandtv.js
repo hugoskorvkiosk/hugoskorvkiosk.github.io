@@ -23,11 +23,6 @@ AFRAME.registerComponent('scrollfilmandtv', {
 
         this.el.addEventListener(data.listen, function () {
 
-
-        
-            
-           
-            
             
             var filenumbers = [];
 
@@ -40,14 +35,14 @@ AFRAME.registerComponent('scrollfilmandtv', {
                 filenumbers[i] = groupthumbimage.getAttribute('src').split(data.category)[1];
             }
 
-
-            var titletext = document.querySelector('#' + data.group + 'title');
-            var infotext = document.querySelector('#' + data.group + 'info');
-            var filmbox = document.querySelector('#large' + data.group + 'box');
-
+    
+            
             var nextnumber= parseInt(filenumbers[4]) + 1;
             var previousnumber= parseInt(filenumbers[0]) - 1;
 
+            console.log(filenumbers[4]);
+            console.log(filenumbers[0]);
+            
             var nextfilm = document.querySelector('#' + data.group + data.category + nextnumber);
             var previousfilm = document.querySelector('#' + data.group + data.category + previousnumber);
 
@@ -72,7 +67,7 @@ AFRAME.registerComponent('scrollfilmandtv', {
             }
             else{
                 
-                
+                return;
             }
 
 
@@ -82,6 +77,11 @@ AFRAME.registerComponent('scrollfilmandtv', {
                 document.querySelector('#' + data.group + 'thumb' + j).setAttribute('src', '#' + data.group + data.category + (decreaseandincrease+j));
 
             }
+            
+            
+                var titletext = document.querySelector('#' + data.group + 'title');
+            var infotext = document.querySelector('#' + data.group + 'info');
+            var filmbox = document.querySelector('#large' + data.group + 'box');
             
             filmbox.setAttribute('src','#' + data.group + data.category + (decreaseandincrease+2));
 
