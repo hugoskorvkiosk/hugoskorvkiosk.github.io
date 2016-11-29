@@ -1,12 +1,20 @@
 // Component to change to color on click.
 AFRAME.registerComponent('cursorover', {
 
+    
+  schema: {
+        color: {
+            default: '#242424'
+        },
+    },
 
     update: function () {
-
-
+        var data = this.data;
+        var el = this.el;
+        
         this.el.addEventListener('mouseenter', function () {
 
+            
 
             this.setAttribute('material', 'color', '#F15A24');
 
@@ -15,14 +23,13 @@ AFRAME.registerComponent('cursorover', {
         });
 
         this.el.addEventListener('mouseleave', function () {
+            
+          
+            
+            el.setAttribute('material', 'color', data.color);
 
-            if (this.classList.contains("leftanddown")) {
-                this.setAttribute('material', 'color', '#6F6F6F');
-            } else if(this.classList.contains("rightandup")) {
-                this.setAttribute('material', 'color', '#9F9F9F');
-            }
-            else{this.setAttribute('material', 'color', '#2D2D2D');}
-
+            
+            
 
         });
 

@@ -1,0 +1,32 @@
+<a-entity categoryselection="group:film;category:all" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:All;font:Open Sans;" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity categoryselection="group:film;category:comedy" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -3.41 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Comedy;font:Open Sans;" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity categoryselection="group:film;category:romance" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:5.9" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Romance;font:Open Sans;" position="1.48 -0.02 7.29" rotation="0 -172.46 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity categoryselection="group:film;category:animated" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:5.9" position="-0.06 -3.43 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Animated;font:Open Sans;" position="1.49 -0.02 7.33" rotation="0 -172.46 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity categoryselection="group:film;category:fantasy" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-1.64" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Fantasy;font:Open Sans;" position="0.45 -0.02 7.43" rotation="0 -175.3250853100319 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity categoryselection="group:film;category:horror" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-1.64" position="-0.06 -3.43 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Horror;font:Open Sans;" position="0.45 -0.02 7.43" rotation="0 -175.3250853100319 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity categoryselection="group:film;category:action" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-9.1" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Action;font:Open Sans;" position="-0.49 -0.02 7.44" rotation="0 173.60621192463944 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+
+<a-entity categoryselection="group:film;category:kids" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-9.1" position="-0.06 -3.43 -0.12" rotation="0 49.85 0" visible="true" material="color:#2D2D2D;shader:flat;side:double;transparent:true ;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:Kids;font:Open Sans;" position="-0.49 -0.02 7.44" rotation="0 173.60621192463944 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
