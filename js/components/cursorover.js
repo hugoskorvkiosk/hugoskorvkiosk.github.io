@@ -16,7 +16,7 @@ AFRAME.registerComponent('cursorover', {
 
             
 
-            this.setAttribute('material', 'color', '#F15A24');
+            el.setAttribute('material', 'color', '#F15A24');
 
 
 

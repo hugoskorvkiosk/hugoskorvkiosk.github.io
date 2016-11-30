@@ -1,0 +1,52 @@
+ <a-mixin id="bottommenu" material="color:#2D2D2D;shader:flat;side:double;transparent:false;opacity:1"></a-mixin>
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category1}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:{{thetastart}" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text1}};font:Open Sans;" position="2.36 -0.02 7.04" rotation="0 {{rotationy}} 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category2}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -3.41 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text2}};font:Open Sans;" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category3}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:5.9" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text3}};font:Open Sans;" position="1.48 -0.02 7.29" rotation="0 -172.46 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category4}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:5.9" position="-0.06 -3.43 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text4}};font:Open Sans;" position="1.49 -0.02 7.33" rotation="0 -172.46 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category5}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-1.64" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text5}};font:Open Sans;" position="0.45 -0.02 7.43" rotation="0 -175.3250853100319 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category6}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-1.64" position="-0.06 -3.43 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text6}};font:Open Sans;" position="0.45 -0.02 7.43" rotation="0 -175.3250853100319 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category7}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-9.1" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text7}};font:Open Sans;" position="-0.49 -0.02 7.44" rotation="0 173.60621192463944 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+
+<a-entity mixin="bottommenu" categoryselection="group:{{group}};category:{{category8}}" geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:-9.1" position="-0.06 -3.43 -0.12" rotation="0 49.85 0" visible="true">
+    <a-entity data-brackets-id="4975" material="color:#ffffff" text="text:{{text8}};font:Open Sans;" position="-0.49 -0.02 7.44" rotation="0 173.60621192463944 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<!--
+            <script id="nunjucksbottombuttonsfilm" type="text/x-nunjucks-template">
+        
+                <a-entity material="opacity:1" , template="src:scenes/bottombuttons.template; type: handlebars" data-group="film" 
+                data-category1="all"
+                 data-category2="comedy" 
+                data-category3="romance" 
+                data-category4="animated" 
+                data-category5="drama" 
+                data-category6="horror" 
+                data-category7="action" 
+                data-category8="kids" >
+                </a-entity>
+
+            </script>
+            
+-->
