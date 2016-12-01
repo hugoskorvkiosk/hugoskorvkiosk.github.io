@@ -4,7 +4,7 @@ AFRAME.registerComponent('cursorover', {
     
   schema: {
         color: {
-            default: '#242424'
+            default: 'black'
         },
     },
 

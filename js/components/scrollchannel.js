@@ -58,21 +58,17 @@ AFRAME.registerComponent('scrollchannel', {
             var firstchannelposy = thechanneltemplatescene.children[0].childNodes[0].getAttribute("position").y;
             var secondchannelposy = thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y;
             
-            console.log("is this stillworking?");
+    
             console.log( thechanneltemplatescene.children[1].childNodes[0].getAttribute("position").y);
 
 
             var distancetoscroll = parseFloat(secondchannelposy - firstchannelposy).toFixed(9);
-            console.log("distancetoscroll " + distancetoscroll);
 
             var lastchannelposy = thechanneltemplatescene.children[channelcount - 1].childNodes[0].getAttribute("position").y;
 
-
-
             var templateposy = document.querySelector('#thechanneltemplatescene').getAttribute("position").y;
+            
             var channelselectedposy = document.querySelector('#channelselectedindication').getAttribute("position").y;
-
-
 
             var heightofplane = thechanneltemplatescene.children[1].childNodes[0].getAttribute("geometry").height;
 
@@ -98,8 +94,6 @@ AFRAME.registerComponent('scrollchannel', {
 
             if (this.getAttribute("id") == "scrolldown") {
 
-
-
                 newpositiony = parseFloat(position.y) + parseFloat(distancetoscroll);
                 newpositiony = parseFloat(newpositiony).toPrecision(5);
                 console.log("scrolldown " + newpositiony);
@@ -124,6 +118,20 @@ AFRAME.registerComponent('scrollchannel', {
                 z: position.z
             };
 
+            
+            var previouschannelselected = document.querySelector(".previousentityselected").getAttribute("id");
+
+            console.log(previouschannelselected);
+
+            var lastChannelNumber = previouschannelselected[previouschannelselected.length - 1];
+         
+            var newtv = parseInt(parseInt(lastChannelNumber) + parseInt(addordecrease));
+
+            if(newtv === 0 || newtv === 10){
+                return;
+            }
+            
+            
             console.log(newpos);
             console.log(position);
 
@@ -131,16 +139,8 @@ AFRAME.registerComponent('scrollchannel', {
             document.querySelector('#thechanneltemplatescene').setAttribute('animation__scroll', 'from', position);
             data.target.emit(data.emit);
 
-            var previouschannelselected = document.querySelector(".previousentityselected").getAttribute("id");
-
-            console.log(previouschannelselected);
-
-            var lastChannelNumber = previouschannelselected[previouschannelselected.length - 1];
-
-
-            var newtv = parseInt(parseInt(lastChannelNumber) + parseInt(addordecrease));
-
-
+        
+                
             var newvidbox = parseInt(lastChannelNumber) + parseInt(addordecrease);
 
             console.log('#tv' + newtv);
@@ -148,17 +148,6 @@ AFRAME.registerComponent('scrollchannel', {
             var whichvidbox = newtv % 3;
 
             vidbox.setAttribute('src', '#vidbox' + whichvidbox);
-
-
-            //            if (newtv % 3 == 1) {
-            //                document.querySelector("#vidbox").setAttribute('src', '#vidbox3');
-            //            } else if (newtv % 3 == 2) {
-            //                document.querySelector("#vidbox").setAttribute('src', '#vidbox2');
-            //            } else {
-            //                document.querySelector("#vidbox").setAttribute('src', '#vidbox1');
-            //            }
-
-
 
 
             document.querySelector("#channelbox").setAttribute('src', '#bigtv' + newtv);
