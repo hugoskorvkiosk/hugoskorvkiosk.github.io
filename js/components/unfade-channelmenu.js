@@ -5,11 +5,19 @@ AFRAME.registerComponent('unfade-channelmenu', {
         },
         emit: {
             default: ''
+        },
+        active: {
+            type: 'boolean'   
         }
     },
 
     update: function () {
-       
+       var el = this.el;
+        var data = this.data;
+        
+        if(!data.active){
+            return;
+        }
 
 
         this.el.addEventListener('mouseleave', function () {
@@ -27,8 +35,6 @@ AFRAME.registerComponent('unfade-channelmenu', {
                      document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'true');
 
                 }
-
-
 
         });
 
