@@ -46,9 +46,9 @@ AFRAME.registerComponent('channelselection', {
 
                 vidbox.setAttribute('src', '#vidbox' + whichvidbox);
 
+                document.querySelector('.previousentityselected').setAttribute('id', 'channelplane' +planeindex);
 
             } else {
-
 
                 console.log("b4 switch");
 

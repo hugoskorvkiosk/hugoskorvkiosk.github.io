@@ -24,6 +24,8 @@ AFRAME.registerComponent('playoption', {
             document.querySelector('#vidbox').setAttribute('src',currentoption);
 
              document.querySelector("#curvedbg").emit('rotatetoscreen');
+             document.querySelector("#bgtitlemenuindication").emit('movetobutton1');
+        
             
              document.querySelector('#channelbox').setAttribute('visible','false');
 

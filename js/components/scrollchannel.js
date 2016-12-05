@@ -17,23 +17,10 @@ AFRAME.registerComponent('scrollchannel', {
     update: function () {
         var data = this.data;
 
-        //        console.log(document.querySelector('#thescene').getAttribute('material').opactiy);
-
-
-
-
-        //        var firstchannel = channelplanes[0];
-        //        var lastchannel = channelplanes[channelcount];
-
 
         var position;
         var newpositiony;
         this.el.addEventListener(data.listen, function () {
-
-            //                position = thechanneltemplatescene.children[1].childNodes[0].getAttribute('position');
-            //                console.log(position);        
-
-            //                scrolldownanimation.setAttribute('from', position.x + ' ' + position.y + ' ' + position.z);
 
 
             document.querySelector('#channelbox').setAttribute('visible','true');
@@ -73,9 +60,6 @@ AFRAME.registerComponent('scrollchannel', {
             var heightofplane = thechanneltemplatescene.children[1].childNodes[0].getAttribute("geometry").height;
 
             var heightoftemplate = parseFloat(lastchannelposy - firstchannelposy);
-
-
-            // TODO: Om toppen av thechanneltemplateposition är nära channelselectedposy - return; 
 
             var topoftemplateposy = templateposy + heightoftemplate;
 
@@ -157,90 +141,6 @@ AFRAME.registerComponent('scrollchannel', {
 
             document.querySelector(".previousentityselected").setAttribute("id", "channel" + newtv);
 
-            //            position = document.querySelector('#thechanneltemplatescene').getAttribute('animation', 'from');
-            //
-
-
-            //            document.querySelector('#thechanneltemplatescene').emit(data.emit);
-
-
-
-
-
-
-            //            
-            //             document.querySelector('#thechanneltemplatescene').setAttribute('animation', 'from', newpos);
-
-
-
-            //            console.log(document.querySelector('#channelbox').childNodes[0]);
-            //
-            //            document.querySelector('#channelbox').childNodes[0].setAttribute('from', '0 0 0');
-            //
-            //            document.querySelector('#channelbox').childNodes[0].setAttribute('to', '0 2 0');
-            //
-            //            console.log(document.querySelector('#channelbox').childNodes[0].getAttribute('to'));
-            //
-            //            document.querySelector('#channelbox').emit('scroll');
-
-
-
-
-            //            document.querySelector('#scrollanimation').setAttribute( 'from', '0 0 0');
-            //
-            //            document.querySelector('#scrollanimation').setAttribute( 'to', '0 2 0');
-
-
-
-            //            document.querySelector('#thechanneltemplatescene').emit('beginscroll');
-
-
-            //
-            //
-            //                console.log(newpositiony);
-            //            
-            //                scrolldownanimation.setAttribute('from', position.x + ' ' + position.y + ' ' + position.z);
-            //            
-            //                console.log(scrolldownanimation.getAttribute('from'));
-            //            
-            //                scrolldownanimation.setAttribute('to', position.x + ' ' + newpositiony + ' ' + position.z);
-            //            
-            //                scrolldownanimation.setAttribute('to',  position.x + ' ' + newpositiony + ' ' + position.z );
-            //            
-            //                console.log(scrolldownanimation.getAttribute('to'));
-            //            
-            //                thechanneltemplate.emit("scroll");
-            //
-            //                console.log(thechanneltemplate.getAttribute('position'));
-
-            //            
-            //                position = thechanneltemplatescene.getAttribute('position');
-            //                console.log(position);
-            //                scrolldownanimation.setAttribute('from', position.x + ' ' + position.y + ' ' + position.z);
-
-            // console.log(menuplanes);
-
-
-
-
-            //        for (var i = 0; i < thechanneltemplatescene.children[1].childNodes.length; i++) {
-            //
-            //            
-            //            currentposition = thechanneltemplatescene.children[1].childNodes[i].getAttribute("position");
-            //            console.log(currentposition.y);
-            //            
-
-            //            
-            //
-            //        }
-
-
-
-            // for (i = 0; i < channelsplane.length; i++) {
-            //
-            //     console.log('b4 emit');
-            //     channelsplane[i].emit('scroll');
-            // }
 
 
         });

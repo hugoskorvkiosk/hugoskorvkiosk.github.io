@@ -30,14 +30,12 @@ AFRAME.registerComponent('categoryselection', {
             if (data.selected == 'true') {
 
                 el.setAttribute('categoryselection', 'selected', 'false');
-                el.setAttribute('material', 'color', '#2D2D2D');
+                el.setAttribute('material', 'color', 'black');
 
             } else {
 
                 el.setAttribute('categoryselection', 'selected', 'true');
-                
-                
-                el.setAttribute('material', 'color', '#F15A24');
+//                el.setAttribute('material', 'color', '#F15A24');
                 
                 
                 document.querySelector('#' + data.group + 'scrollleft').setAttribute('scrollfilmandtv','category',data.category);
@@ -45,9 +43,11 @@ AFRAME.registerComponent('categoryselection', {
 
 
                 for (var i = 0; i < 5; i++) {
-                    document.querySelector('#' + data.group + 'thumb' + i).setAttribute('src', '#film' + data.category + (i + 1));
+                    document.querySelector('#' + data.group + 'thumb' + i).setAttribute('src', '#' +data.group + data.category + (i + 1));
                 }
-                document.querySelector('#large' + data.group + 'box').setAttribute('src', '#film' + data.category + 3);
+                
+                
+                document.querySelector('#large' + data.group + 'box').setAttribute('src', '#' + data.group + data.category + 3);
                 document.querySelector('#' + data.group + 'title').setAttribute('text', 'text', data.category + 3);
                 document.querySelector('#' + data.group + 'info').setAttribute('text', 'text', data.category + 3 + ' info');
 
@@ -78,7 +78,7 @@ AFRAME.registerComponent('categoryselection', {
                 return;
             } else {
 
-                el.setAttribute('material', 'color', '#2D2D2D');
+                el.setAttribute('material', 'color', 'black');
             }
         });
 

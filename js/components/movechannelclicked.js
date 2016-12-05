@@ -28,22 +28,6 @@ AFRAME.registerComponent('movechannelclicked', {
         var channelposition;
         this.el.addEventListener(data.listen, function () {
 
-
-
-            // position på channel: 2.8
-            // ultimat position: 2.4
-            // 2.4 - position på channel = movement
-            // movement = -0.4
-            // position på template= 0.2
-            // Vi vill  till -0.2 med template
-            // oldpositiontemplate + movement
-
-            //-0.2
-            // vi vill till -0.6
-            // 
-
-
-
             position = document.querySelector('#thechanneltemplatescene').getAttribute('position');
 
 

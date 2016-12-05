@@ -6,13 +6,16 @@ AFRAME.registerComponent('webtvchannelselect', {
         listen: {
             default: 'click'
         },
-        target: {
-            type: 'selector'
+        group: {
+            default: 'webtv'
         },
         channel: {
             default: '1'
-        }
-      
+        },
+        category: {
+            default: 'entertainment'
+        },
+
     },
 
     update: function () {
@@ -21,25 +24,25 @@ AFRAME.registerComponent('webtvchannelselect', {
 
         this.el.addEventListener(data.listen, function () {
 
-
- 
-            
-          
-             for (var j = 0; j < 5; j++) {
-                
-                document.querySelector('#' + data.group + 'thumb' + j).setAttribute('src', '#' + data.group + categories[j] + filmindex);
-
-            }
-            
-            
             var titletext = document.querySelector('#' + data.group + 'title');
             var infotext = document.querySelector('#' + data.group + 'info');
             var filmbox = document.querySelector('#large' + data.group + 'box');
-            
-            filmbox.setAttribute('src','#' + data.group + categories[2] +filmindex);
-            titletext.setAttribute('text', 'text', data.group + categories[2] +filmindex);
-            infotext.setAttribute('text', 'text', data.group + categories[2] + filmindex+ ' info');
-          
+
+
+            for (var j = 0; j < 5; j++) {
+
+                document.querySelector('#' + data.group + 'thumb' + j).setAttribute('src', '#' + data.group + data.category + [j + 1] + data.channel);
+
+
+            }
+
+
+
+
+            filmbox.setAttribute('src', '#' + data.group + data.category + 3 + data.channel);
+            titletext.setAttribute('text', 'text', data.channel + data.group + data.category + 3);
+            infotext.setAttribute('text', 'text', data.channel + data.group + data.category + 3 + ' info');
+
 
         });
 
