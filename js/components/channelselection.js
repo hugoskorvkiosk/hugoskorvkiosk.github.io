@@ -27,6 +27,7 @@ AFRAME.registerComponent('channelselection', {
         this.el.addEventListener('click', function () {
 
 
+
             var channelormenu = this.getAttribute('id').split('plane')[0];
             var planeindex = this.getAttribute('id').split('plane')[1];
             var whichvidbox = planeindex % 3;
@@ -40,7 +41,7 @@ AFRAME.registerComponent('channelselection', {
 
             if (channelormenu == "channel") {
 
-
+                document.querySelector('#channelbox').setAttribute('visible', 'true');
                 channelimage.setAttribute('src', '#bigtv' + planeindex);
 
                 vidbox.setAttribute('src', '#vidbox' + whichvidbox);
@@ -52,7 +53,7 @@ AFRAME.registerComponent('channelselection', {
                 console.log("b4 switch");
 
                 planeindex = parseInt(planeindex);
-                
+
                 switch (planeindex) {
                 case 1:
                     document.querySelector("#curvedbg").emit('rotatetoscreen');
@@ -79,7 +80,7 @@ AFRAME.registerComponent('channelselection', {
 
         });
 
-      
+
     },
 
 });

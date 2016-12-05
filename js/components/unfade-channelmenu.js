@@ -7,54 +7,67 @@ AFRAME.registerComponent('unfade-channelmenu', {
             default: ''
         },
         active: {
-            type: 'boolean'   
+            type: 'boolean'
         }
     },
 
     update: function () {
-       var el = this.el;
+        var el = this.el;
         var data = this.data;
-        
-        if(!data.active){
-            return;
-        }
+
 
 
         this.el.addEventListener('mouseleave', function () {
 
 
-            console.log("mouseleave");
+            if(document.querySelector('#vidbox').getAttribute('unfade-channelmenu').active){
 
-            var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
+                console.log("active true");
+
+                console.log(document.querySelector('#vidbox').getAttribute('unfade-channelmenu').active);
+                console.log("mouseleave");
+
+                var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
 
 
                 console.log("opacity is not 1");
 
                 for (var i = 0; i < fadewhenvidobjects.length; i++) {
 
-                     document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'true');
+                    document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'true');
 
                 }
+            }
+
+
 
         });
 
-        
-           this.el.addEventListener('mouseenter', function () {
 
-            console.log("mouseenter");
+        this.el.addEventListener('mouseenter', function () {
+
+
+            if(document.querySelector('#vidbox').getAttribute('unfade-channelmenu').active){
+
+
+                console.log(document.querySelector('#vidbox').getAttribute('unfade-channelmenu').active);
+                console.log("mouseenter");
 
 
                 var fadewhenvidobjects = document.querySelectorAll('.fadewhenvid');
 
 
                 console.log("fade");
-                
+
                 for (var i = 0; i < fadewhenvidobjects.length; i++) {
 
 
-                  document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'false');
-                
+                    document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'false');
+
                 }
+
+            }
+
 
 
         });

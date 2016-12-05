@@ -29,16 +29,20 @@ AFRAME.registerComponent('settingsselection', {
 
         this.el.addEventListener(data.listen, function () {
 
-            
+             var newopacity;
             if(data.active){
                 
-                console.log("is active");
-                el.setAttribute('cursorover','color','#BE471C');
+                console.log("deactivating");
+                el.setAttribute('cursorover','color','#6F6F6F');
+                newopacity = '1';
                 
             }else{
-            
                 
-                el.setAttribute('cursorover','color','#6F6F6F');
+                console.log("activating");
+                
+                el.setAttribute('cursorover','color','#A43D18');
+                 newopacity = '0.55';
+               
             }
             
             
@@ -46,20 +50,17 @@ AFRAME.registerComponent('settingsselection', {
             
             switch (data.setting){
                 case "fade": 
+                       document.querySelector('#vidbox').setAttribute('unfade-channelmenu','active',!data.active);
                     break;
                 case "transparent": 
+                    document.querySelector('#curvedbg').setAttribute('material','opacity',newopacity);
                     break; 
                 case "hide": 
                     break;
                 
             }
             
-              if(data.setting == "fade"){
-                  
-                  document.querySelector('#vidbox').setAttribute('unfade-channelmenu','active',!data.active);
-              
-              }
-          
+            
 
         });
 

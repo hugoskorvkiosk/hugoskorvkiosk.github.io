@@ -36,8 +36,8 @@ AFRAME.registerComponent('scrollchannel', {
             //                scrolldownanimation.setAttribute('from', position.x + ' ' + position.y + ' ' + position.z);
 
 
-
-            //            
+            document.querySelector('#channelbox').setAttribute('visible','true');
+                
 
 
             var thechanneltemplatescene = document.querySelector('#thechanneltemplatescene');
