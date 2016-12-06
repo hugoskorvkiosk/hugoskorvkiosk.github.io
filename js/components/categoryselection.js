@@ -22,7 +22,6 @@ AFRAME.registerComponent('categoryselection', {
         var el = this.el;
 
 
-
         this.el.addEventListener(data.listen, function () {
 
             console.log("category listen");
@@ -51,36 +50,41 @@ AFRAME.registerComponent('categoryselection', {
                 document.querySelector('#' + data.group + 'title').setAttribute('text', 'text', data.category + 3);
                 document.querySelector('#' + data.group + 'info').setAttribute('text', 'text', data.category + 3 + ' info');
 
-
-
             }
 
         });
 
-        this.el.addEventListener('mouseenter', function () {
-
-
-            if (data.selected == 'true') {
-
-                el.setAttribute('material', 'color', '#F14000');
-            } else {
-
-                el.setAttribute('material', 'color', '#F15A24');
-            }
-
-        });
-
-        this.el.addEventListener('mouseleave', function () {
-
-            if (data.selected == 'true') {
-                el.setAttribute('material', 'color', '#F15A24');
-
-                return;
-            } else {
-
-                el.setAttribute('material', 'color', 'black');
-            }
-        });
+//        this.el.addEventListener('mouseenter', function () {
+//
+//
+////            if (data.selected == 'true') {
+////
+////                el.setAttribute('material', 'color', '#F14000');
+////            } else {
+////
+////                el.setAttribute('material', 'color', '#F15A24');
+////            }
+//            
+//            el.setAttribute('material', 'color', '#F15A24');
+//            
+//
+//        });
+//
+//        this.el.addEventListener('mouseleave', function () {
+//
+////            if (data.selected == 'true') {
+////                el.setAttribute('material', 'color', '#F15A24');
+////
+////                return;
+////            } else {
+////
+////                el.setAttribute('material', 'color', 'black');
+////            }
+//            
+//            el.setAttribute('material', 'color', 'black');
+//            
+//            
+//        });
 
 
     },

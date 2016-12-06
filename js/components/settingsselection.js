@@ -50,6 +50,8 @@ AFRAME.registerComponent('settingsselection', {
             switch (data.setting) {
             case "fade":
                 document.querySelector('#vidbox').setAttribute('unfade-channelmenu', 'active', !data.active);
+                document.querySelector('#settinghidechannels').setAttribute('material', 'color', '#6F6F6F');
+                document.querySelector('#settinghidechannels').setAttribute('settingsselection', 'active', false);
                 break;
             case "transparent":
                 document.querySelector('#curvedbg').setAttribute('material', 'opacity', newbgopacity);
@@ -57,7 +59,10 @@ AFRAME.registerComponent('settingsselection', {
             case "hide":
                 for (var i = 0; i < fadewhenvidobjects.length; i++) {
                     document.querySelectorAll('.fadewhenvid')[i].setAttribute('visible', 'false');
-                }
+                    }
+                    document.querySelector('#vidbox').setAttribute('unfade-channelmenu', 'active', false);
+                    document.querySelector('#settingfadechannels').setAttribute('material', 'color', '#6F6F6F');
+                    document.querySelector('#settingfadechannels').setAttribute('settingsselection', 'active', false);
                 break;
 
             }

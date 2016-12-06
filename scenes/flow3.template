@@ -1,0 +1,56 @@
+<a-entity class="tvflowprograms film"  geometry="primitive:plane;height:0.44;width:1.97" position="-1 1.23 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program3;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity class="tvflowprograms weather" geometry="primitive:plane;height:0.44;width:1.97" position="1 1.23 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program4;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity class="tvflowprograms kids"  geometry="primitive:plane;height:0.44;width:1.97" position="-1 0.53 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program5;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity  class="tvflowprograms weather"  geometry="primitive:plane;height:0.44;width:1.97" position="1 0.53 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program6;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity class="tvflowprograms entertainment"  geometry="primitive:plane;height:0.44;width:1.97" position="-1 -0.23 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program7;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity class="tvflowprograms film"  geometry="primitive:plane;height:0.44;width:1.97" position="1 -0.23 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program8;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity class="tvflowprograms film"  geometry="primitive:plane;height:0.44;width:1.97" position="-1 -0.93 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program9;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity  class="tvflowprograms sports" geometry="primitive:plane;height:0.44;width:1.97" position="1 -0.93 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program10;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity class="tvflowprograms kids" geometry="primitive:plane;height:0.44;width:1.97" position="-1 -1.63 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program11;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+<a-entity  class="tvflowprograms sports" geometry="primitive:plane;height:0.44;width:1.97" position="1 -1.63 0.03" visible="true" material="color:black;shader:flat;side:double;transparent:true;opacity:0.8" scale="1 1 1">
+    <a-entity data-brackets-id="15100" material="color:#ffffff" text="text:Program12;font:open sans;size:0.6" position="-0.49 0 0.13" rotation="0 0 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
+</a-entity>
+
+
+
+
+<a-entity id="flowtime" position="-0.03 -0.3 0">
+
+    <a-entity data-brackets-id="13073" material="color:#ffffff" text="text:09:00;size:0.28" position="-2 2.2 0" rotation="0 0 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+  
+    
+    <a-entity data-brackets-id="13073" material="color:#ffffff" text="text:10:00;size:0.28" position="-0.2 2.2 0" rotation="0 0 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+    
+    
+    <a-entity data-brackets-id="13073" material="color:#ffffff" text="text:11:00;size:0.28" position="1.6 2.2 0" rotation="0 0 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+
+        
+</a-entity>
+
