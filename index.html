@@ -59,7 +59,7 @@
 <body>
 
 
-    <a-scene vr-mode-ui="enabled: true" stats antialias="true">
+    <a-scene vr-mode-ui="enabled: true" stats antialias="false">
 
         <a-assets>
 
@@ -109,7 +109,7 @@
             <img id="menuicontoday" src="images/icontoday.png">
             <img id="menuicontomorrow" src="images/icontomorrow.png">
             <img id="menuiconcalendar" src="images/iconcalendar.png">
-            <img id="menuiconnew" src="images/iconnew.png.png">
+            <img id="menuiconnew" src="images/iconnew.png">
             <img id="menuicontop" src="images/icontop.png">
             <img id="menuiconwatched" src="images/iconwatched.png">
             <img id="menuicondownloaded" src="images/icondownloaded.png">
@@ -416,7 +416,7 @@
         <a-circle id="floor-2" radius="5" material="color:#000000;opacity:0.76" geometry="primitive:circle;radius:5" position="-0.24 -0.86 3.2" rotation="-90 0 0" scale="1 1 1" visible="true"></a-circle>
 
 
-        <a-entity id="curvedbg" mixin="bgmixin" geometry="height:5.15;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0" position="-0.24 2.37 3.72" rotation="0 73 0" visible="true" animation__rotatetoscreen="property:rotation; startEvents: rotatetoscreen; to:0 73 0; dur:700" animation__rotatetofilm="property:rotation; startEvents: rotatetofilm; to:0 160 0; dur:700" animation__rotatetotvflow="property:rotation; startEvents: rotatetotvflow; to:0 230 0; dur:700" animation__rotatetowebtv="property:rotation; startEvents: rotatetowebtv; to:0 300 0; dur:700" animation__rotatetosettings="property:rotation; startEvents: rotatetosettings; to:0 346 0; dur:700">
+        <a-entity id="curvedbg" mixin="bgmixin" geometry="height:5.15;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0" position="-0.24 2.37 3.72" rotation="0 73 0" visible="true" animation__rotatetoscreen="property:rotation; startEvents: rotatetoscreen; to:0 73 0; dur:700" animation__rotatetofilm="property:rotation; startEvents: rotatetofilm; to:0 161.5 0; dur:700" animation__rotatetotvflow="property:rotation; startEvents: rotatetotvflow; to:0 -129.5 0; dur:700" animation__rotatetowebtv="property:rotation; startEvents: rotatetowebtv; to:0 -58.33 0; dur:700" animation__rotatetosettings="property:rotation; startEvents: rotatetosettings; to:0 -6.30 0; dur:700">
 
 
             <a-entity mixin="groupbackground" id="channelbackground" class="fadewhenvid" geometry="height:0.52;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:2.1;openEnded:true;thetaStart:81.46" position="-2.68 0.06 2.26" rotation="0 48.67 0" visible="true" material=""></a-entity>
@@ -689,7 +689,7 @@
 
                     <a-entity material="color:#242424" geometry="primitive:plane;height:4.6;width:4.24" position="5.71 0.73 4.71" rotation="0 -124.9 0">
 
-                        <a-entity id="flowcontentcontainer" template="src: scenes/flow1.template">
+                        <a-entity id="flowcontentcontainer" template="src: scenes/flow0.template">
                         </a-entity>
 
 
@@ -801,11 +801,11 @@
                 <a-entity id="thumbnailwebtv" position="0.32 -0.19 -0.51" rotation="0 2.8647889756541165 0" visible="true">
 
 
-                    <a-curvedimage id="webtvthumb4" src="#program5" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="4.75 -1.14 2.84" rotation="0 52.71 0" visible="true" geometry=""></a-curvedimage>
-                    <a-curvedimage id="webtvthumb3" src="#program4" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="4.43 -1.14 3.41" rotation="0 52.71 0" visible="true" geometry=""></a-curvedimage>
-                    <a-curvedimage id="webtvthumb2" src="#program3" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="4.16 -1.14 3.8" rotation="0 46.9825392007275 0" visible="true" geometry=""></a-curvedimage>
-                    <a-curvedimage id="webtvthumb1" src="#program2" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="3.91 -1.14 4.07" rotation="0 38.38817227376516 0" visible="true" geometry=""></a-curvedimage>
-                    <a-curvedimage id="webtvthumb0" src="#program1" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="3.68 -1.14 4.29" rotation="0 28.07 0" visible="true" geometry=""></a-curvedimage>
+                    <a-curvedimage id="webtvthumb4" thumbhoverandclick="group:webtv" src="#program5" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="4.75 -1.14 2.84" rotation="0 52.71 0" visible="true" geometry=""></a-curvedimage>
+                    <a-curvedimage id="webtvthumb3" thumbhoverandclick="group:webtv" src="#program4" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="4.43 -1.14 3.41" rotation="0 52.71 0" visible="true" geometry=""></a-curvedimage>
+                    <a-curvedimage id="webtvthumb2" thumbhoverandclick="group:webtv" src="#program3" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="4.16 -1.14 3.8" rotation="0 46.9825392007275 0" visible="true" geometry=""></a-curvedimage>
+                    <a-curvedimage id="webtvthumb1" thumbhoverandclick="group:webtv" src="#program2" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="3.91 -1.14 4.07" rotation="0 38.38817227376516 0" visible="true" geometry=""></a-curvedimage>
+                    <a-curvedimage id="webtvthumb0" thumbhoverandclick="group:webtv" src="#program1" material="shader:flat;side:double;transparent:true" height="0.8" radius="2" segments-radial="48" theta-length="15" theta-start="0" position="3.68 -1.14 4.29" rotation="0 28.07 0" visible="true" geometry=""></a-curvedimage>
 
 
                 </a-entity>
@@ -874,7 +874,7 @@
         <a-entity position="0 2.4 4" id="camera" camera look-controls>
 
 
-            <a-entity cursor="fuse: true; fuseTimeout: 600" position="0 0 -0.1" geometry="primitive: ring; radiusOuter: 0.0017; radiusInner: 0.0013;" material="color: white; shader: flat">
+            <a-entity raycaster cursor="fuse: true; fuseTimeout: 600" position="0 0 -0.1" geometry="primitive: ring; radiusOuter: 0.0017; radiusInner: 0.0013;" material="color: white; shader: flat">
                 <a-animation dur="600" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
                 <a-animation dur="600" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
             </a-entity>

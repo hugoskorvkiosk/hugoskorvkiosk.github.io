@@ -21,31 +21,29 @@ AFRAME.registerComponent('changetvflow', {
             var increase = (parseInt(currentflowtemplatenumber)+1) %3;
             var decrease = (parseInt(currentflowtemplatenumber)-1) %3;
             
-              if(decrease == 0){
-              
-                decrease = 1;
-              }
             
-            console.log("increase " + increase + "  decrease " + decrease);
+            if(decrease == -1){
+                decrease = 0;
+            }
             
 
-            if (el.getAttribute('id') == "scrollleftchannelflow" && currentflowtemplatenumber != "1") {
+            if (el.getAttribute('id') == "scrollleftchannelflow") {
 
               
             document.querySelector('#flowcontentcontainer').setAttribute('template', 'src', "scenes/"+"flow"+decrease+".template");
               
            
 
-            } else if (el.getAttribute('id') == "scrollrightchannelflow" && currentflowtemplatenumber != "3") {
+            } else if (el.getAttribute('id') == "scrollrightchannelflow" ) {
             
    
             document.querySelector('#flowcontentcontainer').setAttribute('template','src',"scenes/"+"flow"+increase+".template");
               
 
-            } else if(el.getAttribute('id') == "scrollupchannelflow" && currentflowtemplatenumber != "1") {
+            } else if(el.getAttribute('id') == "scrollupchannelflow" ) {
                 document.querySelector('#flowcontentcontainer').setAttribute('template','src',"scenes/"+"flow"+decrease+".template");
             }
-            else if(el.getAttribute('id') == "scrolldownchannelflow" && currentflowtemplatenumber != "3"){
+            else if(el.getAttribute('id') == "scrolldownchannelflow" ){
                  document.querySelector('#flowcontentcontainer').setAttribute('template','src',"scenes/"+"flow"+increase+".template");
             }
 
