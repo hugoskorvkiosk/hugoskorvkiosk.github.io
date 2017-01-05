@@ -7,7 +7,7 @@
     <a-image cursorover="color:#9F9F9F" id="scrollup" class="scrollbuttons fadewhenvid" scrollchannel="listen:click;target:#thechanneltemplatescene" position="0.33 -0.21 0.05" geometry="primitive:plane;width:0.1;height:0.15" material="color:#9F9F9F;src:#iconup;shader:flat;side:double;transparent:true" rotation="0 0 0" scale="1 1 1" visible="true" eventset__1="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
     </a-image>
     
-    <a-image cursorover="color:#6F6F6F" animationdone="" id="scrolldown" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.33 -0.39 0.05" geometry="primitive:plane;width: 0.1; height:0.15" material="color:#6F6F6F; src: #icondown" eventset__4="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
+    <a-image cursorover="color:#9F9F9F" animationdone="" id="scrolldown" class="scrollbuttons fadewhenvid" scrollchannel="listen: click; target: #thechanneltemplatescene" position="0.33 -0.39 0.05" geometry="primitive:plane;width: 0.1; height:0.15" material="color:#9F9F9F; src: #icondown" eventset__4="_event: click; _target: #scrolldown; visible: true" animation__fade="property:material.opacity; startEvents: fade; to:0; dur:1000" animation__unfade="property:material.opacity; startEvents: unfade; to:1; dur:1000">
     </a-image>
 
 
