@@ -308,8 +308,8 @@
             <a-mixin id="bgmixin" material="color:black;shader:flat;side:double;transparent:false;opacity:0.55"></a-mixin>
             <a-mixin id="groupbackground" position="-0.02 0.16 -0.04" geometry="height:4.2" material="color:#0F0F0F;shader:flat;side:double;transparent:true;opacity:0.85"></a-mixin>
             <a-mixin id="topmenu" material="color:#242424;transparent:false;opacity:1;flatShading:true;shader:flat;side:double"></a-mixin>
-            <a-mixin id="secondtopmenupos" position="0 -0.41 0" rotation="0 4.52 0"></a-mixin>
-            <a-mixin id="secondtopmenu" material="color:black;shader:flat;side:double;transparent:true;opacity:0.65"></a-mixin>
+            <a-mixin id="secondtopmenupos" position="0 -1.67 0" rotation="0 11.60 0"></a-mixin>
+            <a-mixin id="secondtopmenu" material="color:black;shader:flat;side:double;transparent:true;opacity:0.85"></a-mixin>
             <a-mixin id="groupcontainer" position="0 0.17 0"></a-mixin>
             <a-mixin id="bottommenu" material="color:black;shader:flat;side:double;transparent:false;opacity:0.65"></a-mixin>
             <a-mixin id="bottommenucontainer" position="-1.11 1.4 -0.68"></a-mixin>
@@ -447,7 +447,7 @@
             <a-entity id="filmcontainer" rotation="0 -40 0" mixin="groupcontainer" material="transparent:true;">
 
 
-              <a-entity id="filmbackground" mixin="groupbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:44;openEnded:true;thetaStart:-14;height:5.5" rotation="0 48.73 0" visible="true" position="-0.02 -0.2 -0.04" material=""></a-entity>
+              <a-entity id="filmbackground" mixin="groupbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:38.64;openEnded:true;thetaStart:-12.08;height:5.5" rotation="0 48.73 0" visible="true" position="-0.02 -0.2 -0.04" material=""></a-entity>
 
                 <a-entity id="topfilmmenucontainer" mixin="secondtopmenupos">
 
@@ -470,7 +470,7 @@
                     <a-entity material="color:white" text="text:Top;size:0.25" position="7.08 1.7 2.53" rotation="0 -115.8 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     <a-entity material="color:white" text="text:Downloaded;size:0.25" position="7.18 0.95 2.28" rotation="0 -114.01860123103383 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                     
-                    <a-entity material="color:#F15A24" text="text:Film;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33184154338863 0" visible="true"></a-entity>
+                    <a-entity material="color:#F15A24" text="text:Film;size:0.25" position="6.41 5.18 3.78" rotation="0 -124.33184154338863 0" visible="true"></a-entity>
 
                 </a-entity>
 
@@ -530,7 +530,7 @@
 
                 </a-entity>
 
-                <a-entity id="filmtopcontainer" position="0 0.20 0" rotation="0 -1.88 0">
+                <a-entity id="filmtopcontainer" position="0 0.20 0" rotation="0 1.72 0">
 
                     <a-curvedimage id="largefilmbox" height="2" radius="7.7" segments-radial="48" theta-length="12.38" theta-start="0" position="-0.01 1.17 -0.26" rotation="0 55.58 0" visible="true" material="shader:flat;side:double;transparent:true ;opacity:0.8" src="#filmall3"></a-curvedimage>
                     <a-entity id="filmtitle" material="color:#F15A24" text="text:Flaskpost;size:0.4" position="6.13 1.85 4.24" rotation="0 -132.93 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
