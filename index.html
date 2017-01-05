@@ -7,12 +7,12 @@
     <meta name="description" content="A-frame web TV platform">
 
 
-<!--    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.3.2.js"></script>-->
-<!--    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.4.0.js"></script>-->
-            <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.js"></script>
-<!--        <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.js"></script>-->
-<!--    <script src="aframe-v0.3.2.js"></script>-->
- 
+    <!--    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.3.2.js"></script>-->
+    <!--    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.4.0.js"></script>-->
+    <!--            <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.js"></script>-->
+    <!--        <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.js"></script>-->
+    <script src="aframe-v0.3.2.js"></script>
+
 
     <!--    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.6.1/dist/aframe-extras.js"></script>-->
 
@@ -306,31 +306,43 @@
 
             <a-mixin id="menuitemselect" attribute="scale" begin="menuitemselect" to="1.5 1.5 1.5" dur="500"></a-mixin>
             <a-mixin id="bgmixin" material="color:black;shader:flat;side:double;transparent:false;opacity:0.55"></a-mixin>
-            <a-mixin id="groupbackground" position="-0.02 0.16 -0.04" geometry="height:4.2" material="color:#0F0F0F;shader:flat;side:double;transparent:true;opacity:0.85"></a-mixin>
+            <a-mixin id="groupbackground" position="-0.02 -0.1 -0.04" rotation="0 48.73 0" geometry="height:4.2" material="color:#0F0F0F;shader:flat;side:double;transparent:true;opacity:0.85"></a-mixin>
             <a-mixin id="topmenu" material="color:#242424;transparent:false;opacity:1;flatShading:true;shader:flat;side:double"></a-mixin>
-            <a-mixin id="secondtopmenupos" position="0 -1.67 0" rotation="0 11.60 0"></a-mixin>
-            <a-mixin id="secondtopmenu" material="color:black;shader:flat;side:double;transparent:true;opacity:0.85"></a-mixin>
+
+            <a-mixin id="secondtopmenucontainer" position="0 -0.6 0" rotation="0 11.05 0"></a-mixin>
+            <a-mixin id="secondtopmenu" material="color:black;shader:flat;side:double;transparent:true;opacity:0.85" rotation="0 49.85 0"></a-mixin>
+
+            <a-mixin id="secondtopmenuitem1" position="-0.09 2.5 -0.24"></a-mixin>
+            <a-mixin id="secondtopmenuitem2" position="-0.09 1.74 -0.24"></a-mixin>
+            <a-mixin id="secondtopmenuitem3" position="-0.09 0.98 -0.24"></a-mixin>
+            <a-mixin id="secondtopmenuindication" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" position="-0.63 2.18 -0.75" rotation="0 67.04 0" visible="true" scale="1.1 1.1 1.1"></a-mixin>
+
+            <a-mixin id="secondtopmenuitemtext1" position="7.09 2.45 2.52" rotation="0 -114.6 0" scale="0.5 0.5 0.5"></a-mixin>
+            <a-mixin id="secondtopmenuitemtext2" position="7.08 1.7 2.53" rotation="0 -115.8 0" scale="0.5 0.5 0.5"></a-mixin>
+            <a-mixin id="secondtopmenuitemtext3" position="7.18 0.95 2.28" rotation="0 -114.02 0" scale="0.5 0.5 0.5"></a-mixin>
+
+
             <a-mixin id="groupcontainer" position="0 0.17 0"></a-mixin>
             <a-mixin id="bottommenu" material="color:black;shader:flat;side:double;transparent:false;opacity:0.65"></a-mixin>
             <a-mixin id="bottommenucontainer" position="-1.11 1.4 -0.68"></a-mixin>
-            <a-mixin id="secondtopmenuindication" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8"></a-mixin>
+
             <a-mixin id="settingsplane" material="color:#0F0F0F;shader:flat;side:double;transparent:false;opacity:0.85"></a-mixin>
 
 
 
         </a-assets>
 
-        
+
 
         <a-entity id="curvedbgtitle" class="fadewhenvid" mixin="bgmixin" geometry="height:0.7;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:310;openEnded:true;thetaStart:130" position="-0.24 5.38 3.72" rotation="0 73.34 0" visible="true">
         </a-entity>
-        
+
 
         <a-entity id="topmenucontainer" position="-0.27 5.45 3.71" rotation="0 123.186 0" visible="true">
-            
-            
-          
-<!--
+
+
+
+            <!--
             
             <a-curvedimage id="screenicon"  visible="true" material="shader:flat;side:double;transparent:true;opacity:1" src="#topmenuiconscreen" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="20.26" position="3.3 -0.03 -3.7" rotation="0 24.64 0" scale="0.4 0.6 1">
             </a-curvedimage>  
@@ -348,37 +360,37 @@
             </a-curvedimage>  
             
 -->
-        
+
 
 
             <a-entity cursorover="color:#242424" menuselectindication="target:#bgtitlemenuindication;emit:movetobutton1" channelselection="" class="fadewhenvid" id="menuplane1" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:20.26" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
                 <a-curvedimage id="screenicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuiconscreen" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.2 -0.03 -0.1" rotation="0 22.2 0" scale="0.4 0.6 1">
                 </a-curvedimage>
             </a-entity>
-            
-            <a-entity cursorover="color:#242424" menuselectindication="target:#bgtitlemenuindication;emit:movetobutton2"  channelselection="" class="fadewhenvid" id="menuplane2" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.5" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
-                    <a-curvedimage id="filmicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuiconfilm" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.2 -0.03 -0.1" rotation="0 12.63 0" scale="0.4 0.6 1">
+
+            <a-entity cursorover="color:#242424" menuselectindication="target:#bgtitlemenuindication;emit:movetobutton2" channelselection="" class="fadewhenvid" id="menuplane2" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.5" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
+                <a-curvedimage id="filmicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuiconfilm" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.2 -0.03 -0.1" rotation="0 12.63 0" scale="0.4 0.6 1">
                 </a-curvedimage>
             </a-entity>
 
-            <a-entity cursorover="color:#242424" menuselectindication="target:#bgtitlemenuindication;emit:movetobutton3"  channelselection="" class="fadewhenvid" id="menuplane3" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:0.75" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
-                   <a-curvedimage id="tvflowicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuicontvflow" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.02 -0.03 -0.04" rotation="0 4.63 0" scale="0.4 0.6 1">
+            <a-entity cursorover="color:#242424" menuselectindication="target:#bgtitlemenuindication;emit:movetobutton3" channelselection="" class="fadewhenvid" id="menuplane3" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:0.75" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
+                <a-curvedimage id="tvflowicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuicontvflow" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.02 -0.03 -0.04" rotation="0 4.63 0" scale="0.4 0.6 1">
                 </a-curvedimage>
             </a-entity>
 
             <a-entity cursorover="color:#242424" menuselectindication="target:#bgtitlemenuindication;emit:movetobutton4" channelselection="" class="fadewhenvid" id="menuplane4" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-9" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
-                   <a-curvedimage id="webtvicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuiconwebtv" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.38 -0.03 0.02" rotation="0 -8.022 0" scale="0.4 0.6 1">
+                <a-curvedimage id="webtvicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuiconwebtv" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.38 -0.03 0.02" rotation="0 -8.022 0" scale="0.4 0.6 1">
                 </a-curvedimage>
             </a-entity>
 
             <a-entity cursorover="color:#242424" menuselectindication="target:#bgtitlemenuindication;emit:movetobutton5" channelselection="" class="fadewhenvid" id="menuplane5" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-18.75" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
-                   <a-curvedimage id="settingsicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuiconsettings" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.88 -0.03 0.26"rotation="0 -21.8 0" scale="0.4 0.6 1">
-                    </a-curvedimage>
+                <a-curvedimage id="settingsicon" visible="true" material="shader:flat;side:double;transparent:true;opacity:1;color:#FFF;repeat:-1 1" src="#topmenuiconsettings" height="0.6" radius="7.7" segments-radial="48" theta-length="10" theta-start="-3" position="0.88 -0.03 0.26" rotation="0 -21.8 0" scale="0.4 0.6 1">
+                </a-curvedimage>
             </a-entity>
-            
-    
-            
-<!--
+
+
+
+            <!--
             <a-entity menuselectindication="target:#bgtitlemenuindication;emit:movetobutton2" cursorover channelselection="" class="fadewhenvid" id="menuplane2" geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.5" position="0 0 0" rotation="0 49.85 0" visible="true" mixin="topmenu">
                 <a-entity class="fadewhenvid" material="color:white" text="text:Film;size:0.25" position="2.12 -0.11 7.34" rotation="0 -163.87 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
                 <a-entity id="filmicon" geometry="height:0.53;primitive:plane" position="0.08 2.8 -0.69" rotation="0 80.41 0" visible="true" material="src:#topmenuiconfilm;color:#fff;shader:flat;side:double;transparent:true ;opacity:1"></a-entity>
@@ -424,52 +436,55 @@
 
             <a-entity mixin="groupbackground" id="channelbackground" class="fadewhenvid" geometry="height:0.52;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:2.1;openEnded:true;thetaStart:81.46" position="-2.68 0.06 2.26" rotation="0 48.67 0" visible="true" material=""></a-entity>
 
+
+
+
             <a-entity position="3.62 -2.52 -0.85" rotation="0 -74.48 0" visible="true">
                 <a-image unfade-channelmenu="active:true" id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox1" material="" geometry=""></a-image>
                 <a-entity geometry="primitive:plane" material="color:black" width="9" height="5" scale="3.8 2.6 3" position="0 2.5 -0.2"></a-entity>
                 <a-image id="channelbox" scale="0.25 0.25 0.25" src="#bigtv4" position="-1.3 3.2 0.2" material="" geometry="" visible="true"></a-image>
 
 
+                <a-entity id="channelindicationandscroll">
                 <a-entity scale="2.3 2.3 2.3" position="-0.28 -3 -5.54">
                     <a-entity material="opacity:1" id="thechanneltemplatescene" position="0 0 0" template="src: #nunjuckschanneltemplate" animation__scroll="property:position; startEvents: beginscroll; from:0; to:0 0 0; dur:100">
                     </a-entity>
                     <a-entity template="src: scenes/channelselection.template"></a-entity>
                 </a-entity>
+                <a-entity class="fadewhenvid" id="channelselectedindication" scale="0.7 0.7 0.7" rotation="0 33.64 0" position="-2.58 2.44 0.21" geometry="primitive:plane;width:1.14;height:0.03" material="color:#F15A24" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+                </a-entity>
+                    </a-entity>
 
             </a-entity>
 
-            
-             
 
-            
-            
+
+
+
 
             <a-entity id="filmcontainer" rotation="0 -40 0" mixin="groupcontainer" material="transparent:true;">
 
 
-              <a-entity id="filmbackground" mixin="groupbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:38.64;openEnded:true;thetaStart:-12.08;height:5.5" rotation="0 48.73 0" visible="true" position="-0.02 -0.2 -0.04" material=""></a-entity>
+                <a-entity id="filmbackground" mixin="groupbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:38.64;openEnded:true;thetaStart:-12.08;height:5.5" visible="true"></a-entity>
 
-                <a-entity id="topfilmmenucontainer" mixin="secondtopmenupos">
+                <a-entity id="topfilmmenucontainer" mixin="secondtopmenucontainer">
 
-                   
-                    
-                    
-                    <a-entity mixin="secondtopmenu" secondmenuselection="group:film;selection:new" menuselectindication="target:#topfilmbuttonindication;emit:movetobutton1" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" position="-0.09 2.5 -0.24" rotation="0 49.84732817638162 0" visible="true"></a-entity>
 
-                    <a-entity mixin="secondtopmenu" secondmenuselection="group:film;selection:top" menuselectindication="target:#topfilmbuttonindication;emit:movetobutton2" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" position="-0.09 1.74 -0.24" rotation="0 49.85 0" visible="true"></a-entity>
 
-                    <a-entity mixin="secondtopmenu" secondmenuselection="group:film;selection:downloadedwatched" menuselectindication="target:#topfilmbuttonindication;emit:movetobutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" position="-0.09 0.98 -0.24" rotation="0 49.84732817638162 0" visible="true"></a-entity>
 
-                    <a-entity mixin="secondtopmenuindication" id="topfilmbuttonindication" geometry="height:0.05;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.25;openEnded:true;thetaStart:-5.36" position="-0.63 2.18 -0.75" rotation="0 67.04 0" visible="true" scale="1.1 1.1 1.1" 
-                              animation__movetobutton1="property:position;startEvents:movetobutton1;to:-0.63 2.18 -0.75;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:-0.63 1.42 -0.75;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:-0.63 0.66 -0.75;dur:400" material=""></a-entity>
-                    
-                  
+                    <a-entity mixin="secondtopmenu secondtopmenuitem1" secondmenuselection="group:film;selection:new" menuselectindication="target:#topfilmbuttonindication;emit:movetobutton1" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
 
-                  
-                    <a-entity material="color:white" text="text:New;size:0.25" position="7.09 2.45 2.52" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                    <a-entity material="color:white" text="text:Top;size:0.25" position="7.08 1.7 2.53" rotation="0 -115.8 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                    <a-entity material="color:white" text="text:Downloaded;size:0.25" position="7.18 0.95 2.28" rotation="0 -114.01860123103383 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                    
+                    <a-entity mixin="secondtopmenu secondtopmenuitem2" secondmenuselection="group:film;selection:top" menuselectindication="target:#topfilmbuttonindication;emit:movetobutton2" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
+
+                    <a-entity mixin="secondtopmenu secondtopmenuitem3" secondmenuselection="group:film;selection:downloadedwatched" menuselectindication="target:#topfilmbuttonindication;emit:movetobutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
+
+                    <a-entity mixin="secondtopmenuindication" id="topfilmbuttonindication" geometry="height:0.05;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.25;openEnded:true;thetaStart:-5.36" animation__movetobutton1="property:position;startEvents:movetobutton1;to:-0.63 2.18 -0.75;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:-0.63 1.42 -0.75;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:-0.63 0.66 -0.75;dur:400"></a-entity>
+
+
+                    <a-entity mixin="secondtopmenuitemtext1" material="color:white" text="text:New;size:0.25" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenuitemtext2" material="color:white" text="text:Top;size:0.25" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenuitemtext3" material="color:white" text="text:Downloaded;size:0.25" visible="true"></a-entity>
+
                     <a-entity material="color:#F15A24" text="text:Film;size:0.25" position="6.41 5.18 3.78" rotation="0 -124.33184154338863 0" visible="true"></a-entity>
 
                 </a-entity>
@@ -493,7 +508,7 @@
 
                 </a-entity>
 
-                <a-entity id="filmcategorycontainer" mixin="bottommenucontainer" >
+                <a-entity id="filmcategorycontainer" mixin="bottommenucontainer">
 
                     <a-entity mixin="bottommenu" categoryselection="group:film;category:all" cursorover geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true">
                         <a-entity material="color:#ffffff" text="text:All;font:Open Sans;" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
@@ -547,12 +562,12 @@
 
 
             </a-entity>
-            
-            
+
+
 
             <a-entity id="tvprogramcontainer" rotation="0 -109 0" mixin="groupcontainer" visible="true">
 
-                <a-entity id="programbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:39.28;openEnded:true;thetaStart:-11.9" rotation="0 48.67 0" visible="true" mixin="groupbackground"></a-entity>
+                <a-entity id="programbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:38.64;openEnded:true;thetaStart:-12.08;height:5.5" visible="true" mixin="groupbackground"></a-entity>
 
                 <a-entity id="tvcatergorycontainer" mixin="bottommenucontainer">
 
@@ -596,26 +611,26 @@
 
                 </a-entity>
 
-                <a-entity id="tvtopmenucontainer" mixin="secondtopmenupos" visible="true">
+                <a-entity id="tvtopmenucontainer" mixin="secondtopmenucontainer" visible="true">
 
-                    <a-entity mixin="secondtopmenu" menuselectindication="target:#toptvflowbuttonindication;emit:movetobutton1" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenu secondtopmenuitem1" menuselectindication="target:#toptvflowbuttonindication;emit:movetobutton1" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
 
-                    <a-entity mixin="secondtopmenu" menuselectindication="target:#toptvflowbuttonindication;emit:movetobutton2" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenu secondtopmenuitem2" menuselectindication="target:#toptvflowbuttonindication;emit:movetobutton2" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
 
-                    <a-entity mixin="secondtopmenu" menuselectindication="target:#toptvflowbuttonindication;emit:movetobutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenu secondtopmenuitem3" menuselectindication="target:#toptvflowbuttonindication;emit:movetobutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
 
 
                     <!--                    <a-entity id="toptvflowbuttonindication" geometry="height:0.5500000000000002;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.660000000000004;openEnded:true;thetaStart:-7.94" position="-0.63 3.19 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-7.94;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.36;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-24.76;dur:400"></a-entity>-->
 
 
-                    <a-entity mixin="secondtopmenuindication" id="toptvflowbuttonindication" geometry="height:0.07;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.25;openEnded:true;thetaStart:-7.75" position="-0.63 2.89 -0.75" rotation="0 66.85 0" visible="true" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-7.75;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.16;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-24.59;dur:400" material=""></a-entity>
+                    <a-entity mixin="secondtopmenuindication" id="toptvflowbuttonindication" geometry="height:0.07;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.25;openEnded:true;thetaStart:-5.36" animation__movetobutton1="property:position;startEvents:movetobutton1;to:-0.63 2.18 -0.75;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:-0.63 1.42 -0.75;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:-0.63 0.66 -0.75;dur:400"></a-entity>
 
 
-                    <a-entity material="color:white" text="text:Today;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                    <a-entity material="color:white" text="text:Tomorrow;size:0.25" position="6.46 3.1 3.81" rotation="0 -125 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                    <a-entity material="color:white" text="text:Calendar;size:0.25" position="5.76 3.07 4.68" rotation="0 -135.22 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+                    <a-entity material="color:white" text="text:Today;size:0.25" mixin="secondtopmenuitemtext1" visible="true"></a-entity>
+                    <a-entity material="color:white" text="text:Tomorrow;size:0.25" mixin="secondtopmenuitemtext2" position="7.12 1.7 2.37" visible="true"></a-entity>
+                    <a-entity material="color:white" text="text:Calendar;size:0.25" mixin="secondtopmenuitemtext3" position="7.13 0.95 2.41" visible="true"></a-entity>
 
-                    <a-entity material="color:#F15A24" text="text:TV Guide;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33184154338863 0" visible="true"></a-entity>
+                    <a-entity material="color:#F15A24" text="text:TV Guide;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33 0" visible="true"></a-entity>
 
                 </a-entity>
 
@@ -667,7 +682,7 @@
 
             <a-entity id="webtvprogramcontainer" rotation="0 -180 0" mixin="groupcontainer" visible="true">
 
-                <a-entity id="webtvbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:44.10;openEnded:true;thetaStart:-11.9" rotation="0 48.67 0" visible="true" mixin="groupbackground"></a-entity>
+                <a-entity id="webtvbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:38.64;openEnded:true;thetaStart:-12.08;height:5.5" visible="true" mixin="groupbackground"></a-entity>
 
 
 
@@ -709,21 +724,21 @@
                 </a-entity>
 
 
-                <a-entity id="topwebtvmenucontainer" mixin="secondtopmenupos">
+                <a-entity id="topwebtvmenucontainer" mixin="secondtopmenucontainer">
 
-                    <a-entity mixin="secondtopmenu" menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton1" id="topwebtvbutton1" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:10.44" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenu secondtopmenuitem1" menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton1" id="topwebtvbutton1" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
 
-                    <a-entity mixin="secondtopmenu" menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton2" id="topwebtvbutton2" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:1.24" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenu secondtopmenuitem2" menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton2" id="topwebtvbutton2" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
 
-                    <a-entity mixin="secondtopmenu" menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton3" id="topwebtvbutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:-8" position="-0.09 3.18 -0.24" rotation="0 49.85 0" visible="true"></a-entity>
+                    <a-entity mixin="secondtopmenu secondtopmenuitem3" menuselectindication="target:#topwebtvbuttonindication;emit:movetobutton3" id="topwebtvbutton3" cursorover geometry="height:0.53;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:9;openEnded:true;thetaStart:13.24" visible="true"></a-entity>
 
                     <!--                    <a-entity id="topwebtvbuttonindication" geometry="height:0.5500000000000002;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.660000000000004;openEnded:true;thetaStart:-7.94" position="-0.63 3.19 -0.75" rotation="0 66.85 0" visible="true" material="color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-7.94;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.36;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-24.76;dur:400"></a-entity>-->
 
-                    <a-entity mixin="secondtopmenuindication" id="topwebtvbuttonindication" geometry="height:0.07;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.25;openEnded:true;thetaStart:-7.75" position="-0.63 2.89 -0.75" rotation="0 66.85 0" visible="true" scale="1.1 1.1 1.1" animation__movetobutton1="property:geometry.thetaStart;startEvents:movetobutton1;to:-7.75;dur:400" animation__movetobutton2="property:geometry.thetaStart;startEvents:movetobutton2;to:-16.16;dur:400" animation__movetobutton3="property:geometry.thetaStart;startEvents:movetobutton3;to:-24.59;dur:400" material=""></a-entity>
+                    <a-entity mixin="secondtopmenuindication" id="topwebtvbuttonindication" geometry="height:0.07;primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:8.25;openEnded:true;thetaStart:-5.36" animation__movetobutton1="property:position;startEvents:movetobutton1;to:-0.63 2.18 -0.75;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:-0.63 1.42 -0.75;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:-0.63 0.66 -0.75;dur:400"></a-entity>
 
-                    <a-entity material="color:white" text="text:New;size:0.25" position="6.95 3.1 2.88" rotation="0 -114.59 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                    <a-entity material="color:white" text="text:Top;size:0.25" position="6.37 3.1 3.95" rotation="0 -125 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
-                    <a-entity material="color:white" text="text:Watched;size:0.25" position="5.76 3.07 4.68" rotation="0 -135.22 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
+                    <a-entity material="color:white" text="text:New;size:0.25" mixin="secondtopmenuitemtext1" visible="true"></a-entity>
+                    <a-entity material="color:white" text="text:Top;size:0.25" mixin="secondtopmenuitemtext2" visible="true"></a-entity>
+                    <a-entity material="color:white" text="text:Watched;size:0.25" mixin="secondtopmenuitemtext3" position="7.11 0.95 2.37" visible="true"></a-entity>
 
                     <a-entity material="color:#F15A24" text="text:Web TV;size:0.25" position="6.41 4.46 3.78" rotation="0 -124.33 0" visible="true"></a-entity>
 
@@ -741,7 +756,7 @@
                 </a-entity>
 
 
-                <a-entity id="webtvchannelscontainer" position="7.31 -0.91 1.21" rotation="0 178.76283208081685 0" scale="1.01 0.91 0.52" visible="true" material="transparent:true;opacity:1">
+                <a-entity id="webtvchannelscontainer" position="7.05 -0.70 2.1" rotation="0 175.4 0" scale="1.01 0.91 0.52" visible="true" material="transparent:true;opacity:1">
 
                     <a-entity webtvchannelselect="channel:1; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton1;listentomouse:false" id="webtvchannel1" geometry="height:0.53;primitive:plane" position="0.08 2.8 -0.69" rotation="0 80.41 0" visible="true" material="src:#play1;color:#fff;shader:flat;side:double;transparent:true ;opacity:1"></a-entity>
 
@@ -774,7 +789,7 @@
                 </a-entity>
 
 
-                <a-entity id="largewebtvboxcontainer" position="0 -0.2 0" rotation="0 3.8 0">
+                <a-entity id="largewebtvboxcontainer" position="-0.59 0.08 0.96" rotation="0 3.8 0">
 
                     <a-curvedimage id="largewebtvbox" height="2" radius="7.7" segments-radial="48" theta-length="12.38" theta-start="0" position="-0.01 1.17 -0.26" rotation="0 55.58 0" visible="true" material="shader:flat;side:double;transparent:true ;opacity:0.8" src="#program3" geometry=""></a-curvedimage>
 
@@ -793,7 +808,7 @@
 
             <a-entity id="settingscontainer" rotation="0 184 0" mixin="groupcontainer">
 
-                <a-entity id="settingsbackground" mixin="groupbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:26.96;openEnded:true;thetaStart:-13.02" material=""></a-entity>
+                <a-entity id="settingsbackground" mixin="groupbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:26.96;openEnded:true;thetaStart:-60" material=""></a-entity>
 
                 <a-entity id="settingscontent" position="0.34 -0.64 -0.02">
 
@@ -805,7 +820,7 @@
                     <a-entity material="color:#ffffff" text="text:Always hide channels;font:open sans;size:0.7" position="1.11 0.2 7.29" rotation="0 -177.62 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
 
 
-<!--
+                    <!--
                      <a-curvedimage  src="images/iconon.png" id="fadeSettingOn"  settingsselection="setting:fade;active:true;onoff:on" geometry="height:0.28" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-56.82" position="-0.52 1.45 0.07" rotation="0 49.65 0" visible="true"  >
                     </a-curvedimage>
                
@@ -829,26 +844,26 @@
                     <a-curvedimage  src="images/iconoff.png" id="hideSettingOff"  settingsselection="setting:fade;active:false;onoff:off" geometry="height:0.33" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-59.82" position="-0.52 0.45 0.07" rotation="0 49.65 0" visible="true"  >
                     </a-curvedimage>
 -->
-                    
-<!--
+
+                    <!--
                         <a-entity id="settingfadechannels" mixin="settingsplane" settingsselection="setting:fade;active:true" geometry="height:0.05;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:2.54;openEnded:true;thetaStart:-56.90" position="-0.52 1.2 0.07" rotation="0 49.65 0" visible="true" material="color:#F15A24">
                     </a-entity>
                     
                               <a-entity id="settingfadechannels" mixin="settingsplane" settingsselection="setting:fade;active:true" geometry="height:0.05;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:2.54;openEnded:true;thetaStart:-59.78" position="-0.52 1.2 0.07" rotation="0 49.65 0" visible="true" material="color:#F15A24">
                     </a-entity>
 -->
-                    
-                    
-                    
-                    <a-curvedimage src="images/iconon.png" id="settingfadechannels"  settingsselection="setting:fade;active:true" geometry="height:0.33" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-58.82" position="-0.52 1.45 0.07" rotation="0 49.65 0" visible="true" material="opacity:1; color: #22F15A">
+
+
+
+                    <a-curvedimage src="images/iconon.png" id="settingfadechannels" settingsselection="setting:fade;active:true" geometry="height:0.33" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-58.82" position="-0.52 1.45 0.07" rotation="0 49.65 0" visible="true" material="opacity:1; color: #22F15A">
                     </a-curvedimage>
-                    <a-curvedimage src="images/iconon.png" id="settingtransparent"  settingsselection="setting:transparent;active:true" geometry="height:0.33r" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-58.82" position="-0.52 0.85 0.07" rotation="0 49.65 0" visible="true" material="opacity:1; color: #22F15A">
+                    <a-curvedimage src="images/iconon.png" id="settingtransparent" settingsselection="setting:transparent;active:true" geometry="height:0.33r" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-58.82" position="-0.52 0.85 0.07" rotation="0 49.65 0" visible="true" material="opacity:1; color: #22F15A">
                     </a-curvedimage>
-                    <a-curvedimage src="images/iconon.png" id="settinghidechannels"  settingsselection="setting:hide;active:false" geometry="height:0.33" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-58.82" position="-0.52 0.25 0.07" rotation="0 49.65 0" visible="true" material="opacity:0.2;">
+                    <a-curvedimage src="images/iconon.png" id="settinghidechannels" settingsselection="setting:hide;active:false" geometry="height:0.33" radius="7.48" segments-radial="48" theta-length="2.54" open-ended="true" theta-start="-58.82" position="-0.52 0.25 0.07" rotation="0 49.65 0" visible="true" material="opacity:0.2;">
                     </a-curvedimage>
-                    
-                    
-<!--
+
+
+                    <!--
 
                     <a-entity id="settingfadechannels" mixin="settingsplane" settingsselection="setting:fade;active:true" geometry="height:0.33;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:2.54;openEnded:true;thetaStart:-58.82" position="-0.52 1.45 0.07" rotation="0 49.65 0" visible="true" material="color:#A43D18">
                     </a-entity>
@@ -868,6 +883,8 @@
 
         </a-entity>
 
+
+
         <a-entity id="channelplane4" class="previousentityselected"></a-entity>
 
 
@@ -881,25 +898,22 @@
         <a-entity position="0 2.4 4" id="camera" camera look-controls>
 
 
-            <a-entity cursor="fuse: true; fuseTimeout: 500"
-            position="0 0 -4"
-            geometry="primitive: ring; radiusOuter: 0.05; radiusInner: 0.03;"
-            material="color: #24F1C7; shader: flat">
-                
-                    <a-animation dur="600" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
-                    <a-animation dur="600" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
-                
+            <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -4" geometry="primitive: ring; radiusOuter: 0.05; radiusInner: 0.03;" material="color: #24F1C7; shader: flat">
+
+                <a-animation dur="600" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+                <a-animation dur="600" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+
             </a-entity>
-            
-<!--
+
+            <!--
             
             <a-cursor fuse position="0 0 -0.20" geometry="primitive: ring; radiusOuter: 0.0017; radiusInner: 0.0013;" material="color: white; shader: flat">
             <a-animation dur="600" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
                 <a-animation dur="600" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
             </a-cursor>
 -->
-            
-<!--
+
+            <!--
             <a-entity cursor position="0 0 -0.20" geometry="primitive: ring; radiusOuter: 0.0017; radiusInner: 0.0013;" material="color: white; shader: flat">
                 <a-animation dur="600" begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
                 <a-animation dur="600" begin="cursor-fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
