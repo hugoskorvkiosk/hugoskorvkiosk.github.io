@@ -16,51 +16,58 @@ AFRAME.registerComponent('movechannelclicked', {
 
     update: function () {
         var data = this.data;
-
+        var el = this.el;
 
 
         var thechanneltemplatescene = document.querySelector('#thechanneltemplatescene');
 
 
 
-        var position;
+        var templateposition;
         var newpositiony;
         var channelposition;
+
+
         this.el.addEventListener(data.listen, function () {
 
-            position = document.querySelector('#thechanneltemplatescene').getAttribute('position');
+
+            templateposition = document.querySelector('#thechanneltemplatescene').getAttribute('position');
+            channelposition = el.getAttribute('position');
 
 
-            channelposition = this.getAttribute('position');
-            var realchannelposy = channelposition.y + position.y;
+            var realchannelposy = parseFloat(channelposition.y + templateposition.y).toFixed(2);
 
-            console.log(channelposition);
-            
+
             var channelindicatorpos = document.querySelector('#channelselectedindication').getAttribute('position').y;
+            var frompos = document.querySelector('#channelselectedindication').getAttribute('position');
 
-            var movement = channelindicatorpos - realchannelposy;
 
+            var heightofchannelplane = parseFloat (el.getAttribute('geometry').height /2);
 
-            var posy = position.y;
-
-            newpositiony = parseFloat(posy + movement).toFixed(2);
-
+            var belowselectedchannelposy = parseFloat( realchannelposy - heightofchannelplane).toFixed(2);
+            
 
             var newpos = {
-                x: position.x,
-                y: newpositiony,
-                z: position.z
+                x: frompos.x,
+                y: belowselectedchannelposy,
+                z: frompos.z
             };
 
 
+            console.log(channelposition);
+
+            console.log(frompos);
+
+            document.querySelector('#channelselectedindication').setAttribute('animation__scroll', 'to', newpos);
+            document.querySelector('#channelselectedindication').setAttribute('animation__scroll', 'from', frompos);
 
 
-            document.querySelector('#thechanneltemplatescene').setAttribute('animation__scroll', 'to', newpos);
 
-            document.querySelector('#thechanneltemplatescene').setAttribute('animation__scroll', 'from', position);
+            //             console.log(  document.querySelector('#channelselectedindication').setAttribute('animation__scroll').to );
+            console.log(document.querySelector('#channelselectedindication').getAttribute('animation__scroll').from);
 
 
-            data.target.emit(data.emit);
+                        data.target.emit(data.emit);
 
 
 
