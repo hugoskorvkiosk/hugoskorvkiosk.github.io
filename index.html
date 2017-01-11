@@ -346,6 +346,7 @@
 
             <a-mixin id="tvflowchannelbackground" material="color:#000000;shader:flat;side:double;transparent:true;opacity:0.9"></a-mixin>
 
+            <a-mixin id="filmandtvboxcontainer" position="0 0.20 0" rotation="0 1.72 0"></a-mixin>
 
         </a-assets>
 
@@ -563,7 +564,7 @@
 
                 </a-entity>
 
-                <a-entity id="filmtopcontainer" position="0 0.20 0" rotation="0 1.72 0">
+                <a-entity id="filmboxcontainer" mixin="filmandtvboxcontainer" >
 
                     <a-curvedimage id="largefilmbox" height="2" radius="7.7" segments-radial="48" theta-length="12.38" theta-start="0" position="-0.01 1.17 -0.26" rotation="0 55.58 0" visible="true" material="shader:flat;side:double;transparent:true ;opacity:0.8" src="#filmall3"></a-curvedimage>
                     <a-entity id="filmtitle" material="color:#F15A24" text="text:filmall3;size:0.4" position="6.13 1.85 4.24" rotation="0 -132.93 0" scale="0.5 0.5 0.5" visible="true"></a-entity>
@@ -827,24 +828,35 @@
 
                 </a-entity>
 
-
-                <a-entity id="webtvchannelscontainer" position="7.05 -0.70 2.1" rotation="0 175.4 0" scale="1.01 0.91 0.52" visible="true" material="transparent:true;opacity:1">
+                     <a-entity id="webtvchannelsbackground" geometry="primitive:plane;height:3.75;width:1" material="color:black;opacity:0.8;side:double" position="4.2 0.65 6.37" rotation="0 30.2 0"></a-entity>
+                
+             
+                <a-entity id="webtvchannelscontainer" position="4.4 -0.6 6" rotation="0 143 0" scale="1.01 0.91 0.52" visible="true">
+                    
+                    <a-entity text="size:0.2;text:SVT;height:0.01" rotation="0 80 0" position="-0.04 3.1 -0.5" material="color:white" scale="1 0.75 1"></a-entity>
+                    <a-entity text="size:0.2;text:TV4;height:0.01" rotation="0 80 0" position="-0.04 2.2 -0.5" material="color:white" scale="1 0.75 1"></a-entity>
+                    <a-entity text="size:0.2;text:Dplay;height:0.01" rotation="0 80 0" position="-0.08 1.2 -0.45" material="color:white" scale="1 0.75 1"></a-entity>
+                    <a-entity text="size:0.2;text:Viafree;height:0.01" rotation="0 80 0" position="-0.12 0.2 -0.38" material="color:white" scale="1 0.75 1"></a-entity>
+               
+                 
 
                     <a-entity webtvchannelselect="channel:1; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton1;listentomouse:false" id="webtvchannel1" geometry="height:0.53;primitive:plane" position="0.08 2.8 -0.69" rotation="0 80.41 0" visible="true" material="src:#play1;color:#fff;shader:flat;side:double;transparent:true ;opacity:1"></a-entity>
 
-                    <a-entity webtvchannelselect="channel:2; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton2;listentomouse:false" id="webtvchannel2" geometry="height:0.53;primitive:plane" position="0.08 2 -0.69" rotation="0 80.41 0" visible="true" material="src:#play2;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8"></a-entity>
+                    <a-entity webtvchannelselect="channel:2; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton2;listentomouse:false" id="webtvchannel2" geometry="height:0.53;primitive:plane" position="0.08 1.8 -0.69" rotation="0 80.41 0" visible="true" material="src:#play2;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8"></a-entity>
 
-                    <a-entity webtvchannelselect="channel:3; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton3;listentomouse:false" id="webtvchannel3" geometry="height:0.53;primitive:plane" position="0.08 1.2 -0.69" rotation="0 80.41 0" visible="true" material="src:#play3;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8"></a-entity>
+                    <a-entity webtvchannelselect="channel:3; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton3;listentomouse:false" id="webtvchannel3" geometry="height:0.53;primitive:plane" position="0.08 0.8 -0.69" rotation="0 80.41 0" visible="true" material="src:#play3;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8"></a-entity>
 
-                    <a-entity webtvchannelselect="channel:4; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton4;listentomouse:false" id="webtvchannel4" geometry="height:0.53;primitive:plane" position="0.08 0.4 -0.69" rotation="0 80.41 0" visible="true" material="src:#play4;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8"></a-entity>
+                    <a-entity webtvchannelselect="channel:4; category:entertainment; group:webtv" menuselectindication="target:#webtvchannelindication; emit:movetobutton4;listentomouse:false" id="webtvchannel4" geometry="height:0.53;primitive:plane" position="0.08 -0.2 -0.69" rotation="0 80.41 0" visible="true" material="src:#play4;color:#fff;shader:flat;side:double;transparent:true ;opacity:0.8"></a-entity>
 
+<!--
                     <a-entity geometry="height:0.53;primitive:plane" position="0.04 2.80 -0.7" rotation="0 80.41 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
                     <a-entity geometry="height:0.53;primitive:plane" position="0.04 2 -0.7" rotation="0 80.41 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
                     <a-entity geometry="height:0.53;primitive:plane" position="0.04 1.2 -0.7" rotation="0 80.41 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
                     <a-entity geometry="height:0.53;primitive:plane" position="0.04 0.4 -0.7" rotation="0 80.41 0" visible="true" material="color:#242424;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1"></a-entity>
+-->
 
 
-                    <a-entity id="webtvchannelindication" geometry="height:0.04;primitive:plane" position="0.04 1.65 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1" animation__movetobutton1="property:position;startEvents:movetobutton1;to:0.04 2.45 -0.70;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:0.04 1.65 -0.70;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:0.04 0.85 -0.70;dur:400" animation__movetobutton4="property:position;startEvents:movetobutton4;to:0.04 0.05 -0.70;dur:400"></a-entity>
+                    <a-entity id="webtvchannelindication" geometry="height:0.04;primitive:plane" position="0.04 1.47 -0.7" rotation="0 80.41 0" visible="true" material="src:;color:#F15A24;shader:flat;side:double;transparent:true;opacity:0.8" scale="1.2 1.2 1.1" animation__movetobutton1="property:position;startEvents:movetobutton1;to:0.04 2.48 -0.70;dur:400" animation__movetobutton2="property:position;startEvents:movetobutton2;to:0.04 1.42 -0.70;dur:400" animation__movetobutton3="property:position;startEvents:movetobutton3;to:0.04 0.46 -0.70;dur:400" animation__movetobutton4="property:position;startEvents:movetobutton4;to:0.04 -0.54 -0.70;dur:400"></a-entity>
 
                 </a-entity>
 
@@ -861,7 +873,7 @@
                 </a-entity>
 
 
-                <a-entity id="largewebtvboxcontainer" position="-0.59 0.08 0.96" rotation="0 3.8 0">
+                <a-entity id="webtvboxcontainer" mixin="filmandtvboxcontainer">
 
                     <a-curvedimage id="largewebtvbox" height="2" radius="7.7" segments-radial="48" theta-length="12.38" theta-start="0" position="-0.01 1.17 -0.26" rotation="0 55.58 0" visible="true" material="shader:flat;side:double;transparent:true ;opacity:0.8" src="#program3" geometry=""></a-curvedimage>
 
