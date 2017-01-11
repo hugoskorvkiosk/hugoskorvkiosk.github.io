@@ -7,44 +7,44 @@
     <meta name="description" content="A-frame web TV platform">
 
 
-<!--        <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.3.2.js"></script>-->
-        <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.4.0.js"></script>
-<!--            <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.js"></script>-->
-<!--            <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.js"></script>-->
+    <!--        <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.3.2.js"></script>-->
+                <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-v0.4.0.js"></script>
+    <!--            <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.js"></script>-->
+    <!--            <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.js"></script>-->
 <!--    <script src="aframe-v0.3.2.js"></script>-->
 
-<!--    <script src="k-frame.js"></script>-->
-    
+    <!--    <script src="k-frame.js"></script>-->
+
 
     <!--    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.6.1/dist/aframe-extras.js"></script>-->
-    
-
-<!--      <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>-->
 
 
-<!--  <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.js"></script>-->
+    <!--      <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>-->
+
+
+    <!--  <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.js"></script>-->
     <script src="https://unpkg.com/aframe-template-component/dist/aframe-template-component.min.js"></script>
     <script src="https://unpkg.com/aframe-text-component/dist/aframe-text-component.min.js"></script>
-    
-<script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
+
+    <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
     <script src="https://rawgit.com/ngokevin/aframe-event-set-component/master/dist/aframe-event-set-component.min.js"></script>
     <script src="https://rawgit.com/ngokevin/aframe-look-at-component/master/dist/aframe-look-at-component.min.js"></script>
 
-<!--    <script src="aframe-template-component.js"></script>-->
-<!--    <script src="aframe-text-component.js"></script>-->
-    
+    <!--    <script src="aframe-template-component.js"></script>-->
+    <!--    <script src="aframe-text-component.js"></script>-->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
     <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 
 
-<!--    <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>-->
+    <!--    <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>-->
 
     <!--    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>-->
     <!--    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>-->
 
-  
-  
+
+
     <script src="js/components/channelselection.js"></script>
     <script src="js/components/unfade-channelmenu.js"></script>
     <script src="js/components/scrollchannel.js"></script>
@@ -325,7 +325,7 @@
             <a-mixin id="groupbackground" position="-0.02 -0.1 -0.04" rotation="0 48.73 0" geometry="height:4.2" material="color:#0F0F0F;shader:flat;side:double;transparent:true;opacity:0.85"></a-mixin>
             <a-mixin id="topmenu" material="color:#242424;transparent:false;opacity:1;flatShading:true;shader:flat;side:double"></a-mixin>
 
-            <a-mixin id="secondtopmenucontainer" position="0 -0.6 0" rotation="0 11.05 0"></a-mixin>
+            <a-mixin id="secondtopmenucontainer" position="0 -0.6 0" rotation="0 11.13 0"></a-mixin>
             <a-mixin id="secondtopmenu" material="color:black;shader:flat;side:double;transparent:true;opacity:0.85" rotation="0 49.85 0"></a-mixin>
 
             <a-mixin id="secondtopmenuitem1" position="-0.09 2.5 -0.24"></a-mixin>
@@ -344,6 +344,7 @@
 
             <a-mixin id="settingsplane" material="color:#0F0F0F;shader:flat;side:double;transparent:false;opacity:0.85"></a-mixin>
 
+            <a-mixin id="tvflowchannelbackground" material="color:#000000;shader:flat;side:double;transparent:true;opacity:0.9"></a-mixin>
 
 
         </a-assets>
@@ -462,15 +463,15 @@
 
 
                 <a-entity id="channelindicationandscroll">
-                <a-entity scale="2.3 2.3 2.3" position="-0.28 -3 -5.54">
-                    <a-entity material="opacity:1" id="thechanneltemplatescene" position="0 0 0" template="src: #nunjuckschanneltemplate" animation__scroll="property:position; startEvents: beginscroll; from:0; to:0 0 0; dur:100">
+                    <a-entity scale="2.3 2.3 2.3" position="-0.28 -3 -5.54">
+                        <a-entity material="opacity:1" id="thechanneltemplatescene" position="0 0 0" template="src: #nunjuckschanneltemplate" animation__scroll="property:position; startEvents: beginscroll; from:0; to:0 0 0; dur:100">
+                        </a-entity>
+                        <a-entity template="src: scenes/channelselection.template"></a-entity>
+                        <a-entity class="fadewhenvid" id="channelselectedindication" scale="0.7 0.7 0.7" rotation="0 33.64 0" position="-0.99 2.25 2.52" geometry="primitive:plane;width:0.48;height:0.015" material="color:#F15A24" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000" animation__scroll="property:position;startEvents:beginscroll;from:0;to:0 0 0;dur:100">
+                        </a-entity>
                     </a-entity>
-                    <a-entity template="src: scenes/channelselection.template"></a-entity>
-                    <a-entity class="fadewhenvid" id="channelselectedindication" scale="0.7 0.7 0.7" rotation="0 33.64 0" position="-0.99 2.25 2.52" geometry="primitive:plane;width:0.48;height:0.015" material="color:#F15A24" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000" animation__scroll="property:position;startEvents:beginscroll;from:0;to:0 0 0;dur:100">
-                    </a-entity>
+
                 </a-entity>
-               
-                    </a-entity>
 
             </a-entity>
 
@@ -579,15 +580,15 @@
 
 
             </a-entity>
-            
-      
+
+
 
 
             <a-entity id="tvprogramcontainer" rotation="0 -109 0" mixin="groupcontainer" visible="true">
 
                 <a-entity id="programbackground" geometry="primitive:cylinder;radius:7.7;segmentsRadial:48;thetaLength:38.64;openEnded:true;thetaStart:-12.08;height:5.5" visible="true" mixin="groupbackground"></a-entity>
 
-                <a-entity id="tvcatergorycontainer" mixin="bottommenucontainer">
+                <a-entity id="tvcategorycontainer" mixin="bottommenucontainer">
 
                     <a-entity mixin="bottommenu" tvflowcategoryselection="category:none" cursorover geometry="height:0.39;primitive:cylinder;radius:7.48;segmentsRadial:48;thetaLength:7.1;openEnded:true;thetaStart:13.4" position="-0.06 -2.99 -0.12" rotation="0 49.85 0" visible="true">
                         <a-entity material="color:#ffffff" text="text:None;" position="2.36 -0.02 7.04" rotation="0 -163.29297161228462 0" scale="0.2 0.2 0.2" visible="true"></a-entity>
@@ -654,39 +655,92 @@
 
 
 
-                <a-entity id="currentchannelsflow" position="1.34 -0.53 0.61" rotation="0 0.80 0" scale="0.8 0.8 0.8" visible="true">
+                <a-entity id="currentchannelsflow" position="1.34 -0.18 0.61" rotation="0 0.80 0" scale="0.8 0.8 0.8" visible="true">
 
 
 
-                    <a-curvedimage id="flowchannelbox1" material="shader:flat;side:double;transparent:true" src="#bigtv1" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 2 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
-                    <a-curvedimage id="flowchannelbox2" material="shader:flat;side:double;transparent:true" src="#bigtv2" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 1.3 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
-                    <a-curvedimage id="flowchannelbox3" material="shader:flat;side:double;transparent:true" src="#bigtv3" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 0.6 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
-                    <a-curvedimage id="flowchannelbox4" material="shader:flat;side:double;transparent:true" src="#bigtv4" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 -0.1 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
-                    <a-curvedimage id="flowchannelbox5" material="shader:flat;side:double;transparent:true" src="#bigtv5" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 -0.8 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
-
-
-                    <a-entity cursorover="color:#9F9F9F" changetvflow changeflowchannel="" id="scrolldownchannelflow" class="leftanddown scrollbuttons" position="7 0.45 1.9" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#icondown;shader:flat;side:double;transparent:true" rotation="0 63.03 0" scale="0.45 0.45 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+                    <a-entity id="flowchannelboxcontainer" position="0.23 0 -0.25">
+                        <a-curvedimage id="flowchannelbox1" material="shader:flat;side:double;transparent:true" src="#bigtv1" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 2 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
+                        <a-curvedimage id="flowchannelbox2" material="shader:flat;side:double;transparent:true" src="#bigtv2" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 1.3 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
+                        <a-curvedimage id="flowchannelbox3" material="shader:flat;side:double;transparent:true" src="#bigtv3" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 0.6 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
+                        <a-curvedimage id="flowchannelbox4" material="shader:flat;side:double;transparent:true" src="#bigtv4" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 -0.1 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
+                        <a-curvedimage id="flowchannelbox5" material="shader:flat;side:double;transparent:true" src="#bigtv5" height="0.5" radius="2" segments-radial="48" theta-length="15" thetastart="0" position="5.57 -0.8 1.8" rotation="0 52.71 0" scale="0.8 0.8 0.8" visible="true"></a-curvedimage>
                     </a-entity>
 
-                    <a-entity cursorover="color:#9F9F9F" changetvflow changeflowchannel="" id="scrollupchannelflow" class="rightandup scrollbuttons" position="6.99 1.07 1.89" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#iconup;shader:flat;side:double;transparent:true" rotation="0 63.03 0" scale="0.45 0.45 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+
+                    <a-entity cursorover="color:#9F9F9F" changetvflow changeflowchannel="" id="scrolldownchannelflow" class="leftanddown scrollbuttons" position="7.05 -1.35 2.3" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#icondown;shader:flat;side:double;transparent:true" rotation="0 63.03 0" scale="0.35 0.35 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+                    </a-entity>
+
+                    <a-entity cursorover="color:#9F9F9F" changetvflow changeflowchannel="" id="scrollupchannelflow" class="rightandup scrollbuttons" position="7.3 2.6 2.4" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#iconup;shader:flat;side:double;transparent:true" rotation="0 63.03 0" scale="0.35 0.35 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
                     </a-entity>
 
 
                     <a-entity id="leftandrightcontainer" position="0 0.21 0">
 
-                        <a-entity cursorover="color:#9F9F9F" changetvflow="" id="scrollleftchannelflow" class="leftanddown scrollbuttons" position="6.01 2.47 4.25" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#iconleft;shader:flat;side:double;transparent:true" rotation="0 -120 0" scale="0.45 0.45 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+                        <a-entity cursorover="color:#9F9F9F" changetvflow="" id="scrollleftchannelflow" class="leftanddown scrollbuttons" position="6.80 2.8 3.62" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#iconleft;shader:flat;side:double;transparent:true" rotation="0 -120 0" scale="0.35 0.35 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
                         </a-entity>
 
-                        <a-entity cursorover="color:#9F9F9F" changetvflow="" id="scrollrightchannelflow" class="rightandup scrollbuttons" position="5.35 2.46 5.1" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#iconright;shader:flat;side:double;transparent:true" rotation="0 -120 0" scale="0.45 0.45 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
+                        <a-entity cursorover="color:#9F9F9F" changetvflow="" id="scrollrightchannelflow" class="rightandup scrollbuttons" position="4.94 2.8 6.07" geometry="primitive:plane;height:1" material="color:#9F9F9F;src:#iconright;shader:flat;side:double;transparent:true" rotation="0 -120 0" scale="0.35 0.35 0.3" visible="true" animation__fade="property:material.opacity;startEvents:fade;to:0;dur:1000" animation__unfade="property:material.opacity;startEvents:unfade;to:1;dur:1000">
                         </a-entity>
 
 
                     </a-entity>
 
-                    <a-entity material="color:#242424" geometry="primitive:plane;height:4.6;width:4.24" position="5.71 0.73 4.71" rotation="0 -124.9 0">
+                    <a-entity id="tvflowbg" material="opacity:0" geometry="primitive:plane;height:4.6;width:4.24" position="5.71 0.73 4.71" rotation="0 -124.9 0">
 
+                        <a-entity id="timeflowtextcontainer">
+
+
+
+
+                        </a-entity>
+
+
+
+                        <a-entity data-brackets-id="4889" material="color:#ffffff" text="size:0.28;text:09:00" position="-2.5 2.2 0" scale="0.5 0.5 0.75"></a-entity>
+                        <a-entity data-brackets-id="4889" material="color:#ffffff" text="size:0.28;text:09:30" position="-1 2.2 0" scale="0.5 0.5 0.75"></a-entity>
+                        <a-entity data-brackets-id="4889" material="color:#ffffff" text="size:0.28;text:10:00" position="0.5 2.2 0" scale="0.5 0.5 0.75"></a-entity>   
+                        <a-entity data-brackets-id="4889" material="color:#ffffff" text="size:0.28;text:10:30" position="2 2.2 0" scale="0.5 0.5 0.75"></a-entity>
+
+
+                        <a-entity material="opacity:1;color:white"  geometry="mergeTo:null;primitive:plane;height:3.95;width:0.02" position="-2.3 0.12 0.06">
+                        </a-entity>
+
+                        <a-entity data-brackets-id="5266" material="opacity:1;color:white"  geometry="mergeTo:null;primitive:plane;height:3.95;width:0.02" position="-0.8 0.12 0.06">
+                        </a-entity>
+
+                        <a-entity data-brackets-id="5266" material="opacity:1;color:white"  geometry="mergeTo:null;primitive:plane;height:3.95;width:0.02" position="0.7 0.12 0.06">
+                        </a-entity>
+                        
+                        <a-entity data-brackets-id="5266" material="opacity:1;color:white"  geometry="mergeTo:null;primitive:plane;height:3.95;width:0.02" position="2.2 0.12 0.06">
+                        </a-entity>
+
+
+
+
+                        <a-entity id="tvflowchannelbgcontainer" position="-0.33 0 0">
+
+                            <a-entity mixin="tvflowchannelbackground" class="tvflowprograms documentary" geometry="primitive:plane;height:0.58;width:5.7" position="0.04 1.27 0.13" visible="true" scale="1 1 1">
+
+                            </a-entity>
+                            <a-entity mixin="tvflowchannelbackground" data-brackets-id="1743" class="tvflowprograms documentary" geometry="primitive:plane;height:0.58;width:5.7" position="0.04 0.57 0.13" visible="true" scale="1 1 1" rotation="0 0 0">
+
+                            </a-entity>
+                            <a-entity mixin="tvflowchannelbackground" data-brackets-id="1743" class="tvflowprograms documentary" geometry="primitive:plane;height:0.58;width:5.7" position="0.04 -0.17 0.13" visible="true" scale="1 1 1" rotation="0 0 0">
+
+                            </a-entity>
+                            <a-entity mixin="tvflowchannelbackground" data-brackets-id="1743" class="tvflowprograms documentary" geometry="primitive:plane;height:0.58;width:5.7" position="0.04 -0.87 0.13" visible="true" scale="1 1 1" rotation="0 0 0">
+
+                            </a-entity>
+                            <a-entity mixin="tvflowchannelbackground" data-brackets-id="1743" class="tvflowprograms documentary" geometry="primitive:plane;height:0.58;width:5.7" position="0.04 -1.57 0.13" visible="true" scale="1 1 1" rotation="0 0 0">
+
+                            </a-entity>
+
+                        </a-entity>
+                        <!--
                         <a-entity id="flowcontentcontainer" template="src: scenes/flow0.template">
                         </a-entity>
+-->
 
 
 
