@@ -67,50 +67,62 @@ AFRAME.registerComponent('scrollfilmandtv', {
 
 
 
-
-            //            console.log('#' + data.group + data.category + previousnumber);
-            //            console.log(nextfilm);
-            //            console.log(previousfilm);
-
-
             var decreaseandincrease;
 
             var changethumbnails = false;
 
 
-          
+            console.log("SCROLLFILMANDTV");
 
-
-           
 
             if (el.getAttribute('id') == data.group + "scrollright") {
 
+                console.log("Scrollright");
 
                 if (nextfilm == null) {
                     document.querySelector('#' + data.group + 'thumb' + 4).setAttribute('visible', 'false');
+                    console.log("No nextfilm");
+
                 }
                 if (rightfilm == null) {
                     document.querySelector('#' + data.group + 'thumb' + 3).setAttribute('visible', 'false');
-                      document.querySelector('#' + data.group + 'scrollright').setAttribute('visible', 'false');
+                    document.querySelector('#' + data.group + 'scrollright').setAttribute('opacity', '0.3');
+                    console.log("No rightfilm");
                 }
-                
-                  if( document.querySelector('#' + data.group + 'thumb' + 1).getAttribute('visible') == true ){
-                        console.log('1 is visible true');
-                       document.querySelector('#' + data.group + 'thumb' + 0).setAttribute('visible', 'true');
-                       
+
+                if (document.querySelector('#' + data.group + 'thumb' + 1).getAttribute('visible') == true) {
+                    console.log('thumbnail 1 is visible true');
+
+                    document.querySelector('#' + data.group + 'thumb' + 0).setAttribute('visible', 'true');
+
+
                 }
 
                 if (middlerightfilm != null) {
 
                     document.querySelector('#' + data.group + 'thumb' + 1).setAttribute('visible', 'true');
-                    document.querySelector('#' + data.group + 'scrollleft').setAttribute('visible', 'true');
-                    
+                    document.querySelector('#' + data.group + 'scrollleft').setAttribute('opacity', '1');
+
                     decreaseandincrease = parseInt(filenumbers[0]) + 1;
 
-                    console.log(middlerightfilm);
+                    console.log("middlerightfilm finns true");
+
+                    for (var j = 0; j < 5; j++) {
+
+
+                        document.querySelector('#' + data.group + 'thumb' + j).setAttribute('src', '#' + data.group + data.category + (decreaseandincrease + j));
+                    }
+
+
+
+
+
+                    filmbox.setAttribute('src', '#' + data.group + data.category + (decreaseandincrease + 2));
+                    titletext.setAttribute('text', 'text', data.group + data.category + (decreaseandincrease + 2));
+                    infotext.setAttribute('text', 'text', data.group + data.category + (decreaseandincrease + 2) + ' info');
 
                 } else {
-                    console.log("middleright == null .. return");
+                    console.log("middleright Finns inte .. return");
                     return;
                 }
 
@@ -118,34 +130,50 @@ AFRAME.registerComponent('scrollfilmandtv', {
 
             } else if (el.getAttribute('id') == data.group + "scrollleft") {
 
+                console.log("Scrollleft");
+
                 if (previousfilm == null) {
                     document.querySelector('#' + data.group + 'thumb' + 0).setAttribute('visible', 'false');
+                    console.log("No previousfilm");
                 }
                 if (leftfilm == null) {
                     document.querySelector('#' + data.group + 'thumb' + 1).setAttribute('visible', 'false');
-                    document.querySelector('#' + data.group + 'scrollleft').setAttribute('visible', 'false');
-                    
+                    document.querySelector('#' + data.group + 'scrollleft').setAttribute('opacity', '0.3');
+                    console.log("No leftfilm");
+
                 }
-                
-                if( document.querySelector('#' + data.group + 'thumb' + 3).getAttribute('visible') == true ){
-                    console.log('3 is visible true');
-                     document.querySelector('#' + data.group + 'thumb' + 4).setAttribute('visible', 'true');
-                  
-                    
+
+                if (document.querySelector('#' + data.group + 'thumb' + 3).getAttribute('visible') == true) {
+
+                    document.querySelector('#' + data.group + 'thumb' + 4).setAttribute('visible', 'true');
+
+                    console.log('thumbnail 3 is visible true');
                 }
 
                 if (middleleftfilm != null) {
                     console.log(middleleftfilm);
                     document.querySelector('#' + data.group + 'thumb' + 3).setAttribute('visible', 'true');
-                       document.querySelector('#' + data.group + 'scrollright').setAttribute('visible', 'true');
+                    document.querySelector('#' + data.group + 'scrollright').setAttribute('opacity', '1');
 
                     decreaseandincrease = parseInt(filenumbers[0]) - 1;
-                    console.log("decreaseandincrease " + decreaseandincrease);
+                    console.log("middleleftfilm FINNS");
+
+                    for (var j = 0; j < 5; j++) {
+
+
+                        document.querySelector('#' + data.group + 'thumb' + j).setAttribute('src', '#' + data.group + data.category + (decreaseandincrease + j));
+                    }
+
+
+
+
+
+                    filmbox.setAttribute('src', '#' + data.group + data.category + (decreaseandincrease + 2));
+                    titletext.setAttribute('text', 'text', data.group + data.category + (decreaseandincrease + 2));
+                    infotext.setAttribute('text', 'text', data.group + data.category + (decreaseandincrease + 2) + ' info');
+
                 } else {
-                    console.log("middleleft == null .. return");
-
-
-
+                    console.log("middleleft finns Inte .. return");
 
                     return;
                 }
@@ -153,72 +181,6 @@ AFRAME.registerComponent('scrollfilmandtv', {
 
 
 
-            //            if (el.getAttribute('id') == data.group + "scrollright") {
-            //
-            //                
-            //               
-            //                if (nextfilm != null) {
-            //                    decreaseandincrease = parseInt(filenumbers[1]) + 1;
-            //                      changethumbnails = true;
-            //                   
-            //                } else if (nextfilm == null && rightfilm != null) {
-            //                      changethumbnails = true;
-            //                     console.log( "rightfilm !null");
-            //                     decreaseandincrease = parseInt(filenumbers[1]) + 1;
-            //
-            //                } else if (nextfilm == null && rightfilm == null && middlerightfilm != null) {
-            //                      changethumbnails = true;
-            //                     decreaseandincrease = parseInt(filenumbers[1]) + 1;
-            //
-            //                     console.log( "rightfilm null");
-            //                } else {
-            //                    return;
-            //
-            //
-            //                }
-            //
-            //
-            //
-            //            } else {
-            //
-            //               
-            //                 
-            //                if (previousfilm != null) {
-            //                    changethumbnails = true;
-            //                     decreaseandincrease = parseInt(filenumbers[1]) - 1;
-            //      
-            //                } else if (previousfilm == null && leftfilm != null) {
-            //                      console.log( "leftfilm !null");
-            //                    changethumbnails = true;
-            //                    decreaseandincrease = parseInt(filenumbers[1]) - 1;
-            //
-            //                } else if (previousfilm == null && leftfilm == null && middleleftfilm != null) {
-            //                    console.log( "leftfilm null & middleleftfilm !=null");
-            //                    changethumbnails = true;
-            //                    decreaseandincrease = parseInt(filenumbers[1]) - 1;
-            //                } 
-            //                else {
-            //                    return;
-            //
-            //
-            //                }
-            //            }
-
-
-
-            for (var j = 0; j < 5; j++) {
-
-
-                document.querySelector('#' + data.group + 'thumb' + j).setAttribute('src', '#' + data.group + data.category + (decreaseandincrease + j));
-            }
-
-
-
-
-
-            filmbox.setAttribute('src', '#' + data.group + data.category + (decreaseandincrease + 2));
-            titletext.setAttribute('text', 'text', data.group + data.category + (decreaseandincrease + 2));
-            infotext.setAttribute('text', 'text', data.group + data.category + (decreaseandincrease + 2) + ' info');
 
 
         });

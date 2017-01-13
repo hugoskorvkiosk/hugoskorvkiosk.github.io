@@ -51,7 +51,7 @@ AFRAME.registerComponent('secondmenuselection', {
          
             var filmindex;
             
-            console.log(categories[3]);
+            
    
             if(data.selection == "new"){
             

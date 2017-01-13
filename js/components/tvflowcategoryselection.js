@@ -27,7 +27,7 @@ AFRAME.registerComponent('tvflowcategoryselection', {
 
             for (var i = 0; i < allprograms.length; i++) {
 
-                allprograms[i].setAttribute('material', 'color', 'black');
+                allprograms[i].setAttribute('material', 'color', '#121212');
 
             }
             
@@ -39,7 +39,7 @@ AFRAME.registerComponent('tvflowcategoryselection', {
 
                 console.log('.' + data.category);
 
-                selectedprograms[j].setAttribute('material', 'color', '#F15A24');
+                selectedprograms[j].setAttribute('material', 'color', '#323223');
 
             }
 
@@ -48,6 +48,28 @@ AFRAME.registerComponent('tvflowcategoryselection', {
 
 
         });
+        
+         this.el.addEventListener('mouseenter', function () {
+
+            
+
+            el.setAttribute('material', 'color', '#323232');
+
+
+
+        });
+
+        this.el.addEventListener('mouseleave', function () {
+            
+          
+            
+            el.setAttribute('material', 'color', '#000000');
+
+            
+            
+
+        });
+
 
 
     },
