@@ -39,8 +39,8 @@ AFRAME.registerComponent('categoryselection', {
                 //                el.setAttribute('material', 'color', '#F15A24');
 
 
-                document.querySelector('#' + data.group + 'scrollleft').setAttribute('scrollfilmandtv', 'category', data.category);
-                document.querySelector('#' + data.group + 'scrollright').setAttribute('scrollfilmandtv', 'category', data.category);
+                document.querySelector('#' + data.group + 'scrollleft').setAttribute('currentcategory', 'category', data.category);
+                document.querySelector('#' + data.group + 'scrollright').setAttribute('currentcategory', 'category', data.category);
 
 
                 for (var i = 0; i < 5; i++) {
@@ -48,12 +48,12 @@ AFRAME.registerComponent('categoryselection', {
                     document.querySelector('#' + data.group + 'thumb' + i).setAttribute('visible', 'true');
                 }
 
-                document.querySelector('#' + data.group + 'scrollleft').setAttribute('visible', 'true');
-                document.querySelector('#' + data.group + 'scrollright').setAttribute('visible', 'true');
+//                document.querySelector('#' + data.group + 'scrollleft').setAttribute('opacity', '1');
+//                document.querySelector('#' + data.group + 'scrollright').setAttribute('opacity', '1');
 
                 document.querySelector('#large' + data.group + 'box').setAttribute('src', '#' + data.group + data.category + 3);
-                document.querySelector('#' + data.group + 'title').setAttribute('text', 'text', data.category + 3);
-                document.querySelector('#' + data.group + 'info').setAttribute('text', 'text', data.category + 3 + ' info');
+                document.querySelector('#' + data.group + 'title').setAttribute('text', 'text',data.group +  data.category + 3);
+                document.querySelector('#' + data.group + 'info').setAttribute('text', 'text',data.group +  data.category + 3 + ' info');
 
             }
 
