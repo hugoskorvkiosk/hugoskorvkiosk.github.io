@@ -16,7 +16,6 @@ AFRAME.registerComponent('cursorover', {
         this.el.addEventListener('click', function () {
 
             
-
            var entity = document.querySelector('[sound]');
             entity.components.sound.playSound();
 
@@ -25,8 +24,6 @@ AFRAME.registerComponent('cursorover', {
         
         this.el.addEventListener('mouseenter', function () {
 
-            
-
             el.setAttribute('material', 'color', '#F15A24');
 
 
@@ -34,8 +31,7 @@ AFRAME.registerComponent('cursorover', {
         });
 
         this.el.addEventListener('mouseleave', function () {
-            
-          
+                
             
             el.setAttribute('material', 'color', data.color);
 
