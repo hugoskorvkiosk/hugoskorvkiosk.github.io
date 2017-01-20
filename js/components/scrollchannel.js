@@ -131,7 +131,7 @@ AFRAME.registerComponent('scrollchannel', {
 
             var whichvidbox = newtv % 3;
 
-            vidbox.setAttribute('src', '#vidbox' + whichvidbox);
+            vidbox.setAttribute('src', '#vidbox' + newtv);
 
 
             document.querySelector("#channelbox").setAttribute('src', '#bigtv' + newtv);

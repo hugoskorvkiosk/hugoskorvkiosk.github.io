@@ -44,7 +44,7 @@ AFRAME.registerComponent('channelselection', {
                 document.querySelector('#channelbox').setAttribute('visible', 'true');
                 channelimage.setAttribute('src', '#bigtv' + planeindex);
 
-                vidbox.setAttribute('src', '#vidbox' + whichvidbox);
+                vidbox.setAttribute('src', '#vidbox' + planeindex);
 
                 document.querySelector('.previousentityselected').setAttribute('id', 'channelplane' +planeindex);
 
