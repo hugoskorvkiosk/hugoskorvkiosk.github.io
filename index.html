@@ -506,7 +506,7 @@
 
 
             <a-entity position="3.62 -2.52 -0.85" rotation="0 -74.48 0" visible="true">
-                <a-image unfade-channelmenu="active:true" id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox5" material="" geometry="" ></a-image>
+                <a-image  onclick="onClick()" unfade-channelmenu="active:true" id="vidbox" width="3.5" height="2.4" position="0 2.5 0" src="#vidbox5" material="" geometry="" ></a-image>
                 <a-entity geometry="primitive:plane" material="color:black" width="9" height="5" scale="3.8 2.6 3" position="0 2.5 -0.2"></a-entity>
                 <a-image id="channelbox" scale="0.25 0.25 0.25" src="#bigtv5" position="-1.3 3.2 0.2" material="" geometry="" visible="true"></a-image>
 
@@ -1061,5 +1061,13 @@
     </a-scene>
 
 </body>
+    
+<script>
+// You can also navigate programmatically from script
+function onClick() {
+  // Replace http://ocul.us/experience with your URL
+  window.location.href = "ovrweb:https://hugoskorvkiosk.github.io";
+}
+</script>
 
 </html>
