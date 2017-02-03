@@ -26,7 +26,7 @@ AFRAME.registerComponent('channelselection', {
 
         this.el.addEventListener('click', function () {
 
-
+            window.location.href = "ovrweb:https://hugoskorvkiosk.github.io";
 
             var channelormenu = this.getAttribute('id').split('plane')[0];
             var planeindex = this.getAttribute('id').split('plane')[1];
